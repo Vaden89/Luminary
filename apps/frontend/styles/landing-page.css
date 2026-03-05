@@ -1,0 +1,20 @@
+@layer components {
+  .landing-page-content {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding-block: var(--space-8);
+    place-items: center;
+
+    @media (min-width: 768px) {
+      padding-inline: var(--space-6);
+    }
+
+    @media (min-width: 1024px) {
+      padding-inline: var(--space-8);
+    }
+  }
+}
