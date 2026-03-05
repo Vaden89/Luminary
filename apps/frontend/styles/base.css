@@ -191,6 +191,14 @@
     max-width: 1200px;
     margin-inline: auto;
     padding-inline: var(--space-4);
+
+    @media (min-width: 768px) {
+      padding-inline: var(--space-6);
+    }
+
+    @media (min-width: 1024px) {
+      padding-inline: var(--space-8);
+    }
   }
 
   /* Padding utilities */
