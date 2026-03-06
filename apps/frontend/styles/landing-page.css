@@ -81,6 +81,11 @@
                 padding-top:2.5rem;
             }
 
+            .search-image-container{
+                padding-inline: 5rem;
+                padding-block: 7rem;
+            }
+
             div{
                 max-width: 15rem;
                 gap: 1rem;
@@ -107,6 +112,11 @@
             .submit-image-container{
                 padding-inline: 3rem;
                 padding-top:1.5rem;
+            }
+
+            .search-image-container{
+                padding-inline: 3rem;
+                padding-block: 5rem;
             }
 
             div{
