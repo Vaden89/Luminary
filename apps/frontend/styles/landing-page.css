@@ -70,7 +70,6 @@
         
         /* ----- tablet styles -----*/
         @media (max-width: 1024px) {
-            border: 1px solid red;
             gap: 3rem;
 
             .feature-image{

@@ -91,6 +91,7 @@
         --space-6: 1.5rem;
         --space-8: 2rem;
         --space-9: 2.5rem;
+        --space-10: 6rem;
 
         /* Radius */
         --radius-sm: 0.25rem;
@@ -367,5 +368,22 @@
 
     .gap-9{
         gap: var(--space-9);
+    }
+
+    .gap-10{
+        gap: var(--space-10);
+    }
+
+    /* text alignment utilities */
+    .text-center{
+        text-align: center;
+    }
+
+    .text-left{
+        text-align: left;
+    }
+
+    .text-right{
+        text-align: right;
     }
 }
