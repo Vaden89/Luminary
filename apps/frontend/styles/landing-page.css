@@ -291,6 +291,10 @@
       font-weight: 510;
     }
 
+    h3 {
+      width: 90%;
+    }
+
     .heading {
       margin-bottom: 56px;
       gap: 16px;
@@ -319,6 +323,7 @@
 
     .outlet {
       margin-top: auto;
+      font-size: 14px;
     }
 
     p > span {
