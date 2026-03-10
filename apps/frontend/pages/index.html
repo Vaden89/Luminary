@@ -12,12 +12,12 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="/apps/frontend/assets/images/luminary-green-favicon.ico"
+      href="../assets/images/luminary-green-favicon.ico"
     />
     <title>Luminary</title>
   </head>
   <body>
-    <header>
+    <header class="header-container">
       <nav
         aria-label="primary navigation"
         class="header-section__nav flex flex-row justify-between gap-6 items-center px-4 py-4"
@@ -25,11 +25,11 @@
         <picture>
           <source
             media="(min-width: 768px)"
-            srcset="/apps/frontend/assets/images/luminary-green-logo.png"
+            srcset="../assets/images/luminary-green-logo.png"
             type="image/png"
           />
           <img
-            src="/apps/frontend/assets/images/luminary-green-logo.png"
+            src="../assets/images/luminary-green-logo.png"
             alt="Luminary Logo"
             width="140px"
           />
@@ -38,8 +38,74 @@
         <a>Blog</a>
         <button class="nav-cta__btn rounded-md p-2 px-4">Log in</button>
       </nav>
-      <section aria-label="hero">
-        <h1>Welcome to Luminary</h1>
+      <section class="hero-section gap-8" aria-label="hero">
+        <h1 class="hero-title">Celebrating our Women</h1>
+        <p class="hero-description">
+          Luminary is a community-powered directory and news platform
+          celebrating women who are driving change across all fields — business,
+          science, arts, activism, sports, technology, agriculture, education
+          and more.
+        </p>
+        <button class="rounded-md p-2 px-4">Submit a story</button>
+        <picture class="hero-image">
+          <source
+            media="(min-width: 768px)"
+            srcset="../assets/images/hero-illustration.webp"
+            type="image/webp"
+          />
+          <img
+            src="../assets/images/hero-illustration.webp"
+            class="rounded-2xl"
+            alt="Illustration of different colored women across different cultures and disciplines: military, health, education and leadership"
+          />
+        </picture>
+        <div class="metrics-container">
+          <div class="metric-card">
+            <picture>
+              <source src="../assets/icons/metric-1.svg" type="image/svg" />
+              <img
+                src="../assets/icons/metric-1.svg"
+                alt="Female icon art with 2 offset circular cards"
+                width="130"
+              />
+            </picture>
+
+            <p class="text-center">
+              120+ Women <br />
+              represented
+            </p>
+          </div>
+          <div class="metric-card">
+            <picture>
+              <source src="../assets/icons/metric-2.svg" type="image/svg" />
+              <img
+                src="../assets/icons/metric-2.svg"
+                alt="Globe icon art"
+                width="100"
+              />
+            </picture>
+
+            <p class="text-center">
+              Across 35+ <br />
+              countries
+            </p>
+          </div>
+          <div class="metric-card">
+            <picture>
+              <source src="../assets/icons/metric-3.svg" type="image/svg" />
+              <img
+                src="../assets/icons/metric-3.svg"
+                alt="Microscope icon art"
+                width="100"
+              />
+            </picture>
+
+            <p class="text-center">
+              In more than 22<br />
+              fields
+            </p>
+          </div>
+        </div>
       </section>
     </header>
     <main class="landing-page-content">
@@ -85,7 +151,7 @@
             </picture>
           </article>
 
-          <!-- search feature -->
+          <!-- browse feature -->
           <article class="feature-card flex flex-row-rev gap-9 items-center">
             <div class="flex flex-col gap-9">
               <h3 class="feature-heading">Browse</h3>
@@ -105,7 +171,6 @@
           </article>
         </div>
       </section>
-
       <section aria-label="team & contribution" class="contributors">
         <h2>Meet the Contributors</h2>
         <div id="contributorsGrid" class="contributors-grid"></div>
