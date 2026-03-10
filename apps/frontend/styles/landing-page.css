@@ -387,6 +387,64 @@
     }
   }
 
+  .featured-stories {
+    width: 100%;
+    padding: var(--space-8) var(--space-4);
+
+    > div {
+      flex-wrap: wrap;
+    }
+
+    h2 {
+      font-size: 2.375rem;
+      font-weight: 510;
+    }
+
+    h3 {
+      width: 90%;
+    }
+
+    .heading {
+      margin-bottom: 56px;
+      gap: 16px;
+    }
+
+    .all-stories {
+      padding: 10px 16px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background-color: #dee7f4;
+      width: 362px;
+      height: 300px;
+      border-radius: 24px;
+      padding: 40px;
+      /* justify-content: stretch; */
+      margin: auto;
+    }
+
+    .outlet {
+      margin-top: auto;
+      font-size: 14px;
+    }
+
+    p > span {
+      margin-right: 8px;
+      background-color: #1e293b29;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+
   footer {
     width: 100%;
     height: 60dvh;
