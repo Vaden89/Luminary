@@ -50,7 +50,6 @@
     display: none;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
     cursor: pointer;
     padding: var(--space-2);
     margin-left: auto;
