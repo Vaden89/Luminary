@@ -17,10 +17,10 @@
     <title>Luminary</title>
   </head>
   <body>
-    <header class="header-container">
+    <header class="header-container flex flex-col items-center">
       <nav
         aria-label="primary navigation"
-        class="header-section__nav flex flex-row justify-between gap-6 items-center px-4 py-4"
+        class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
       >
         <picture>
           <source
@@ -31,12 +31,22 @@
           <img
             src="../assets/images/luminary-green-logo.png"
             alt="Luminary Logo"
-            width="140px"
+            width="120px"
           />
         </picture>
-        <a>Support</a>
-        <a>Blog</a>
-        <button class="nav-cta__btn rounded-md p-2 px-4">Log in</button>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label for="nav-toggle" class="hamburger gap-1" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <div class="nav-links">
+          <a href="#">Support</a>
+          <a href="#">Blog</a>
+          <button class="nav-cta__btn rounded-md p-2 px-4">Log in</button>
+        </div>
       </nav>
       <section class="hero-section gap-8" aria-label="hero">
         <h1 class="hero-title">Celebrating our Women</h1>
