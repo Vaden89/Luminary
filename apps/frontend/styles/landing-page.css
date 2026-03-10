@@ -3,6 +3,7 @@
     max-width: 1200px;
     margin-inline: auto;
     padding-inline: var(--space-4);
+    background: var(--background);
 
     @media (min-width: 768px) {
       padding-inline: var(--space-6);
@@ -31,6 +32,14 @@
       padding-inline: var(--space-8);
     }
   }
+
+  .header-section__nav {
+      position: fixed;
+      width: 93vw;
+      margin: auto;
+      background-color: var(--background);
+      z-index: 1000;
+    }
 
  /* Hamburger Menu */
   .nav-toggle {
@@ -62,6 +71,7 @@
     align-items: center;
     gap: var(--space-6);
     margin-left: auto;
+    background-color: var(--background);
   }
 
   @media (max-width: 768px) {
@@ -87,7 +97,7 @@
       display: flex;
     }
 
-    /* Animate bars → X */
+    /* Animate bars */
     .nav-toggle:checked ~ .hamburger span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
