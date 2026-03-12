@@ -15,11 +15,10 @@
   }
 
   .page-description {
-    max-width: 30rem;
-    color: var(--color-text);
+    max-width: 35rem;
+    color: var(--color-text-app);
+    font-weight: 510;
     line-height: 140%;
-    @media (max-width: 768px) {
-    }
   }
 
   /* --------- nomination section -------- */
