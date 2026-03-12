@@ -24,6 +24,7 @@
     --color-heading-600: #141c26;
 
     /* Text scale */
+    --color-text-300: #888888;
     --color-text-400: #7d90a6;
     --color-text-500: #1d2633; /* base */
     --color-text-600: #161d28;
@@ -34,6 +35,7 @@
     --color-primary: var(--color-primary-500);
     --color-heading: var(--color-heading-500);
     --color-text: var(--color-text-500);
+    --color-text-app: var(--color-text-300);
 
     /* Neutrals and surfaces */
     --color-white: #ffffff;
@@ -226,12 +228,24 @@
   }
 
   /* Padding utilities */
+  .p-1 {
+    padding: var(--space-1);
+  }
+
   .p-2 {
     padding: var(--space-2);
   }
 
+  .p-3 {
+    padding: var(--space-3);
+  }
+
   .p-4 {
     padding: var(--space-4);
+  }
+
+  .p-5 {
+    padding: var(--space-5);
   }
 
   .p-6 {
@@ -242,12 +256,31 @@
     padding: var(--space-8);
   }
 
+  .px-1 {
+    padding-inline: var(--space-1);
+  }
+  .px-2 {
+    padding-inline: var(--space-2);
+  }
+
+  .px-3 {
+    padding-inline: var(--space-3);
+  }
+
   .px-4 {
     padding-inline: var(--space-4);
   }
 
+  .px-5 {
+    padding-inline: var(--space-5);
+  }
+
   .px-6 {
     padding-inline: var(--space-6);
+  }
+
+  .px-8 {
+    padding-inline: var(--space-8);
   }
 
   .py-4 {

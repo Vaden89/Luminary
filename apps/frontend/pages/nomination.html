@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/nav.css" />
+    <link rel="stylesheet" href="../styles/nomination.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/images/luminary-green-favicon.ico"
+    />
+    <title>Luminary Nomination</title>
+  </head>
+  <body>
+    <header class="header-container flex flex-col items-center">
+      <nav
+        aria-label="primary navigation"
+        class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
+      >
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="../assets/images/luminary-green-logo.png"
+            type="image/png"
+          />
+          <img
+            src="../assets/images/luminary-green-logo.png"
+            alt="Luminary Logo"
+            width="120px"
+          />
+        </picture>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label
+          for="nav-toggle"
+          class="hamburger gap-1"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <div class="nav-links">
+          <a href="#">Directory</a>
+          <a href="#">News</a>
+          <button class="nav-cta__btn rounded-md p-2 px-4">Nominate</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page-content flex flex-col">
+      <section class="text-left flex flex-col gap-4">
+        <h1 class="page-heading">Nominate</h1>
+        <p class="page-description">
+          Recognize a woman making an impact by nominating her for the
+          directory, or submit your own profile for verification.
+        </p>
+      </section>
+
+      <section
+        class="nomination-section flex gap-8 justify-between items-start"
+      >
+        <form class="nomination-form" action="">
+          <!-- code for the nomination form -->
+        </form>
+
+        <aside class="sidebar flex flex-col gap-4 p-4">
+          <!-- code for sidebar -->
+          <h2 class="sidebar-heading">Verification Workflow</h2>
+          <ol class="flex flex-col gap-3 p-3">
+            <li class="flex items-start gap-3">
+              <span class="grid place-center">1</span>
+              <article class="step flex flex-col gap-2">
+                <h3 class="step-heading">Submission</h3>
+                <p class="step-description">
+                  Provide detailed information and evidence about the nominee's
+                  impact and achievements.
+                </p>
+              </article>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <span class="grid place-center">2</span>
+              <article class="step flex flex-col gap-2">
+                <h3 class="step-heading">Outreach &amp Consent</h3>
+                <p class="step-description">
+                  We send an automated email to the nominee informing them of
+                  the nomination and requesting their consent.
+                </p>
+              </article>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <span class="grid place-center">3</span>
+              <article class="step flex flex-col gap-2">
+                <h3 class="step-heading">Verification</h3>
+                <p class="step-description">
+                  Our team reviews the provided evidence, publications, and
+                  links to verify the profile.
+                </p>
+              </article>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <span class="grid place-center">4</span>
+              <article class="step flex flex-col gap-2">
+                <h3 class="step-heading">Publication</h3>
+                <p class="step-description">
+                  Once consent is given and verification is complete, the
+                  profile goes live in the directory.
+                </p>
+              </article>
+            </li>
+          </ol>
+
+          <article class="step flex flex-col gap-2 p-3">
+            <h4 class="step-heading">Self Submission</h4>
+            <p class="step-description">
+              If you are submitting your own profile, the consent step is
+              automatically bypassed, making the process faster.
+            </p>
+          </article>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
