@@ -1,0 +1,102 @@
+@layer components {
+  .page-content {
+    width: 100%;
+    margin-top: var(--space-10);
+    padding-inline: 10rem;
+    gap: var(--space-8);
+
+    @media (max-width: 1024px) {
+      padding-inline: var(--space-10);
+    }
+
+    @media (max-width: 768px) {
+      padding-inline: var(--space-6);
+    }
+  }
+
+  .page-description {
+    max-width: 35rem;
+    color: var(--color-text-app);
+    font-weight: 510;
+    line-height: 140%;
+  }
+
+  /* --------- nomination section -------- */
+  .nomination-section {
+    position: relative;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .nomination-form,
+  .sidebar {
+    border-radius: var(--space-3);
+    background-color: var(--color-white);
+  }
+
+
+  /* ----------- nomination form -------------- */
+
+  /* ------------------------------------------ */
+
+
+  /*------------- sidebar styles -------------- */
+  .sidebar {
+    position: sticky;
+    top: 5rem;
+    height: fit-content;
+
+    .sidebar-heading {
+      font-size: 1.125rem;
+    }
+
+    ol {
+      list-style-type: none;
+
+      span {
+        border-radius: 50%;
+        width: 1.625rem;
+        height: 1.625rem;
+        font-weight: 510;
+        background-color: #0ea5a52d;
+        color: var(--color-primary-600);
+      }
+
+      @media (max-width: 1024px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    ol,
+    .step:last-of-type {
+      background-color: #f7f7f7;
+      border-radius: 0.5rem;
+    }
+
+    .step-heading {
+      font-size: 0.875rem;
+    }
+
+    .step-description {
+      max-width: 15rem;
+      font-size: 0.875rem;
+      font-weight: 510;
+      line-height: 140%;
+      color: var(--color-text-app);
+    }
+
+    .step .step-description:last-of-type {
+      min-width: 100%;
+    }
+
+    @media (max-width: 1024px) {
+      position: relative;
+      top: 0;
+    }
+  }
+  /* ------------------------------------------------ */
+
+}
