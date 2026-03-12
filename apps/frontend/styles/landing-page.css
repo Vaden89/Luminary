@@ -1,5 +1,4 @@
 @layer components {
-
   .landing-page-content {
     max-width: 1200px;
     margin-inline: auto;
@@ -64,12 +63,12 @@
     border-radius: var(--radius-2xl);
     transform: rotate(0deg) scale(0.9);
     animation: cardReveal 1s ease-in 0.5s forwards;
-    z-index: -1;
+    z-index: 0;
   }
 
   .hero-image img {
     position: relative;
-    z-index: 0;
+    z-index: 1;
     border-radius: var(--radius-2xl);
   }
 
@@ -308,8 +307,8 @@
     animation: modalPop 0.25s ease;
     color: var(--card-foreground);
 
-    @media(max-width:768px){
-        max-width: 330px;
+    @media (max-width: 768px) {
+      max-width: 330px;
     }
   }
 
