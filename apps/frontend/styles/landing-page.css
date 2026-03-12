@@ -69,7 +69,7 @@
 
   .hero-image img {
     position: relative;
-    z-index: 1;
+    z-index: 0;
     border-radius: var(--radius-2xl);
   }
 
@@ -202,11 +202,11 @@
       gap: 1rem;
 
       .feature-image {
-        width: 15rem;
+        width: 11.5rem;
       }
 
       .browse-image {
-        max-width: 16rem;
+        max-width: 12.5rem;
       }
 
       .submit-image-container {
@@ -307,6 +307,10 @@
     position: relative;
     animation: modalPop 0.25s ease;
     color: var(--card-foreground);
+
+    @media(max-width:768px){
+        max-width: 330px;
+    }
   }
 
   .modal-content img {
@@ -401,7 +405,7 @@
       flex-direction: column;
       gap: 16px;
       background-color: #dee7f4;
-      width: 362px;
+      max-width: 362px;
       height: 300px;
       border-radius: 24px;
       padding: 40px;
