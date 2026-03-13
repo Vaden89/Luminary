@@ -8,7 +8,7 @@ export const create = async (nominationData) => {
   try {
     let nominatorId = null;
 
-    if (nominationData.is_self_submission) {
+    if (!nominationData.is_self_submission) {
       const { data: nominator, error: nominatorError } = await supabaseAdmin
         .from(NOMINATOR_TABLE_NAME)
         .insert({
