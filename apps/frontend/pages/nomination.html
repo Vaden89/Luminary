@@ -357,7 +357,196 @@
             hidden
             aria-hidden="true"
           >
-            <div class="form-placeholder" aria-hidden="true"></div>
+            <!-- <div class="form-placeholder" aria-hidden="true"></div> -->
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">Your Details</h2>
+                <button
+                  type="button"
+                  class="section-toggle"
+                  aria-expanded="true"
+                  aria-controls="nominee-details"
+                >
+                  <span class="section-caret" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="section-body" id="self-nominee-details">
+                <div class="field-grid two-col">
+                  <div class="field">
+                    <label for="self-nomineeName"
+                      >Your full name <span class="required">*</span></label
+                    >
+                    <input
+                      id="self-nomineeName"
+                      name="self-nomineeName"
+                      type="text"
+                      placeholder="Full name"
+                      required
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="self-nomineeEmail"
+                      >Your email address <span class="required">*</span></label
+                    >
+                    <input
+                      id="self-nomineeEmail"
+                      name="self-nomineeEmail"
+                      type="email"
+                      placeholder="name@company.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="field-grid two-col">
+                  <div class="field">
+                    <label for="self-fieldOfWork"
+                      >Your Field of Work <span class="required">*</span></label
+                    >
+                    <input
+                      id="self-fieldOfWork"
+                      name="self-fieldOfWork"
+                      type="text"
+                      placeholder="e.g., Engineering, Arts"
+                      required
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="region"
+                      >Region <span class="required">*</span></label
+                    >
+                    <input
+                      id="self-region"
+                      name="self-region"
+                      type="text"
+                      placeholder="Where are you from?"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="self-impactDescription"
+                    >Description of impact
+                    <span class="required">*</span></label
+                  >
+                  <textarea
+                    id="self-impactDescription"
+                    name="self-impactDescription"
+                    placeholder="Describe your impact, contributions, and why you should be featured..."
+                    required
+                  ></textarea>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">Work &amp; Media</h2>
+                <button
+                  type="button"
+                  class="section-toggle"
+                  aria-expanded="true"
+                  aria-controls="work-media"
+                >
+                  <span class="section-caret" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="section-body" id="work-media">
+                <div class="field">
+                  <label for="self-profilePhoto"
+                    >Profile Photo <span class="required">*</span></label
+                  >
+                  <div class="profile-upload">
+                    <div
+                      class="profile-upload__preview"
+                      aria-hidden="true"
+                    ></div>
+                    <div class="profile-upload__controls">
+                      <input
+                        id="self-profilePhoto"
+                        name="self-profilePhoto"
+                        type="file"
+                        accept=".jpg,.jpeg,.png,.webp"
+                        required
+                      />
+                      <label class="upload-btn" for="self-profilePhoto"
+                        >Upload image</label
+                      >
+                      <p class="profile-upload__hint">
+                        .jpg, .png or .webp supported (max 5MB)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="self-supportingLink1"
+                    >Supporting Links (Articles, Publications, Projects)
+                    <span class="required">*</span></label
+                  >
+                  <div
+                    class="link-group"
+                    data-link-group="self-supporting"
+                    data-input-name="self-supportingLink"
+                    data-placeholder="https://"
+                  >
+                    <input
+                      id="self-supportingLink1"
+                      name="self-supportingLink1"
+                      type="url"
+                      placeholder="https://"
+                      required
+                    />
+                    <input
+                      id="self-supportingLink2"
+                      name="self-supportingLink2"
+                      type="url"
+                      placeholder="https://"
+                    />
+                  </div>
+                  <button
+                    class="add-link"
+                    type="button"
+                    data-add-link="self-supporting"
+                  >
+                    <span aria-hidden="true">+</span> Add another link
+                  </button>
+                </div>
+
+                <div class="field">
+                  <label for="socialLink1">Social Links</label>
+                  <div
+                    class="link-group"
+                    data-link-group="self-social"
+                    data-input-name="self-socialLink"
+                    data-placeholder="https://"
+                  >
+                    <input
+                      id="self-socialLink1"
+                      name="self-socialLink1"
+                      type="url"
+                      placeholder="https://"
+                    />
+                    <input
+                      id="self-socialLink2"
+                      name="self-socialLink2"
+                      type="url"
+                      placeholder="https://"
+                    />
+                  </div>
+                  <button
+                    class="add-link"
+                    type="button"
+                    data-add-link="self-social"
+                  >
+                    <span aria-hidden="true">+</span> Add another link
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <button class="submit-btn" type="submit">Submit Nomination</button>
           </div>
         </form>
 
