@@ -72,7 +72,12 @@
       <section
         class="nomination-section flex gap-8 justify-between items-start"
       >
-        <form class="nomination-form" action="">
+        <form
+          class="nomination-form"
+          id="nominationForm"
+          data-api-base="http://localhost:5000"
+          action=""
+        >
           <div class="form-toggle" role="tablist" aria-label="Select form type">
             <button
               type="button"
@@ -222,7 +227,7 @@
                       id="region"
                       name="region"
                       type="text"
-                      placeholder="ex. Writer"
+                      placeholder="Lagos, Nigeria"
                       required
                     />
                   </div>
@@ -236,7 +241,7 @@
                   <textarea
                     id="impactDescription"
                     name="impactDescription"
-                    placeholder="ex. Writer"
+                    placeholder="Describe the nominee's impact, contributions, and why they should be featured..."
                     required
                   ></textarea>
                 </div>
@@ -250,12 +255,12 @@
                   type="button"
                   class="section-toggle"
                   aria-expanded="true"
-                  aria-controls="work-media"
+                  aria-controls="nomination-work-media"
                 >
                   <span class="section-caret" aria-hidden="true"></span>
                 </button>
               </div>
-              <div class="section-body" id="work-media">
+              <div class="section-body" id="nomination-work-media">
                 <div class="field">
                   <label for="profilePhoto"
                     >Profile Photo <span class="required">*</span></label
@@ -346,6 +351,7 @@
             </section>
 
             <button class="submit-btn" type="submit">Submit Nomination</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
           </div>
 
           <div
@@ -365,7 +371,7 @@
                   type="button"
                   class="section-toggle"
                   aria-expanded="true"
-                  aria-controls="nominee-details"
+                  aria-controls="self-nominee-details"
                 >
                   <span class="section-caret" aria-hidden="true"></span>
                 </button>
@@ -412,7 +418,7 @@
                     />
                   </div>
                   <div class="field">
-                    <label for="region"
+                    <label for="self-region"
                       >Region <span class="required">*</span></label
                     >
                     <input
@@ -447,12 +453,12 @@
                   type="button"
                   class="section-toggle"
                   aria-expanded="true"
-                  aria-controls="work-media"
+                  aria-controls="self-work-media"
                 >
                   <span class="section-caret" aria-hidden="true"></span>
                 </button>
               </div>
-              <div class="section-body" id="work-media">
+              <div class="section-body" id="self-work-media">
                 <div class="field">
                   <label for="self-profilePhoto"
                     >Profile Photo <span class="required">*</span></label
@@ -547,6 +553,7 @@
             </section>
 
             <button class="submit-btn" type="submit">Submit Nomination</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
           </div>
         </form>
 

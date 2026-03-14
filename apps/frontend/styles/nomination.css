@@ -328,6 +328,21 @@
     outline-offset: 3px;
   }
 
+  .form-status {
+    min-height: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 510;
+    color: var(--color-text-300);
+  }
+
+  .form-status.is-success {
+    color: #15803d;
+  }
+
+  .form-status.is-error {
+    color: #dc2626;
+  }
+
   /* ------------------------------------------ */
 
   /*------------- sidebar styles -------------- */
