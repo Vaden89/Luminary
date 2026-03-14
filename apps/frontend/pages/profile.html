@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/nav.css" />
+    <link rel="stylesheet" href="../styles/profile.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/images/luminary-green-favicon.ico"
+    />
+    <title>Luminary</title>
+  </head>
+  <body>
+    <header class="header-container flex flex-col items-center">
+      <nav
+        aria-label="primary navigation"
+        class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
+      >
+        <a href="./index.html">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../assets/images/luminary-green-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../assets/images/luminary-green-logo.png"
+              alt="Luminary Logo"
+              width="120px"
+            />
+          </picture>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label
+          for="nav-toggle"
+          class="hamburger gap-1"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <div class="nav-links">
+          <a href="#">Directory</a>
+          <a href="#">News</a>
+          <a href="./nomination.html" class="nav-cta__btn rounded-md p-2 px-4"
+            >Nominate</a
+          >
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <section
+        aria-label="profile header"
+        class="profile-header container flex"
+      >
+        <picture class="profile-image">
+          <source
+            media="(min-width: 768px)"
+            srcset="../assets/images/profile-image.jpg"
+            type="image/png"
+          />
+          <img src="../assets/images/profile-image.jpg" alt="profile photo" />
+        </picture>
+        <div aria-label="name and occupation" class="name">
+          <h1>Maya Angelou</h1>
+          <p aria-label="occupation">
+            Business & Entrepreneurship, Science & Research
+          </p>
+        </div>
+      </section>
+      <section aria-label="Bio" class="container">
+        <h2>Bio</h2>
+        <p>
+          Maya Angelou was an American memoirist, essayist, poet, and civil
+          rights activist. She published seven autobiographies, three books of
+          essays, several books of poetry, and is credited with a list of plays,
+          movies, and television shows spanning over 50 years. She received
+          dozens of awards and more than 50 honorary degrees. Angelou's series
+          of seven autobiographies focus on her childhood and early adult
+          experiences. The first, I Know Why the Caged Bird Sings (1969), tells
+          of her life up to the age of 17 and brought her international
+          recognition and acclaim.
+        </p>
+      </section>
+      <section aria-label="About" class="container info">
+        <h2>About</h2>
+        <p class="flex justify-between">
+          <b>Born</b><span>April 4, 1928, St. Louis, Missouri, U.S.</span>
+        </p>
+        <p class="flex justify-between">
+          <b>Organization</b><span>May 28, 2014 (86 y.o)</span>
+        </p>
+        <p class="flex justify-between">
+          <b>Nationality</b><span>American</span>
+        </p>
+        <p class="flex justify-between">
+          <b>Field of work</b><span>Writer, Poet, Civil rights activist</span>
+        </p>
+      </section>
+      <section aria-label="Work" class="container info">
+        <h2>Work</h2>
+        <p class="flex justify-between">
+          <b>Born</b><span>April 4, 1928, St. Louis, Missouri, U.S.</span>
+        </p>
+        <p class="flex justify-between">
+          <b>Died</b><span>May 28, 2014 (86 y.o)</span>
+        </p>
+        <p class="flex justify-between">
+          <b>Nationality</b><span>American</span>
+        </p>
+        <p class="flex justify-between">
+          <b>Occupation</b><span>Writer, Poet, Civil rights activist</span>
+        </p>
+      </section>
+      <section aria-label="related links" class="container related-links">
+        <h2>Related Links</h2>
+        <div class="links">
+          <a href="http://www.example.com" target="_blank"> www.example.com </a>
+          <a href="http://www.example.com" target="_blank"> www.example.com </a>
+          <a href="http://www.example.com" target="_blank"> www.example.com </a>
+          <a href="http://www.example.com" target="_blank"> www.example.com </a>
+          <a href="http://www.example.com" target="_blank"> www.example.com </a>
+        </div>
+      </section>
+    </main>
+
+    <script src="../js/profile.js"></script>
+  </body>
+</html>
