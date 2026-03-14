@@ -16,10 +16,15 @@
 
   .header-section__nav {
     position: fixed;
-    width: 93vw;
+    width: 100%;
+    padding-inline: 8rem;
     margin: auto;
     background-color: var(--background);
     z-index: 1000;
+
+    @media(max-width: 768px){
+      padding-inline: var(--space-6);
+    }
   }
 
   /* Hamburger Menu */
@@ -97,5 +102,6 @@
   .nav-cta__btn {
     background: var(--color-heading-600);
     color: var(--color-white);
+    text-decoration: none;
   }
 }
