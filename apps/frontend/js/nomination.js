@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const sectionToggles = form.querySelectorAll(".section-toggle");
   const addLinkButtons = form.querySelectorAll("[data-add-link]");
   const apiBase = (form.dataset.apiBase || "").replace(/\/$/, "");
-  const endpoint = apiBase ? `${apiBase}/nomination` : "/nomination";
+  const endpoint = apiBase ? `${apiBase}/nomination` : "/api/nomination";
 
   const setStatus = (panel, message, type = "info") => {
     const status = panel.querySelector(".form-status");

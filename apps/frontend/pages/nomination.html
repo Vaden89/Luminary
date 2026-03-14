@@ -75,7 +75,6 @@
         <form
           class="nomination-form"
           id="nominationForm"
-          data-api-base="http://localhost:5000"
           action=""
         >
           <div class="form-toggle" role="tablist" aria-label="Select form type">
@@ -417,7 +416,11 @@
                     <label for="self-fieldOfWork"
                       >Your Field of Work <span class="required">*</span></label
                     >
-                    <select id="self-fieldOfWork" name="self-fieldOfWork" required>
+                    <select
+                      id="self-fieldOfWork"
+                      name="self-fieldOfWork"
+                      required
+                    >
                       <option value="" disabled selected>Select a field</option>
                       <option>Business &amp; Entrepreneurship</option>
                       <option>Science &amp; Research</option>
