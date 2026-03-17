@@ -1,0 +1,64 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nomination Review</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/nav.css" />
+    <link rel="stylesheet" href="../styles/admin-sidebar.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="admin-topbar">
+      <img
+        src="../assets/images/luminary-black-logo.png"
+        alt="Luminary Logo"
+        width="100px"
+      />
+      <label
+        for="nav-toggle"
+        class="hamburger gap-1"
+        aria-label="Toggle sidebar"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+    <main class="admin-nomination flex flex-row">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+      <aside class="admin-sidebar flex flex-col items-center gap-8">
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="../assets/images/luminary-black-logo.png"
+            type="image/png"
+          />
+          <img
+            src="../assets/images/luminary-black-logo.png"
+            alt="Luminary Logo"
+            width="160px"
+          />
+        </picture>
+        <a href="admin-nomination.html" class="sidebar-btn">Nominations</a>
+        <a href="admin-news.html" class="sidebar-btn">News Articles</a>
+        <label
+          for="nav-toggle"
+          class="sidebar-close-btn"
+          aria-label="Close sidebar"
+        >
+          &#x2715; Close
+        </label>
+      </aside>
+
+      <section>
+        <h1>Admin Nomination Management</h1>
+      </section>
+    </main>
+    <script src="../js/sidebar.js"></script>
+  </body>
+</html>
