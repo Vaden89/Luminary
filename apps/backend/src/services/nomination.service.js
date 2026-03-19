@@ -164,7 +164,12 @@ export const adminGetAll = async ({ search } = {}) => {
 
     return nominations;
   } catch (error) {
-    throw error;
+    if (error.statusCode) {
+      throw error;
+    }
+
+    console.error("Critical Error in getNominations:", error);
+    throw createError("Internal Server Error", 500);
   }
 };
 
