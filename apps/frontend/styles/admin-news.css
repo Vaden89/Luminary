@@ -43,11 +43,17 @@ body {
   max-width: 1200px;
 }
 
-.page-header {
+.page-header-news {
   margin-bottom: 1.6rem;
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
-.page-header h1 {
+.page-header-news h1 {
   margin-bottom: 0.8rem;
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   line-height: 1.04;
@@ -60,6 +66,36 @@ body {
   color: var(--admin-text-body);
   font-size: 1.02rem;
   line-height: 1.7;
+}
+
+.add-article-btn {
+  background-color: var(--color-heading-600);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-4);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+  flex-shrink: 0;
+  margin-top: var(--space-4);
+
+  @media (min-width: 768px) {
+    margin-top: 0;
+    padding: 0 var(--space-4) 0 var(--space-4);
+    height: 40px;
+  }
+}
+
+.add-article-btn:hover {
+  background-color: var(--color-heading-500);
+}
+
+.add-article-btn:active {
+  transform: scale(0.98);
 }
 
 .surface-card {
