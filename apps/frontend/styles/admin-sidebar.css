@@ -1,39 +1,129 @@
+.admin-shell,
 .admin-main {
   display: flex;
-  flex-direction: row;
-}
-
-.admin-sidebar {
-  width: 250px;
-  background-color: var(--sidebar);
-  height: 100vh;
-  padding: 20px;
-}
-
-.sidebar-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: transparent;
-  border: none;
-  text-align: left;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.sidebar-btn:hover {
-  background-color: var(--sidebar-hover);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-}
-
-.sidebar-btn.active {
-  background-color: var(--sidebar-primary);
-  border-radius: var(--radius-md);
-  font-weight: var(--font-weight-bold);
+  min-height: 100vh;
 }
 
 .admin-topbar {
   display: none;
+}
+
+.admin-topbar__brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin-topbar__brand:hover {
+  text-decoration: none;
+}
+
+.admin-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: var(--sidebar);
+}
+
+.admin-sidebar--panel,
+.nomination-sidebar {
+  position: sticky;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  padding: 1.75rem 1.25rem;
+  border-right: 1px solid rgba(20, 32, 51, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(22px);
+}
+
+.sidebar-brand {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.35rem;
+}
+
+.sidebar-brand:hover {
+  text-decoration: none;
+}
+
+.sidebar-nav {
+  width: 100%;
+}
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--sidebar-foreground);
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.sidebar-btn:hover,
+.sidebar-btn:focus-visible {
+  background-color: var(--sidebar-hover);
+  text-decoration: none;
+}
+
+.sidebar-btn.active,
+.sidebar-btn[aria-current="page"] {
+  background-color: var(--sidebar-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.sidebar-btn--icon {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-heading-500);
+}
+
+.sidebar-btn--icon:hover,
+.sidebar-btn--icon:focus-visible {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(20, 32, 51, 0.12);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.sidebar-btn--icon.active,
+.sidebar-btn--icon[aria-current="page"] {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.08),
+    rgba(30, 41, 59, 0.12)
+  );
+  border-color: rgba(20, 32, 51, 0.12);
+  color: #111c2d;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.sidebar-btn__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: currentColor;
+}
+
+.sidebar-btn__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 .sidebar-close-btn {
@@ -41,6 +131,11 @@
 }
 
 @media (max-width: 836px) {
+  .admin-shell,
+  .admin-main {
+    display: block;
+  }
+
   .admin-topbar {
     display: flex;
     position: fixed;
@@ -52,12 +147,9 @@
     justify-content: space-between;
     align-items: center;
     padding: var(--space-3) var(--space-4);
-    background-color: var(--color-white);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .nav-toggle:checked ~ .admin-topbar {
-    display: none;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
   }
 
   .admin-topbar .hamburger {
@@ -71,13 +163,25 @@
     left: 0;
     top: 0;
     height: 100vh;
-    z-index: 100;
+    z-index: 150;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
   }
 
+  .admin-sidebar--panel,
+  .nomination-sidebar {
+    width: min(86vw, 20rem);
+    padding-top: 5.25rem;
+    box-shadow: 24px 0 60px rgba(15, 23, 42, 0.16);
+  }
+
   .nav-toggle:checked ~ .admin-sidebar {
     transform: translateX(0);
+  }
+
+  .admin-shell > section,
+  .admin-main > section {
+    padding-top: var(--space-10);
   }
 
   .sidebar-close-btn {
@@ -95,9 +199,5 @@
 
   .sidebar-close-btn:hover {
     background-color: var(--color-bg-500);
-  }
-
-  .admin-nomination > section {
-    padding-top: var(--space-10);
   }
 }
