@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,38 +14,57 @@
   </head>
   <body>
     <header class="admin-topbar">
-      <img
-        src="../assets/images/luminary-black-logo.png"
-        alt="Luminary Logo"
-        width="100px"
-      />
+      <a
+        href="admin-nomination.html"
+        class="admin-topbar__brand"
+        aria-label="Luminary admin home"
+      >
+        <img
+          src="../assets/images/luminary-black-logo.png"
+          alt="Luminary Logo"
+          width="100px"
+        />
+      </a>
       <label
         for="nav-toggle"
         class="hamburger gap-1"
         aria-label="Toggle sidebar"
+        aria-controls="admin-sidebar"
       >
         <span></span>
         <span></span>
         <span></span>
       </label>
     </header>
-    <main class="admin-nomination flex flex-row">
+    <main class="admin-shell">
       <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-      <aside class="admin-sidebar flex flex-col items-center gap-8">
-        <picture>
-          <source
-            media="(min-width: 768px)"
-            srcset="../assets/images/luminary-black-logo.png"
-            type="image/png"
-          />
-          <img
-            src="../assets/images/luminary-black-logo.png"
-            alt="Luminary Logo"
-            width="160px"
-          />
-        </picture>
-        <a href="admin-nomination.html" class="sidebar-btn">Nominations</a>
-        <a href="admin-news.html" class="sidebar-btn">News Articles</a>
+      <aside
+        id="admin-sidebar"
+        class="admin-sidebar admin-sidebar--panel flex flex-col items-center gap-8"
+        aria-label="Admin navigation"
+      >
+        <a
+          href="admin-nomination.html"
+          class="sidebar-brand"
+          aria-label="Go to admin dashboard"
+        >
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../assets/images/luminary-black-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../assets/images/luminary-black-logo.png"
+              alt="Luminary Logo"
+              width="160px"
+            />
+          </picture>
+        </a>
+        <nav class="sidebar-nav flex flex-col gap-3" aria-label="Admin pages">
+          <a href="admin-nomination.html" class="sidebar-btn">Nominations</a>
+          <a href="admin-news.html" class="sidebar-btn">News Articles</a>
+        </nav>
         <label
           for="nav-toggle"
           class="sidebar-close-btn"
@@ -58,6 +78,6 @@
         <h1>Admin News Management</h1>
       </section>
     </main>
-    <script src="../js/sidebar.js"></script>
+    <script src="../js/sidebar.js" defer></script>
   </body>
 </html>
