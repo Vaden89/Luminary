@@ -14,11 +14,14 @@
   </head>
   <body>
     <header class="admin-topbar">
-      <img
-        src="../assets/images/luminary-black-logo.png"
-        alt="Luminary Logo"
-        width="100px"
-      />
+      <a href="../index.html">
+        <img
+          src="../assets/images/luminary-black-logo.png"
+          alt="Luminary Logo"
+          width="100px"
+        />
+      </a>
+
       <label
         for="nav-toggle"
         class="hamburger gap-1"
@@ -56,6 +59,7 @@
         </label>
       </aside>
 
+      <!-- page content -->
       <section class="page-content flex flex-col">
         <!-- article summary -->
         <section class="flex flex-col gap-3">
@@ -79,36 +83,42 @@
         </section>
 
         <!-- article details section -->
-        <section class="article-details-section flex gap-8 justify-between items-start">
+        <section
+          class="article-details-section flex gap-8 justify-between items-start"
+        >
           <section class="article-details p-8 flex flex-col">
-            <picture></picture>
-            <p></p>
+            <picture>
+              <img src="../assets/images/hero-illustration.webp" alt="" />
+            </picture>
+
+            <div></div>
           </section>
 
+          <!-- article sidebar -->
           <aside class="article-sidebar p-4 flex flex-col gap-5">
             <div class="article-sidebar-details flex flex-col gap-3">
-                <h2 class="article-sidebar-heading">Status</h2>
-                <p><span class="article-status pending">Pending Review</span></p>
+              <h2 class="article-sidebar-heading">Status</h2>
+              <p><span class="article-status pending">Pending Review</span></p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
-                <h2 class="article-sidebar-heading">Source/Type</h2>
-                <p class="article-sidebar-description">Community Tip</p>
+              <h2 class="article-sidebar-heading">Source/Type</h2>
+              <p class="article-sidebar-description">Community Tip</p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
-                <h2 class="article-sidebar-heading">Submitted By</h2>
-                <p class="article-sidebar-description">Sarah Jenkins</p>
+              <h2 class="article-sidebar-heading">Submitted By</h2>
+              <p class="article-sidebar-description">Sarah Jenkins</p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
-                <h2 class="article-sidebar-heading">Category</h2>
-                <p class="article-sidebar-description">Education</p>
+              <h2 class="article-sidebar-heading">Category</h2>
+              <p class="article-sidebar-description">Education</p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
-                <h2 class="article-sidebar-heading">Date Submitted</h2>
-                <p class="article-sidebar-description">Oct 23, 2023, 10:45am</p>
+              <h2 class="article-sidebar-heading">Date Submitted</h2>
+              <p class="article-sidebar-description">Oct 23, 2023, 10:45am</p>
             </div>
 
             <a href="">View Original Source</a>
@@ -117,5 +127,6 @@
       </section>
     </main>
     <script src="../js/sidebar.js"></script>
+    <script ssrc="../js/admin-article-review.js"></script>
   </body>
 </html>

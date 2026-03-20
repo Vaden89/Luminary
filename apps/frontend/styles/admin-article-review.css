@@ -64,9 +64,6 @@
     background: #b92c2c;
   }
 
-  * {
-    outline: 1px solid red;
-  }
 
   /* --------- article details section -------- */
   .article-details-section {
@@ -87,7 +84,7 @@
   .article-details {
     flex: 1;
     width: 100%;
-    height: 200vh;
+    /* height: 200vh; */
     max-width: 56rem;
     padding: var(--space-6);
     gap: var(--space-6);
@@ -152,7 +149,7 @@
       color: #b90a0a;
     }
 
-    
+
 
     @media (max-width: 1024px) {
       position: relative;
