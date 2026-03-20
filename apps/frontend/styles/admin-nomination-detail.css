@@ -249,21 +249,21 @@ body {
     padding-left: 2.5rem;
   }
 
-  .timeline::before {
-    content: "";
-    position: absolute;
-    left: 18px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #ccc;
-  }
-
   .step {
     position: relative;
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
+  }
+
+  .step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: -22px;
+    top: 20px;
+    bottom: -25px;
+    width: 2px;
+    background: #ccc;
   }
 
   .icon {
