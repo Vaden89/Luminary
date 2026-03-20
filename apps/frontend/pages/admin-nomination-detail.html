@@ -1,0 +1,431 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nomination Review</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/nav.css" />
+    <link rel="stylesheet" href="../styles/admin-sidebar.css" />
+    <link rel="stylesheet" href="../styles/admin-nomination-detail.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../assets/images/luminary-black-favicon.png"
+    />
+  </head>
+  <body>
+    <header class="admin-topbar">
+      <a
+        href="admin-nomination.html"
+        class="admin-topbar__brand"
+        aria-label="Luminary admin home"
+      >
+        <img
+          src="../assets/images/luminary-black-logo.png"
+          alt="Luminary Logo"
+          width="108"
+        />
+      </a>
+      <label
+        for="nav-toggle"
+        class="hamburger gap-1"
+        aria-label="Toggle sidebar"
+        aria-controls="admin-sidebar"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+    <main class="admin-shell">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+      <aside
+        id="admin-sidebar"
+        class="admin-sidebar admin-sidebar--panel flex flex-col gap-8"
+        aria-label="Admin navigation"
+      >
+        <a
+          href="admin-nomination.html"
+          class="sidebar-brand"
+          aria-label="Go to nominations dashboard"
+        >
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../assets/images/luminary-black-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../assets/images/luminary-black-logo.png"
+              alt="Luminary Logo"
+              width="168"
+            />
+          </picture>
+        </a>
+
+        <nav class="sidebar-nav flex flex-col gap-3" aria-label="Admin pages">
+          <a href="admin-nomination.html" class="sidebar-btn sidebar-btn--icon">
+            <span class="sidebar-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                  d="M7 7.75h10a3.25 3.25 0 0 1 3.25 3.25v5A3.25 3.25 0 0 1 17 19.25H7A3.25 3.25 0 0 1 3.75 16v-5A3.25 3.25 0 0 1 7 7.75Zm0 1.5A1.75 1.75 0 0 0 5.25 11v5c0 .967.784 1.75 1.75 1.75h10c.967 0 1.75-.783 1.75-1.75v-5A1.75 1.75 0 0 0 17 9.25H7Zm2.03-3.53A3.25 3.25 0 0 1 14.97 5.7l2.03 2.03-1.06 1.06-2.03-2.03a1.75 1.75 0 0 0-2.47 0L9.41 8.79 8.35 7.73l.68-.68Z"
+                />
+              </svg>
+            </span>
+            <span>Nominations</span>
+          </a>
+
+          <a href="admin-news.html" class="sidebar-btn sidebar-btn--icon">
+            <span class="sidebar-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                  d="M6.75 4.75h8.5A2.75 2.75 0 0 1 18 7.5v8.75A2.75 2.75 0 0 1 15.25 19H8.5a3.75 3.75 0 0 1-3.75-3.75V7.5a2.75 2.75 0 0 1 2-2.64Zm0 1.5c-.69 0-1.25.56-1.25 1.25v7.75c0 1.243 1.007 2.25 2.25 2.25h7.5c.69 0 1.25-.56 1.25-1.25V7.5c0-.69-.56-1.25-1.25-1.25h-8.5Zm1.5 2.5h5.5v1.5h-5.5v-1.5Zm0 3h7.5v1.5h-7.5v-1.5Zm0 3h7.5v1.5h-7.5v-1.5Z"
+                />
+              </svg>
+            </span>
+            <span>News Articles</span>
+          </a>
+        </nav>
+
+        <label
+          for="nav-toggle"
+          class="sidebar-close-btn"
+          aria-label="Close sidebar"
+        >
+          &#x2715; Close
+        </label>
+      </aside>
+
+      <section aria-label="nomination details" class="main-section">
+        <a href="./admin-nomination.html" class="back"
+          >&lt;- Back to Nominations</a
+        >
+        <div
+          aria-label="page title and actions"
+          class="top flex justify-between"
+        >
+          <div aria-label="page title" class="flex gap-4 title">
+            <h1>Nomination Review</h1>
+            <p class="status-tag">Submitted</p>
+          </div>
+
+          <div aria-label="action buttons" class="actions">
+            <button class="cta decline">Decline</button>
+            <button class="cta send-email">Send Outreach Email</button>
+          </div>
+        </div>
+
+        <div class="sections grid grid-col-2b gap-8">
+          <div class="col-1">
+            <section
+              aria-label="nominee info"
+              class="nominee-info p-8 round-16"
+            >
+              <div
+                aria-label="section title"
+                class="flex justify-between title"
+              >
+                <h2>Nominee Information</h2>
+                <button>Edit Details</button>
+              </div>
+
+              <div aria-label="picture and name" class="flex gap-4">
+                <picture class="profile-image">
+                  <source
+                    media="(min-width: 768px)"
+                    srcset="../assets/images/profile-image.jpg"
+                  />
+                  <img
+                    src="../assets/images/profile-image.jpg"
+                    alt="Sarah Jenkins"
+                  />
+                </picture>
+                <div class="align-center">
+                  <h3>Sarah Jenkins</h3>
+                  <p>Tech Innovations Inc.</p>
+                </div>
+              </div>
+
+              <div aria-label="grid box" class="grid grid-col-2 grid-box">
+                <div aria-label="field of work" class="field-of-work">
+                  <h4>FIELD OF WORK</h4>
+                  <p>Technology & Innovation</p>
+                </div>
+
+                <div aria-label="country" class="county">
+                  <h4>COUNTRY/REGION</h4>
+                  <p>United States</p>
+                </div>
+
+                <div aria-label="biography" class="biography">
+                  <h4>BIOGRAPHY</h4>
+                  <p>
+                    Sarah Jenkins is a visionary leader in the technology
+                    industry, known for her groundbreaking work in artificial
+                    intelligence and machine learning. With over 15 years of
+                    experience, Sarah has spearheaded numerous innovative
+                    projects that have transformed the way we interact with
+                    technology. Her dedication to fostering diversity and
+                    inclusion in the tech community has earned her widespread
+                    recognit ion and respect.
+                  </p>
+                </div>
+
+                <div aria-label="contact information" class="contact">
+                  <h4>CONTACT EMAIL</h4>
+                  <p>sarah.j@techinnovations.example.com</p>
+                </div>
+
+                <div aria-label="social links" class="social-links">
+                  <h4>SOCIAL LINKS</h4>
+                  <ul class="flex">
+                    <li>
+                      <a href="https://www.linkedin.com/in/sarahjenkins"
+                        ><svg
+                          width="15"
+                          height="10"
+                          viewBox="0 0 15 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10 0.666687C12.2077 0.666687 14 2.45903 14 4.66669V9.33335H11.3334V4.66669C11.3334 3.9308 10.7359 3.33335 10 3.33335C9.26413 3.33335 8.66669 3.9308 8.66669 4.66669V9.33335H6.00002V4.66669C6.00002 2.45903 7.79236 0.666687 10 0.666687M0.666687 1.33335H3.33335V9.33335H0.666687L10 0.666687"
+                            stroke="#0284C7"
+                            stroke-width="1.33333"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                        LinkedIn</a
+                      >
+                    </li>
+                    <li>
+                      <a href="https://twitter.com/sarahjenkins"
+                        ><svg
+                          width="15"
+                          height="13"
+                          viewBox="0 0 15 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14.0001 0.860692C13.1334 -0.00597449 13.5334 2.26069 12.6667 3.12736C13.7334 9.79403 6.40008 14.6607 0.666748 10.8607C2.13341 10.9274 3.60008 10.4607 4.66675 9.52736C1.33341 8.52736 -0.333252 4.59403 1.33341 1.52736C2.80008 3.26069 5.06675 4.26069 7.33342 4.19403C6.73342 1.39403 10.0001 -0.205974 12.0001 1.66069C12.7334 1.66069 14.0001 0.860692 14.0001 0.860692"
+                            stroke="#0284C7"
+                            stroke-width="1.33333"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                        Twitter</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section
+              aria-label="Impact & Evidence"
+              class="impact-evidence p-8 round-16"
+            >
+              <h3>Impact & Evidence</h3>
+              <div>
+                <h4>DESCRIPTION OF IMPACT</h4>
+                <p>
+                  Sarah's work in artificial intelligence has led to the
+                  development of cutting-edge technologies that have
+                  revolutionized various industries, including healthcare,
+                  finance, and education. Her innovative solutions have improved
+                  efficiency, accessibility, and user experience for millions of
+                  people worldwide. Her commitment to ethical AI practices has
+                  set a new standard for responsible innovation in the tech
+                  industry.
+                </p>
+              </div>
+
+              <div>
+                <h4>SUPPORTING EVIDENCE</h4>
+                <ul class="evidence-item">
+                  <a href="https://www.techinnovations.com/sarah-jenkins-impact"
+                    ><li>
+                      <svg
+                        width="17"
+                        height="17"
+                        viewBox="0 0 17 17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.70767 8.95017C7.35939 9.82144 8.35739 10.3667 9.44266 10.4444C10.5279 10.5221 11.5934 10.1247 12.3627 9.35517L14.6127 7.10517C16.0338 5.63375 16.0135 3.29485 14.567 1.84835C13.1205 0.401849 10.7816 0.381524 9.31017 1.80267L8.02017 3.08517"
+                          stroke="#626262"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M9.70767 7.45019C9.05595 6.57892 8.05795 6.03367 6.97268 5.95594C5.88742 5.87822 4.8219 6.27569 4.05267 7.04519L1.80267 9.29519C0.381524 10.7666 0.401849 13.1055 1.84835 14.552C3.29485 15.9985 5.63375 16.0188 7.10517 14.5977L8.38767 13.3152"
+                          stroke="#626262"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <div>
+                        <h5>Case Study: Sarah's Impact on Healthcare</h5>
+                        <p>
+                          Interview detaining the impact of Code For Tomorrow.
+                        </p>
+                      </div>
+                    </li></a
+                  >
+                  <a
+                    href="https://www.techinnovations.com/sarah-jenkins-innovation"
+                    ><li>
+                      <svg
+                        width="17"
+                        height="17"
+                        viewBox="0 0 17 17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.70767 8.95017C7.35939 9.82144 8.35739 10.3667 9.44266 10.4444C10.5279 10.5221 11.5934 10.1247 12.3627 9.35517L14.6127 7.10517C16.0338 5.63375 16.0135 3.29485 14.567 1.84835C13.1205 0.401849 10.7816 0.381524 9.31017 1.80267L8.02017 3.08517"
+                          stroke="#626262"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M9.70767 7.45019C9.05595 6.57892 8.05795 6.03367 6.97268 5.95594C5.88742 5.87822 4.8219 6.27569 4.05267 7.04519L1.80267 9.29519C0.381524 10.7666 0.401849 13.1055 1.84835 14.552C3.29485 15.9985 5.63375 16.0188 7.10517 14.5977L8.38767 13.3152"
+                          stroke="#626262"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <div>
+                        <h5>Article: Sarah's Innovations in AI</h5>
+                        <p>
+                          Official report showing metrics and student outcomes.
+                        </p>
+                      </div>
+                    </li></a
+                  >
+                </ul>
+              </div>
+            </section>
+          </div>
+
+          <div class="col-2">
+            <section
+              aria-label="nominator details"
+              class="nominator-details p-8 round-16 flex flex-col gap-6"
+            >
+              <h2>Nominator Details</h2>
+
+              <div>
+                <h4>SUBMITTED BY</h4>
+                <p>Michael Ross</p>
+              </div>
+
+              <div>
+                <h4>RELATIONSHIP TO NOMINEE</h4>
+                <p>Colleague / Mentor</p>
+              </div>
+
+              <div>
+                <h4>EMAIL ADDRESS</h4>
+                <p>mross@example.com</p>
+              </div>
+            </section>
+
+            <section
+              aria-label="status tracking"
+              class="status-tracking p-8 round-16 flex flex-col gap-6"
+            >
+              <h2>Status Tracking</h2>
+              <div class="timeline">
+                <div class="step completed">
+                  <div class="icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.6667 3.5L5.25004 9.91667L2.33337 7"
+                        stroke="white"
+                        stroke-width="1.16667"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="content">
+                    <h4>Nomination Submitted</h4>
+                    <p>Oct 24, 2023 at 10:42 AM</p>
+                  </div>
+                </div>
+
+                <div class="step active">
+                  <div class="icon">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_1_192)">
+                        <path
+                          d="M0.833374 4.99998C0.833374 7.29963 2.70039 9.16665 5.00004 9.16665C7.29969 9.16665 9.16671 7.29963 9.16671 4.99998C9.16671 2.70033 7.29969 0.833313 5.00004 0.833313C2.70039 0.833313 0.833374 2.70033 0.833374 4.99998V4.99998"
+                          stroke="white"
+                          stroke-width="0.833333"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_1_192">
+                          <rect width="10" height="10" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div class="content">
+                    <h4>Pending Outreach</h4>
+                    <p>Action required</p>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="icon"></div>
+                  <div class="content">
+                    <h4>Consent Received</h4>
+                    <p>--</p>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="icon"></div>
+                  <div class="content">
+                    <h4>Profile Published</h4>
+                    <p>--</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="../js/sidebar.js"></script>
+  </body>
+</html>

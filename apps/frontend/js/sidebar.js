@@ -5,7 +5,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   sidebarLinks.forEach((link) => {
     const href = (link.getAttribute("href") || "").split(/[?#]/)[0];
-    const isActive = href === currentPage;
+    const isActive =
+      href === currentPage ||
+      `${href.slice(0, -5)}-detail.html` === currentPage;
 
     link.classList.toggle("active", isActive);
 
