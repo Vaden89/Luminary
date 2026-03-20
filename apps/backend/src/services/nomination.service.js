@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "../config/supabase.js";
+import { NominationStatus } from "../lib/nominations.js";
 
 const NOMINATION_TABLE_NAME = "nominations";
 const NOMINEE_TABLE_NAME = "nominee";
@@ -49,9 +50,10 @@ export const create = async (nominationData) => {
       .insert({
         nominee_id: nominee.id,
         nominator_id: nominatorId,
+        status: NominationStatus.PENDING,
+        description: nominationData.description,
         evidence_urls: nominationData.evidence_urls,
         supporting_urls: nominationData.supporting_urls,
-        description: nominationData.description,
       })
       .select()
       .single();
@@ -79,13 +81,75 @@ export const create = async (nominationData) => {
   }
 };
 
+export const getById = async (id) => {
+  try {
+    const { data: nomination, error: nominationError } = await supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .select(
+        `*, nominee:${NOMINEE_TABLE_NAME}(*), nominator:${NOMINATOR_TABLE_NAME}(*)`,
+      )
+      .eq("id", id)
+      .single();
+
+    if (nominationError) {
+      throw createError(nominationError.message, 404);
+    }
+
+    const { nominator_id, nominee_id, ...nominationData } = nomination;
+
+    return { ...nominationData };
+  } catch (error) {
+    console.log(error);
+
+    if (error.statusCode) {
+      throw error;
+    }
+
+    throw createError("Internal Server Error", 500);
+  }
+};
+
 export const getAll = async ({ search } = {}) => {
   try {
     let query = supabaseAdmin
       .from(NOMINATION_TABLE_NAME)
-      .select(`*, nominee:${NOMINEE_TABLE_NAME}(*)`);
+      .select(`*, nominee:${NOMINEE_TABLE_NAME}(*)`)
+      .eq("status", NominationStatus.APPROVED);
 
     if (search) {
+      query = query.or(
+        `first_name.ilike.%${search}%,last_name.ilike.%${search}%`,
+        { referencedTable: NOMINEE_TABLE_NAME },
+      );
+    }
+
+    const { data: nominations, error } = await query;
+
+    if (error) {
+      throw createError(error.message, 400);
+    }
+
+    return nominations;
+  } catch (error) {
+    if (error.statusCode) {
+      throw error;
+    }
+
+    console.error("Critical Error in getNominations:", error);
+    throw createError("Internal Server Error", 500);
+  }
+};
+
+export const adminGetAll = async ({ search } = {}) => {
+  try {
+    let query = supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .select(
+        `*, nominee:${NOMINEE_TABLE_NAME}(*), nominator:${NOMINATOR_TABLE_NAME}(*)`,
+      );
+
+    if (search) {
+      console.log(search);
       query = query.or(
         `first_name.ilike.%${search}%,last_name.ilike.%${search}%`,
         { referencedTable: NOMINEE_TABLE_NAME },

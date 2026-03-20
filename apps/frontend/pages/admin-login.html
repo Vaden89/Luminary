@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminary | Admin Login</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../assets/images/luminary-black-favicon.png"
+    />
+  </head>
+  <body>
+    <main class="auth-page" aria-label="Login page">
+      <article class="auth-card">
+        <img
+          src="../assets/images/luminary-black-logo.png"
+          alt="Luminary Logo"
+          width="108"
+        />
+
+        <header class="auth-card-header">
+          <h1>Welcome back</h1>
+          <p>Sign in to your Luminary account to continue.</p>
+        </header>
+
+        <form class="auth-form" id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email address</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              placeholder="ada.lovelace@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="auth-password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <span class="password-toggle-label flex gap-3">
+              <input
+                class="password-toggle"
+                type="checkbox"
+                onclick="displayPassword()"
+              />Show Password</span>
+          </div>
+          <button type="submit" class="auth-submit-btn">Sign In</button>
+        </form>
+
+        <footer class="auth-card-footer">
+          <p>Don't have an account? <a href="admin-signup.html">Sign up</a></p>
+        </footer>
+      </article>
+    </main>
+    <script src="../js/admin-auth.js" defer></script>
+  </body>
+</html>
