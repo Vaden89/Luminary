@@ -56,10 +56,10 @@
         </label>
       </aside>
 
-      <section class="page-content">
+      <section class="page-content flex flex-col">
         <!-- article summary -->
         <section class="flex flex-col gap-3">
-          <a href="./admin-news.html">Back to News Management</a>
+          <a href="./admin-news.html">&larr; Back to News Management</a>
 
           <article class="flex gap-3 justify-between article-summary">
             <div class="flex flex-col gap-3">
@@ -78,14 +78,41 @@
           </article>
         </section>
 
-        <!-- article details -->
-        <section>
-          <section>
+        <!-- article details section -->
+        <section class="article-details-section flex gap-8 justify-between items-start">
+          <section class="article-details p-8 flex flex-col">
             <picture></picture>
             <p></p>
           </section>
 
-          <aside></aside>
+          <aside class="article-sidebar p-4 flex flex-col gap-5">
+            <div class="article-sidebar-details flex flex-col gap-3">
+                <h2 class="article-sidebar-heading">Status</h2>
+                <p><span class="article-status pending">Pending Review</span></p>
+            </div>
+
+            <div class="article-sidebar-details flex flex-col gap-1">
+                <h2 class="article-sidebar-heading">Source/Type</h2>
+                <p class="article-sidebar-description">Community Tip</p>
+            </div>
+
+            <div class="article-sidebar-details flex flex-col gap-1">
+                <h2 class="article-sidebar-heading">Submitted By</h2>
+                <p class="article-sidebar-description">Sarah Jenkins</p>
+            </div>
+
+            <div class="article-sidebar-details flex flex-col gap-1">
+                <h2 class="article-sidebar-heading">Category</h2>
+                <p class="article-sidebar-description">Education</p>
+            </div>
+
+            <div class="article-sidebar-details flex flex-col gap-1">
+                <h2 class="article-sidebar-heading">Date Submitted</h2>
+                <p class="article-sidebar-description">Oct 23, 2023, 10:45am</p>
+            </div>
+
+            <a href="">View Original Source</a>
+          </aside>
         </section>
       </section>
     </main>
