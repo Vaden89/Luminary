@@ -25,6 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const nominationsEndpoint = apiBase
     ? `${apiBase}/admin/nominations`
     : "/api/admin/nominations";
+  const categoriesEndpoint = apiBase ? `${apiBase}/categories` : "/api/categories";
   const accessToken = localStorage.getItem("access_token") || "";
 
   const tableBody = document.getElementById("nominationTableBody");
@@ -46,6 +47,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("actionToast");
 
   const state = {
+    categories: [],
     nominations: [],
     search: "",
     field: "all",
@@ -109,6 +111,23 @@ window.addEventListener("DOMContentLoaded", () => {
     );
 
     return AVATAR_TONES[total % AVATAR_TONES.length];
+  };
+
+  const getCategoryLabel = (category) => {
+    if (typeof category === "string") {
+      return category.trim();
+    }
+
+    const label = [
+      category?.name,
+      category?.title,
+      category?.label,
+      category?.field,
+      category?.value,
+      category?.slug,
+    ].find((value) => typeof value === "string" && value.trim());
+
+    return label ? label.trim() : "";
   };
 
   const normalizeStatus = (status) => {
@@ -221,7 +240,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const populateFieldOptions = () => {
     const fields = [
-      ...new Set(state.nominations.map((nomination) => nomination.field)),
+      ...new Set(
+        [
+          ...state.categories.map(getCategoryLabel),
+          ...state.nominations.map((nomination) => nomination.field),
+        ].filter(Boolean),
+      ),
     ].sort((first, second) => first.localeCompare(second));
 
     fieldFilter.innerHTML = [
@@ -237,6 +261,28 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     fieldFilter.value = state.field;
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(categoriesEndpoint, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Unable to load categories.");
+      }
+
+      state.categories = Array.isArray(result.data) ? result.data : [];
+    } catch (error) {
+      state.categories = [];
+    } finally {
+      populateFieldOptions();
+      render();
+    }
   };
 
   const getFilteredNominations = () => {
@@ -276,6 +322,8 @@ window.addEventListener("DOMContentLoaded", () => {
         <a
           href="admin-nomination-detail.html?nomination=${encodeURIComponent(nomination.id)}"
           class="action-link"
+          data-nomination-link="detail"
+          data-id="${nomination.id}"
         >
           <span aria-hidden="true">&#9675;</span>
           View nomination
@@ -720,9 +768,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", (event) => {
     const actionButton = event.target.closest("[data-action]");
+    const detailLink = event.target.closest("[data-nomination-link='detail']");
 
     if (!event.target.closest(".row-actions")) {
       closeAllMenus();
+    }
+
+    if (detailLink) {
+      sessionStorage.setItem(
+        "active_admin_nomination_id",
+        detailLink.dataset.id || "",
+      );
+      return;
     }
 
     if (!actionButton) {
@@ -749,5 +806,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  fetchCategories();
   fetchNominations();
 });
