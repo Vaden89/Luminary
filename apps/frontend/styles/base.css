@@ -71,9 +71,10 @@
     --card: var(--color-card);
     --card-foreground: var(--color-text);
 
-    --sidebar: #f8fafc;
+    --sidebar: #ffffff;
+    --sidebar-hover: #f0f0f0;
     --sidebar-foreground: var(--color-text);
-    --sidebar-primary: #e6fffe;
+    --sidebar-primary: #f1f1f1;
     --sidebar-primary-foreground: #055e5b;
 
     /* Typography scale */
@@ -293,6 +294,18 @@
 
   .py-8 {
     padding-block: var(--space-8);
+  }
+
+  .pt-10{
+    padding-top: 5rem;
+
+    @media(max-width:1024px){
+        padding-top: 3rem;
+    }
+
+    @media(max-width:768px){
+        padding-top: 0rem;
+    }
   }
 
   /* Flex utilities */

@@ -186,7 +186,8 @@
   }
 
   .field input,
-  .field textarea {
+  .field textarea,
+  .field select {
     width: 100%;
     padding: 0.75rem 1rem;
     border-radius: var(--radius-md);
@@ -203,7 +204,8 @@
   }
 
   .field input:focus-visible,
-  .field textarea:focus-visible {
+  .field textarea:focus-visible,
+  .field select:focus-visible {
     outline: 2px solid rgba(14, 165, 164, 0.2);
     border-color: var(--color-primary-500);
   }
@@ -326,6 +328,21 @@
   .submit-btn:focus-visible {
     outline: 2px solid rgba(14, 165, 164, 0.3);
     outline-offset: 3px;
+  }
+
+  .form-status {
+    min-height: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 510;
+    color: var(--color-text-300);
+  }
+
+  .form-status.is-success {
+    color: #15803d;
+  }
+
+  .form-status.is-error {
+    color: #dc2626;
   }
 
   /* ------------------------------------------ */

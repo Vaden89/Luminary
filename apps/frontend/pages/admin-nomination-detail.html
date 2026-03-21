@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Luminary admin page for reviewing a nomination in detail."
+    />
+    <title>Nomination Review | Luminary Admin</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/nav.css" />
+    <link rel="stylesheet" href="../styles/admin-sidebar.css" />
+    <link rel="stylesheet" href="../styles/admin-nomination-detail.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../assets/images/luminary-black-favicon.png"
+    />
+  </head>
+  <body data-api-base="http://127.0.0.1:5001/api">
+    <header class="admin-topbar">
+      <a
+        href="../index.html"
+        class="admin-topbar__brand"
+        aria-label="Luminary admin home"
+      >
+        <img
+          src="../assets/images/luminary-black-logo.png"
+          alt="Luminary Logo"
+          width="108"
+        />
+      </a>
+      <label
+        for="nav-toggle"
+        class="hamburger gap-1"
+        aria-label="Toggle sidebar"
+        aria-controls="admin-sidebar"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </header>
+
+    <main class="admin-shell">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+      <aside
+        id="admin-sidebar"
+        class="admin-sidebar admin-sidebar--panel flex flex-col gap-8"
+        aria-label="Admin navigation"
+      >
+        <a
+          href="../index.html"
+          class="sidebar-brand"
+          aria-label="Go to nominations dashboard"
+        >
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../assets/images/luminary-black-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../assets/images/luminary-black-logo.png"
+              alt="Luminary Logo"
+              width="168"
+            />
+          </picture>
+        </a>
+
+        <nav class="sidebar-nav flex flex-col gap-3" aria-label="Admin pages">
+          <a href="admin-nomination.html" class="sidebar-btn sidebar-btn--icon">
+            <span class="sidebar-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                  d="M7 7.75h10a3.25 3.25 0 0 1 3.25 3.25v5A3.25 3.25 0 0 1 17 19.25H7A3.25 3.25 0 0 1 3.75 16v-5A3.25 3.25 0 0 1 7 7.75Zm0 1.5A1.75 1.75 0 0 0 5.25 11v5c0 .967.784 1.75 1.75 1.75h10c.967 0 1.75-.783 1.75-1.75v-5A1.75 1.75 0 0 0 17 9.25H7Zm2.03-3.53A3.25 3.25 0 0 1 14.97 5.7l2.03 2.03-1.06 1.06-2.03-2.03a1.75 1.75 0 0 0-2.47 0L9.41 8.79 8.35 7.73l.68-.68Z"
+                />
+              </svg>
+            </span>
+            <span>Nominations</span>
+          </a>
+
+          <a href="admin-news.html" class="sidebar-btn sidebar-btn--icon">
+            <span class="sidebar-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                  d="M6.75 4.75h8.5A2.75 2.75 0 0 1 18 7.5v8.75A2.75 2.75 0 0 1 15.25 19H8.5a3.75 3.75 0 0 1-3.75-3.75V7.5a2.75 2.75 0 0 1 2-2.64Zm0 1.5c-.69 0-1.25.56-1.25 1.25v7.75c0 1.243 1.007 2.25 2.25 2.25h7.5c.69 0 1.25-.56 1.25-1.25V7.5c0-.69-.56-1.25-1.25-1.25h-8.5Zm1.5 2.5h5.5v1.5h-5.5v-1.5Zm0 3h7.5v1.5h-7.5v-1.5Zm0 3h7.5v1.5h-7.5v-1.5Z"
+                />
+              </svg>
+            </span>
+            <span>News Articles</span>
+          </a>
+        </nav>
+
+        <label
+          for="nav-toggle"
+          class="sidebar-close-btn"
+          aria-label="Close sidebar"
+        >
+          &#x2715; Close
+        </label>
+      </aside>
+
+      <section aria-label="Nomination details" class="main-section">
+        <a href="./admin-nomination.html" class="back"
+          >&lt;- Back to Nominations</a
+        >
+
+        <div
+          aria-label="Page title and actions"
+          class="top flex justify-between items-start"
+        >
+          <div aria-label="Page title" class="flex gap-4 title">
+            <h1 id="reviewHeading">Nomination Review</h1>
+            <p class="status-tag" id="statusTag">Loading...</p>
+          </div>
+
+          <div aria-label="Action buttons" class="actions">
+            <button class="cta decline" id="rejectNominationButton" type="button">
+              Reject nomination
+            </button>
+            <button
+              class="cta send-email"
+              id="approveNominationButton"
+              type="button"
+            >
+              Approve nomination
+            </button>
+          </div>
+        </div>
+
+        <p class="detail-note" id="detailIntro">
+          Loading nomination details from the server.
+        </p>
+
+        <div class="sections grid grid-col-2b gap-8">
+          <div class="col-1">
+            <section
+              aria-label="Nominee information"
+              class="nominee-info p-8 round-16"
+            >
+              <div
+                aria-label="Section title"
+                class="flex justify-between items-center title"
+              >
+                <h2>Nominee Information</h2>
+                <button type="button" id="refreshDetailButton">Refresh</button>
+              </div>
+
+              <div aria-label="Picture and name" class="profile-summary flex gap-4">
+                <div class="profile-image profile-avatar" id="nomineeAvatar">
+                  NA
+                </div>
+                <div class="align-center">
+                  <h3 id="nomineeName">Loading...</h3>
+                  <p id="nomineeOrganization">Organization unavailable</p>
+                </div>
+              </div>
+
+              <div aria-label="Grid box" class="grid grid-col-2 grid-box">
+                <div aria-label="Field of work" class="field-of-work">
+                  <h4>FIELD OF WORK</h4>
+                  <p id="nomineeField">--</p>
+                </div>
+
+                <div aria-label="Country" class="country">
+                  <h4>COUNTRY/REGION</h4>
+                  <p id="nomineeRegion">--</p>
+                </div>
+
+                <div aria-label="Profile summary" class="biography">
+                  <h4>PROFILE SUMMARY</h4>
+                  <p id="nomineeSummary">No summary available for this nominee.</p>
+                </div>
+
+                <div aria-label="Contact information" class="contact">
+                  <h4>CONTACT EMAIL</h4>
+                  <p id="nomineeEmail">--</p>
+                </div>
+
+                <div aria-label="Supporting links" class="social-links">
+                  <h4>SUPPORTING LINKS</h4>
+                  <ul class="link-list" id="supportingLinksList">
+                    <li>No supporting links available.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section
+              aria-label="Impact and evidence"
+              class="impact-evidence p-8 round-16"
+            >
+              <h3>Impact &amp; Evidence</h3>
+              <div>
+                <h4>DESCRIPTION OF IMPACT</h4>
+                <p id="impactDescription">No impact description provided.</p>
+              </div>
+
+              <div>
+                <h4>EVIDENCE LINKS</h4>
+                <ul class="evidence-item" id="evidenceLinksList">
+                  <li>No evidence links were submitted.</li>
+                </ul>
+              </div>
+            </section>
+          </div>
+
+          <div class="col-2">
+            <section
+              aria-label="Nominator details"
+              class="nominator-details p-8 round-16 flex flex-col gap-6"
+            >
+              <h2 id="submitterSectionTitle">Nominator Details</h2>
+
+              <div>
+                <h4>SUBMITTED BY</h4>
+                <p id="submittedByName">Loading...</p>
+              </div>
+
+              <div>
+                <h4>RELATIONSHIP TO NOMINEE</h4>
+                <p id="submittedByRelationship">--</p>
+              </div>
+
+              <div>
+                <h4>EMAIL ADDRESS</h4>
+                <p id="submittedByEmail">--</p>
+              </div>
+            </section>
+
+            <section
+              aria-label="Status overview"
+              class="status-tracking p-8 round-16 flex flex-col gap-6"
+            >
+              <h2>Status Overview</h2>
+
+              <div class="status-overview">
+                <div>
+                  <h4>CURRENT STATUS</h4>
+                  <p id="statusOverviewValue">--</p>
+                </div>
+
+                <div>
+                  <h4>SUBMITTED ON</h4>
+                  <p id="submittedAtValue">--</p>
+                </div>
+
+                <div>
+                  <h4>LAST UPDATED</h4>
+                  <p id="updatedAtValue">--</p>
+                </div>
+
+                <div>
+                  <h4>SUBMISSION TYPE</h4>
+                  <p id="submissionTypeValue">--</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="actionToast" role="status" aria-live="polite"></div>
+
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/admin-nomination-detail.js" defer></script>
+  </body>
+</html>

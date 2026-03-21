@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminary | Admin Login</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../assets/images/luminary-black-favicon.png"
+    />
+  </head>
+  <body>
+    <main class="auth-page" aria-label="Login page">
+      <article class="auth-card">
+        <a href="../index.html">
+          <img
+            src="../assets/images/luminary-black-logo.png"
+            alt="Luminary Logo"
+            width="108"
+          />
+        </a>
+
+        <header class="auth-card-header">
+          <h1>Welcome back</h1>
+          <p>Sign in to your Luminary account to continue.</p>
+        </header>
+
+        <form
+          class="auth-form"
+          id="login-form"
+          data-api-base="http://127.0.0.1:5000/api"
+        >
+          <div class="form-group">
+            <label for="login-email">Email address</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              placeholder="ada.lovelace@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="auth-password">Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                id="auth-password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <button
+                type="button"
+                class="password-toggle-btn"
+                id="toggle-password"
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                <svg
+                  class="icon-eye"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg
+                  class="icon-eye-off"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"
+                  />
+                  <path
+                    d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"
+                  />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+            <span id="login-error-msg" role="alert" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="auth-submit-btn">Sign In</button>
+        </form>
+      </article>
+    </main>
+    <script src="../js/admin-auth.js" defer></script>
+  </body>
+</html>
