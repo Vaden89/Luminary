@@ -1,8 +1,13 @@
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nomination Review</title>
+    <meta
+      name="description"
+      content="Luminary admin page for reviewing a nomination in detail."
+    />
+    <title>Nomination Review | Luminary Admin</title>
     <link rel="stylesheet" href="../styles/base.css" />
     <link rel="stylesheet" href="../styles/nav.css" />
     <link rel="stylesheet" href="../styles/admin-sidebar.css" />
@@ -17,7 +22,7 @@
       href="../assets/images/luminary-black-favicon.png"
     />
   </head>
-  <body>
+  <body data-api-base="http://127.0.0.1:5001/api">
     <header class="admin-topbar">
       <a
         href="admin-nomination.html"
@@ -41,6 +46,7 @@
         <span></span>
       </label>
     </header>
+
     <main class="admin-shell">
       <input type="checkbox" id="nav-toggle" class="nav-toggle" />
 
@@ -101,221 +107,106 @@
         </label>
       </aside>
 
-      <section aria-label="nomination details" class="main-section">
+      <section aria-label="Nomination details" class="main-section">
         <a href="./admin-nomination.html" class="back"
           >&lt;- Back to Nominations</a
         >
+
         <div
-          aria-label="page title and actions"
-          class="top flex justify-between"
+          aria-label="Page title and actions"
+          class="top flex justify-between items-start"
         >
-          <div aria-label="page title" class="flex gap-4 title">
-            <h1>Nomination Review</h1>
-            <p class="status-tag">Submitted</p>
+          <div aria-label="Page title" class="flex gap-4 title">
+            <h1 id="reviewHeading">Nomination Review</h1>
+            <p class="status-tag" id="statusTag">Loading...</p>
           </div>
 
-          <div aria-label="action buttons" class="actions">
-            <button class="cta decline">Decline</button>
-            <button class="cta send-email">Send Outreach Email</button>
+          <div aria-label="Action buttons" class="actions">
+            <button class="cta decline" id="rejectNominationButton" type="button">
+              Reject nomination
+            </button>
+            <button
+              class="cta send-email"
+              id="approveNominationButton"
+              type="button"
+            >
+              Approve nomination
+            </button>
           </div>
         </div>
+
+        <p class="detail-note" id="detailIntro">
+          Loading nomination details from the server.
+        </p>
 
         <div class="sections grid grid-col-2b gap-8">
           <div class="col-1">
             <section
-              aria-label="nominee info"
+              aria-label="Nominee information"
               class="nominee-info p-8 round-16"
             >
               <div
-                aria-label="section title"
-                class="flex justify-between title"
+                aria-label="Section title"
+                class="flex justify-between items-center title"
               >
                 <h2>Nominee Information</h2>
-                <button>Edit Details</button>
+                <button type="button" id="refreshDetailButton">Refresh</button>
               </div>
 
-              <div aria-label="picture and name" class="flex gap-4">
-                <picture class="profile-image">
-                  <source
-                    media="(min-width: 768px)"
-                    srcset="../assets/images/profile-image.jpg"
-                  />
-                  <img
-                    src="../assets/images/profile-image.jpg"
-                    alt="Sarah Jenkins"
-                  />
-                </picture>
+              <div aria-label="Picture and name" class="profile-summary flex gap-4">
+                <div class="profile-image profile-avatar" id="nomineeAvatar">
+                  NA
+                </div>
                 <div class="align-center">
-                  <h3>Sarah Jenkins</h3>
-                  <p>Tech Innovations Inc.</p>
+                  <h3 id="nomineeName">Loading...</h3>
+                  <p id="nomineeOrganization">Organization unavailable</p>
                 </div>
               </div>
 
-              <div aria-label="grid box" class="grid grid-col-2 grid-box">
-                <div aria-label="field of work" class="field-of-work">
+              <div aria-label="Grid box" class="grid grid-col-2 grid-box">
+                <div aria-label="Field of work" class="field-of-work">
                   <h4>FIELD OF WORK</h4>
-                  <p>Technology & Innovation</p>
+                  <p id="nomineeField">--</p>
                 </div>
 
-                <div aria-label="country" class="county">
+                <div aria-label="Country" class="country">
                   <h4>COUNTRY/REGION</h4>
-                  <p>United States</p>
+                  <p id="nomineeRegion">--</p>
                 </div>
 
-                <div aria-label="biography" class="biography">
-                  <h4>BIOGRAPHY</h4>
-                  <p>
-                    Sarah Jenkins is a visionary leader in the technology
-                    industry, known for her groundbreaking work in artificial
-                    intelligence and machine learning. With over 15 years of
-                    experience, Sarah has spearheaded numerous innovative
-                    projects that have transformed the way we interact with
-                    technology. Her dedication to fostering diversity and
-                    inclusion in the tech community has earned her widespread
-                    recognit ion and respect.
-                  </p>
+                <div aria-label="Profile summary" class="biography">
+                  <h4>PROFILE SUMMARY</h4>
+                  <p id="nomineeSummary">No summary available for this nominee.</p>
                 </div>
 
-                <div aria-label="contact information" class="contact">
+                <div aria-label="Contact information" class="contact">
                   <h4>CONTACT EMAIL</h4>
-                  <p>sarah.j@techinnovations.example.com</p>
+                  <p id="nomineeEmail">--</p>
                 </div>
 
-                <div aria-label="social links" class="social-links">
-                  <h4>SOCIAL LINKS</h4>
-                  <ul class="flex">
-                    <li>
-                      <a href="https://www.linkedin.com/in/sarahjenkins"
-                        ><svg
-                          width="15"
-                          height="10"
-                          viewBox="0 0 15 10"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10 0.666687C12.2077 0.666687 14 2.45903 14 4.66669V9.33335H11.3334V4.66669C11.3334 3.9308 10.7359 3.33335 10 3.33335C9.26413 3.33335 8.66669 3.9308 8.66669 4.66669V9.33335H6.00002V4.66669C6.00002 2.45903 7.79236 0.666687 10 0.666687M0.666687 1.33335H3.33335V9.33335H0.666687L10 0.666687"
-                            stroke="#0284C7"
-                            stroke-width="1.33333"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                        LinkedIn</a
-                      >
-                    </li>
-                    <li>
-                      <a href="https://twitter.com/sarahjenkins"
-                        ><svg
-                          width="15"
-                          height="13"
-                          viewBox="0 0 15 13"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M14.0001 0.860692C13.1334 -0.00597449 13.5334 2.26069 12.6667 3.12736C13.7334 9.79403 6.40008 14.6607 0.666748 10.8607C2.13341 10.9274 3.60008 10.4607 4.66675 9.52736C1.33341 8.52736 -0.333252 4.59403 1.33341 1.52736C2.80008 3.26069 5.06675 4.26069 7.33342 4.19403C6.73342 1.39403 10.0001 -0.205974 12.0001 1.66069C12.7334 1.66069 14.0001 0.860692 14.0001 0.860692"
-                            stroke="#0284C7"
-                            stroke-width="1.33333"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                        Twitter</a
-                      >
-                    </li>
+                <div aria-label="Supporting links" class="social-links">
+                  <h4>SUPPORTING LINKS</h4>
+                  <ul class="link-list" id="supportingLinksList">
+                    <li>No supporting links available.</li>
                   </ul>
                 </div>
               </div>
             </section>
 
             <section
-              aria-label="Impact & Evidence"
+              aria-label="Impact and evidence"
               class="impact-evidence p-8 round-16"
             >
-              <h3>Impact & Evidence</h3>
+              <h3>Impact &amp; Evidence</h3>
               <div>
                 <h4>DESCRIPTION OF IMPACT</h4>
-                <p>
-                  Sarah's work in artificial intelligence has led to the
-                  development of cutting-edge technologies that have
-                  revolutionized various industries, including healthcare,
-                  finance, and education. Her innovative solutions have improved
-                  efficiency, accessibility, and user experience for millions of
-                  people worldwide. Her commitment to ethical AI practices has
-                  set a new standard for responsible innovation in the tech
-                  industry.
-                </p>
+                <p id="impactDescription">No impact description provided.</p>
               </div>
 
               <div>
-                <h4>SUPPORTING EVIDENCE</h4>
-                <ul class="evidence-item">
-                  <a href="https://www.techinnovations.com/sarah-jenkins-impact"
-                    ><li>
-                      <svg
-                        width="17"
-                        height="17"
-                        viewBox="0 0 17 17"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.70767 8.95017C7.35939 9.82144 8.35739 10.3667 9.44266 10.4444C10.5279 10.5221 11.5934 10.1247 12.3627 9.35517L14.6127 7.10517C16.0338 5.63375 16.0135 3.29485 14.567 1.84835C13.1205 0.401849 10.7816 0.381524 9.31017 1.80267L8.02017 3.08517"
-                          stroke="#626262"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M9.70767 7.45019C9.05595 6.57892 8.05795 6.03367 6.97268 5.95594C5.88742 5.87822 4.8219 6.27569 4.05267 7.04519L1.80267 9.29519C0.381524 10.7666 0.401849 13.1055 1.84835 14.552C3.29485 15.9985 5.63375 16.0188 7.10517 14.5977L8.38767 13.3152"
-                          stroke="#626262"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                      <div>
-                        <h5>Case Study: Sarah's Impact on Healthcare</h5>
-                        <p>
-                          Interview detaining the impact of Code For Tomorrow.
-                        </p>
-                      </div>
-                    </li></a
-                  >
-                  <a
-                    href="https://www.techinnovations.com/sarah-jenkins-innovation"
-                    ><li>
-                      <svg
-                        width="17"
-                        height="17"
-                        viewBox="0 0 17 17"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.70767 8.95017C7.35939 9.82144 8.35739 10.3667 9.44266 10.4444C10.5279 10.5221 11.5934 10.1247 12.3627 9.35517L14.6127 7.10517C16.0338 5.63375 16.0135 3.29485 14.567 1.84835C13.1205 0.401849 10.7816 0.381524 9.31017 1.80267L8.02017 3.08517"
-                          stroke="#626262"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M9.70767 7.45019C9.05595 6.57892 8.05795 6.03367 6.97268 5.95594C5.88742 5.87822 4.8219 6.27569 4.05267 7.04519L1.80267 9.29519C0.381524 10.7666 0.401849 13.1055 1.84835 14.552C3.29485 15.9985 5.63375 16.0188 7.10517 14.5977L8.38767 13.3152"
-                          stroke="#626262"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                      <div>
-                        <h5>Article: Sarah's Innovations in AI</h5>
-                        <p>
-                          Official report showing metrics and student outcomes.
-                        </p>
-                      </div>
-                    </li></a
-                  >
+                <h4>EVIDENCE LINKS</h4>
+                <ul class="evidence-item" id="evidenceLinksList">
+                  <li>No evidence links were submitted.</li>
                 </ul>
               </div>
             </section>
@@ -323,102 +214,52 @@
 
           <div class="col-2">
             <section
-              aria-label="nominator details"
+              aria-label="Nominator details"
               class="nominator-details p-8 round-16 flex flex-col gap-6"
             >
-              <h2>Nominator Details</h2>
+              <h2 id="submitterSectionTitle">Nominator Details</h2>
 
               <div>
                 <h4>SUBMITTED BY</h4>
-                <p>Michael Ross</p>
+                <p id="submittedByName">Loading...</p>
               </div>
 
               <div>
                 <h4>RELATIONSHIP TO NOMINEE</h4>
-                <p>Colleague / Mentor</p>
+                <p id="submittedByRelationship">--</p>
               </div>
 
               <div>
                 <h4>EMAIL ADDRESS</h4>
-                <p>mross@example.com</p>
+                <p id="submittedByEmail">--</p>
               </div>
             </section>
 
             <section
-              aria-label="status tracking"
+              aria-label="Status overview"
               class="status-tracking p-8 round-16 flex flex-col gap-6"
             >
-              <h2>Status Tracking</h2>
-              <div class="timeline">
-                <div class="step completed">
-                  <div class="icon">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.6667 3.5L5.25004 9.91667L2.33337 7"
-                        stroke="white"
-                        stroke-width="1.16667"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </div>
-                  <div class="content">
-                    <h4>Nomination Submitted</h4>
-                    <p>Oct 24, 2023 at 10:42 AM</p>
-                  </div>
+              <h2>Status Overview</h2>
+
+              <div class="status-overview">
+                <div>
+                  <h4>CURRENT STATUS</h4>
+                  <p id="statusOverviewValue">--</p>
                 </div>
 
-                <div class="step active">
-                  <div class="icon">
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 10 10"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_1_192)">
-                        <path
-                          d="M0.833374 4.99998C0.833374 7.29963 2.70039 9.16665 5.00004 9.16665C7.29969 9.16665 9.16671 7.29963 9.16671 4.99998C9.16671 2.70033 7.29969 0.833313 5.00004 0.833313C2.70039 0.833313 0.833374 2.70033 0.833374 4.99998V4.99998"
-                          stroke="white"
-                          stroke-width="0.833333"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_1_192">
-                          <rect width="10" height="10" fill="white" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </div>
-                  <div class="content">
-                    <h4>Pending Outreach</h4>
-                    <p>Action required</p>
-                  </div>
+                <div>
+                  <h4>SUBMITTED ON</h4>
+                  <p id="submittedAtValue">--</p>
                 </div>
 
-                <div class="step">
-                  <div class="icon"></div>
-                  <div class="content">
-                    <h4>Consent Received</h4>
-                    <p>--</p>
-                  </div>
+                <div>
+                  <h4>LAST UPDATED</h4>
+                  <p id="updatedAtValue">--</p>
                 </div>
 
-                <div class="step">
-                  <div class="icon"></div>
-                  <div class="content">
-                    <h4>Profile Published</h4>
-                    <p>--</p>
-                  </div>
+                <div>
+                  <h4>SUBMISSION TYPE</h4>
+                  <p id="submissionTypeValue">--</p>
                 </div>
               </div>
             </section>
@@ -426,6 +267,10 @@
         </div>
       </section>
     </main>
-    <script src="../js/sidebar.js"></script>
+
+    <div class="toast" id="actionToast" role="status" aria-live="polite"></div>
+
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/admin-nomination-detail.js" defer></script>
   </body>
 </html>
