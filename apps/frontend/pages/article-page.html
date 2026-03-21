@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luminary Article</title>
     <link rel="stylesheet" href="../styles/article-page.css" />
+    <link rel="stylesheet" href="../styles/nav.css">
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -19,12 +20,44 @@
     />
   </head>
   <body>
-    <header class="navbar">
-      <h1 class="logo">Luminary</h1>
-      <nav>
-        <a href="./directory.html">Directory</a>
-        <a href="./nomination.html">Nomination</a>
-        <a href="#" class="active">News</a>
+    <header class="header-container flex flex-col items-center">
+      <nav
+        aria-label="primary navigation"
+        class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
+      >
+        <a href="../index.html">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../assets/images/luminary-green-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../assets/images/luminary-green-logo.png"
+              alt="Luminary Logo"
+              width="120px"
+            />
+          </picture>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label
+          for="nav-toggle"
+          class="hamburger gap-1"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <div class="nav-links">
+          <a href="./directory.html">Directory</a>
+          <a href="#">News</a>
+          <a href="./nomination.html" class="nav-cta__btn rounded-md p-2 px-4"
+            >Nominate</a
+          >
+        </div>
       </nav>
     </header>
 
