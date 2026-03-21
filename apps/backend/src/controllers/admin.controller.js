@@ -30,12 +30,58 @@ export const getNominationById = async (req, res, next) => {
 
     return successResponse(res, data, 200);
   } catch (error) {
-    console.log(error);
-
     if (!error.statusCode) {
       return next(createError("Internal Server Error", 500));
     }
 
-    next(error);
+    return next(error);
+  }
+};
+
+export const rejectNomination = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const data = await NominationService.rejectNomination(id);
+
+    return successResponse(res, data, 200);
+  } catch (error) {
+    if (!error.statusCode) {
+      return next(createError("Internal Server Error", 500));
+    }
+
+    return next(error);
+  }
+};
+
+export const approveNomination = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const data = await NominationService.approveNomination(id);
+
+    return successResponse(res, data, 200);
+  } catch (error) {
+    if (!error.statusCode) {
+      return next(createError("Internal Server Error", 500));
+    }
+
+    return next(error);
+  }
+};
+
+export const suspendNomination = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const data = await NominationService.suspendNomination(id);
+
+    return successResponse(res, data, 200);
+  } catch (error) {
+    if (!error.statusCode) {
+      return next(createError("Internal Server Error", 500));
+    }
+
+    return next(error);
   }
 };
