@@ -101,15 +101,11 @@
         <section class="flex flex-col gap-3">
           <a href="./admin-news.html">&larr; Back to News Management</a>
 
-          <article class="flex gap-3 justify-between article-summary">
+          <article id="article-summary" class="flex gap-3 justify-between article-summary">
             <div class="flex flex-col gap-3">
-              <h1>New Grants Announced For STEM Educators</h1>
+              <h1 id="article-heading"></h1>
 
-              <p class="article-description">
-                A comprehensive overview of the newly announced $5M grant
-                program aimed at supporting women educators in STEM fields
-                across the country.
-              </p>
+              <p id="article-description" class="article-description"></p>
             </div>
             <span class="flex items-start gap-3 btn-wrapper">
               <button class="article-btn approve">Approve</button>
@@ -122,39 +118,39 @@
         <section
           class="article-details-section flex gap-8 justify-between items-start"
         >
-          <section class="article-details p-8 flex flex-col">
+          <section id="article-details" class="article-details p-8 flex flex-col">
             <picture>
-              <img src="" alt="" />
+              <img id="article-header-image" src="" alt="" />
             </picture>
 
-            <div></div>
+            <div id="article-content"></div>
           </section>
 
           <!-- article sidebar -->
-          <aside class="article-sidebar p-4 flex flex-col gap-5">
+          <aside id="article-sidebar" class="article-sidebar p-4 flex flex-col gap-5">
             <div class="article-sidebar-details flex flex-col gap-3">
               <h2 class="article-sidebar-heading">Status</h2>
-              <p><span class="article-status pending">Pending Review</span></p>
+              <p><span id="article-status" class="article-status pending"></span></p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
               <h2 class="article-sidebar-heading">Source/Type</h2>
-              <p class="article-sidebar-description">Community Tip</p>
+              <p id="article-source-type" class="article-sidebar-description"></p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
               <h2 class="article-sidebar-heading">Submitted By</h2>
-              <p class="article-sidebar-description">Sarah Jenkins</p>
+              <p id="article-submitter" class="article-sidebar-description"></p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
               <h2 class="article-sidebar-heading">Category</h2>
-              <p class="article-sidebar-description">Education</p>
+              <p id="article-category" class="article-sidebar-description"></p>
             </div>
 
             <div class="article-sidebar-details flex flex-col gap-1">
               <h2 class="article-sidebar-heading">Date Submitted</h2>
-              <p class="article-sidebar-description">Oct 23, 2023, 10:45am</p>
+              <p id="article-submission-date" class="article-sidebar-description"></p>
             </div>
 
             <a href="">View Original Source</a>
@@ -163,6 +159,6 @@
       </section>
     </main>
     <script src="../js/sidebar.js"></script>
-    <script ssrc="../js/admin-article-review.js"></script>
+    <script src="../js/admin-article-review.js"></script>
   </body>
 </html>
