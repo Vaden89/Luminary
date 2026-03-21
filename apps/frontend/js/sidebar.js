@@ -5,7 +5,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   sidebarLinks.forEach((link) => {
     const href = (link.getAttribute("href") || "").split(/[?#]/)[0];
-    const isActive = href === currentPage;
+    const matchPages = (link.dataset.matchPages || href)
+      .split(",")
+      .map((page) => page.trim())
+      .filter(Boolean);
+    const isActive = matchPages.includes(currentPage);
 
     link.classList.toggle("active", isActive);
 
