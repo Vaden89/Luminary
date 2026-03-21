@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Luminary admin editor for creating and publishing news articles."
+    />
+    <title>Add New Article | Luminary Admin</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/nav.css" />
+    <link rel="stylesheet" href="../styles/admin-sidebar.css" />
+    <link rel="stylesheet" href="../styles/admin-add-article.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../assets/images/luminary-black-favicon.png"
+    />
+  </head>
+  <body>
+    <header class="header-container flex flex-col items-center">
+      <nav
+        aria-label="primary navigation"
+        class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
+      >
+        <a href="../index.html">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../assets/images/luminary-green-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../assets/images/luminary-green-logo.png"
+              alt="Luminary Logo"
+              width="120px"
+            />
+          </picture>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label
+          for="nav-toggle"
+          class="hamburger gap-1"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <div class="nav-links">
+          <a href="./directory.html">Directory</a>
+          <a href="./news.html">News</a>
+          <a href="./nomination.html" class="nav-cta__btn rounded-md p-2 px-4"
+            >Nominate</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main class="admin-shell flex flex-col justify-center items-center pt-10">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+      <section class="add-article-panel">
+        <div class="add-article-content">
+          <header class="editor-header">
+            <div class="editor-header__lead">
+              <a href="../index.html" class="back-link">
+                <span class="back-link__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path
+                      d="m10.53 6.47 1.06 1.06-3.72 3.72H20v1.5H7.87l3.72 3.72-1.06 1.06-5.53-5.53 5.53-5.53Z"
+                    />
+                  </svg>
+                </span>
+                <span>Back to Home</span>
+              </a>
+              <h1>Submit A Story</h1>
+              <p>
+                Create an original post or link to an external news source.
+              </p>
+            </div>
+
+            <div class="editor-actions">
+              <button type="button" class="ghost-btn">Save Draft</button>
+              <button type="button" class="primary-btn">
+                Publish Article
+              </button>
+            </div>
+          </header>
+
+          <form class="article-form" id="articleEditor">
+            <section class="editor-card">
+              <header class="editor-card__header">
+                <h2>Basic Information</h2>
+              </header>
+
+              <div class="form-grid">
+                <div class="field field--full">
+                  <label for="articleTitle">Headline / Title</label>
+                  <input
+                    id="articleTitle"
+                    name="articleTitle"
+                    type="text"
+                    placeholder="Enter the article title"
+                  />
+                </div>
+
+                <div class="field select-field">
+                  <label for="sourceType">Source Type</label>
+                  <select id="sourceType" name="sourceType">
+                    <option value="external">External Link</option>
+                    <option value="original">Original Content</option>
+                  </select>
+                </div>
+
+                <div class="field select-field">
+                  <label for="articleCategory">Category</label>
+                  <select id="articleCategory" name="articleCategory">
+                    <option value="" selected>Select category</option>
+                    <option value="technology">Technology</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="climate">Climate</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="education">Education</option>
+                    <option value="culture">Culture</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="sourceName">Author / Source Name</label>
+                  <input
+                    id="sourceName"
+                    name="sourceName"
+                    type="text"
+                    placeholder="E.g. The New York Times"
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="publicationDate">Publication Date</label>
+                  <input
+                    id="publicationDate"
+                    name="publicationDate"
+                    type="date"
+                    value="2026-03-20"
+                  />
+                </div>
+
+                <div class="field field--full">
+                  <label for="externalUrl">External URL (If applicable)</label>
+                  <input
+                    id="externalUrl"
+                    name="externalUrl"
+                    type="url"
+                    placeholder="https://"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section class="editor-card">
+              <header class="editor-card__header">
+                <h2>Media &amp; Summary</h2>
+              </header>
+
+              <div class="field field--full">
+                <label for="coverImage">Cover Image</label>
+                <label for="coverImage" class="upload-dropzone" id="uploadDropzone">
+                  <input
+                    id="coverImage"
+                    name="coverImage"
+                    type="file"
+                    accept=".svg,.png,.jpg,.jpeg,.gif"
+                    hidden
+                  />
+                  <div class="upload-dropzone__preview" id="uploadPreview" hidden></div>
+                  <div class="upload-dropzone__content">
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" role="presentation">
+                        <path
+                          d="M6.75 5.75h7.5A2.75 2.75 0 0 1 17 8.5v.75h1.75v1.5H17v1.75h-1.5v-1.75h-1.75v-1.5h1.75V8.5c0-.69-.56-1.25-1.25-1.25h-7.5c-.69 0-1.25.56-1.25 1.25v7c0 .69.56 1.25 1.25 1.25h7.5c.69 0 1.25-.56 1.25-1.25v-.75H17v.75A2.75 2.75 0 0 1 14.25 18h-7.5A2.75 2.75 0 0 1 4 15.25v-7A2.75 2.75 0 0 1 6.75 5.75Zm.8 8.5 2.23-2.23a.75.75 0 0 1 1.06 0l1.34 1.34 1.23-1.23a.75.75 0 0 1 1.06 1.06l-1.76 1.76a.75.75 0 0 1-1.06 0l-1.34-1.34-1.7 1.7a.75.75 0 0 1-1.06-1.06ZM19 4h1.5v2h2V7.5h-2v2H19v-2h-2V6h2V4Z"
+                        />
+                      </svg>
+                    </span>
+                    <strong id="uploadTitle">Click to upload or drag and drop</strong>
+                    <p id="uploadMeta">SVG, PNG, JPG or GIF (max. 5MB)</p>
+                  </div>
+                </label>
+              </div>
+
+              <div class="field field--full">
+                <label for="briefSummary">Brief Summary</label>
+                <textarea
+                  id="briefSummary"
+                  name="briefSummary"
+                  placeholder="Write a short summary that will appear on the news card..."
+                ></textarea>
+              </div>
+            </section>
+
+            <section class="editor-card">
+              <header class="editor-card__header editor-card__header--stacked">
+                <div>
+                  <h2>Article Content (For Original Content)</h2>
+                  <p id="contentNote">
+                    Used when composing original Luminary content.
+                  </p>
+                </div>
+              </header>
+
+              <div class="editor-surface">
+                <div class="editor-toolbar" aria-label="Article formatting tools">
+                  <button type="button" aria-label="Bold">B</button>
+                  <button type="button" aria-label="Italic"><em>I</em></button>
+                  <button type="button" aria-label="Underline"><u>U</u></button>
+                  <span class="toolbar-divider" aria-hidden="true"></span>
+                  <button type="button" aria-label="Bullet list">&#8226;</button>
+                  <button type="button" aria-label="Numbered list">1.</button>
+                  <button type="button" aria-label="Add link">&#128279;</button>
+                </div>
+                <textarea
+                  id="articleContent"
+                  name="articleContent"
+                  class="content-editor"
+                  placeholder="Start writing the article content here..."
+                ></textarea>
+              </div>
+            </section>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/admin-add-article.js" defer></script>
+  </body>
+</html>
