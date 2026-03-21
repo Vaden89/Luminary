@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "../config/supabase.js";
+import { createError } from "../utils/AppError.js";
 
 const CATEGORIES_TABLE_NAME = "categories";
 

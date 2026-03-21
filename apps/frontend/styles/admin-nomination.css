@@ -274,27 +274,22 @@ body {
   white-space: nowrap;
 }
 
-.status--submitted {
+.status--pending {
   background: #fff3cf;
   color: #a56d07;
 }
 
-.status--outreach-sent {
-  background: #dff1ff;
-  color: #1f7ab5;
-}
-
-.status--consent-received {
-  background: #efe3ff;
-  color: #8754cf;
-}
-
-.status--published {
+.status--approved {
   background: #daf8e4;
   color: #218554;
 }
 
-.status--declined {
+.status--suspended {
+  background: #e7edff;
+  color: #4658b1;
+}
+
+.status--rejected {
   background: #fee2e2;
   color: #cf3d3d;
 }
@@ -368,11 +363,21 @@ body {
   text-decoration: none;
 }
 
+.action-menu button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 .action-menu button:hover,
 .action-menu button:focus-visible,
 .action-menu .action-link:hover,
 .action-menu .action-link:focus-visible {
   background: #f5f8fc;
+}
+
+.action-menu button:disabled:hover,
+.action-menu button:disabled:focus-visible {
+  background: transparent;
 }
 
 .action-menu button span,

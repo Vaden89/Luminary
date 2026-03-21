@@ -23,7 +23,7 @@
     />
     <script src="https://unpkg.com/lucide@latest"></script>
   </head>
-  <body>
+  <body data-api-base="http://127.0.0.1:5000/api">
     <header class="admin-topbar">
       <a
         href="../index.html"
@@ -160,24 +160,21 @@
                 <span class="visually-hidden">Filter by status</span>
                 <select id="statusFilter">
                   <option value="all">Status: Any</option>
-                  <option value="submitted">Status: Submitted</option>
-                  <option value="outreach-sent">Status: Outreach Sent</option>
-                  <option value="consent-received">
-                    Status: Consent Received
-                  </option>
-                  <option value="published">Status: Published</option>
-                  <option value="declined">Status: Declined</option>
+                  <option value="pending">Status: Pending</option>
+                  <option value="approved">Status: Approved</option>
+                  <option value="suspended">Status: Suspended</option>
+                  <option value="rejected">Status: Rejected</option>
                 </select>
               </label>
 
               <label class="toolbar-control toolbar-control--select">
                 <span class="visually-hidden">Filter by date range</span>
                 <select id="dateFilter">
+                  <option value="all-time">Date range: All time</option>
                   <option value="this-month">Date range: This month</option>
                   <option value="last-30">Date range: Last 30 days</option>
                   <option value="this-quarter">Date range: This quarter</option>
                   <option value="year-to-date">Date range: Year to date</option>
-                  <option value="all-time">Date range: All time</option>
                 </select>
               </label>
 
