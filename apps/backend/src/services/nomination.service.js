@@ -173,6 +173,80 @@ export const adminGetAll = async ({ search } = {}) => {
   }
 };
 
+export const rejectNomination = async (nominationId) => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .update({ status: NominationStatus.REJECTED })
+      .eq("id", nominationId)
+      .select()
+      .limit(1)
+      .single();
+
+    if (error) {
+      throw createError(error.message, 400);
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    if (!error.statusCode) {
+      throw createError("Internal Server Error", 500);
+    }
+
+    throw error;
+  }
+};
+
+export const approveNomination = async (nominationId) => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .update({ status: NominationStatus.APPROVED })
+      .eq("id", nominationId)
+      .select()
+      .limit(1)
+      .single();
+
+    if (error) {
+      throw createError(error.message, 400);
+    }
+
+    return data;
+  } catch (error) {
+    if (!error.statusCode) {
+      throw createError("Internal Server Error", 500);
+    }
+
+    throw error;
+  }
+};
+
+export const suspendNomination = async (nominationId) => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .update({ status: NominationStatus.SUSPENDED })
+      .eq("id", nominationId)
+      .select()
+      .limit(1)
+      .single();
+
+    if (error) {
+      throw createError(error.message, 400);
+    }
+
+    return data;
+  } catch (error) {
+    if (!error.statusCode) {
+      throw createError("Internal Server Error", 500);
+    }
+
+    throw error;
+  }
+};
+
 const createError = (message, statusCode) => {
   const err = new Error(message);
   err.statusCode = statusCode;
