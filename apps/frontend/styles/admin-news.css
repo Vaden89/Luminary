@@ -69,6 +69,9 @@ body {
 }
 
 .add-article-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-heading-600);
   color: var(--color-white);
   font-size: var(--font-size-sm);
@@ -77,6 +80,7 @@ body {
   padding: var(--space-3) var(--space-4) var(--space-3) var(--space-4);
   white-space: nowrap;
   cursor: pointer;
+  text-decoration: none;
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
@@ -92,6 +96,7 @@ body {
 
 .add-article-btn:hover {
   background-color: var(--color-heading-500);
+  text-decoration: none;
 }
 
 .add-article-btn:active {
