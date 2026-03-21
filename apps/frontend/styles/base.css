@@ -296,6 +296,18 @@
     padding-block: var(--space-8);
   }
 
+  .pt-10{
+    padding-top: 5rem;
+
+    @media(max-width:1024px){
+        padding-top: 3rem;
+    }
+
+    @media(max-width:768px){
+        padding-top: 0rem;
+    }
+  }
+
   /* Flex utilities */
   .flex {
     display: flex;

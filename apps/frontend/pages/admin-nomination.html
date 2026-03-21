@@ -26,7 +26,7 @@
   <body data-api-base="http://127.0.0.1:5000/api">
     <header class="admin-topbar">
       <a
-        href="admin-nomination.html"
+        href="../index.html"
         class="admin-topbar__brand"
         aria-label="Luminary admin home"
       >
@@ -57,7 +57,7 @@
         aria-label="Admin navigation"
       >
         <a
-          href="admin-nomination.html"
+          href="../index.html"
           class="sidebar-brand"
           aria-label="Go to nominations dashboard"
         >
@@ -76,7 +76,11 @@
         </a>
 
         <nav class="sidebar-nav flex flex-col gap-3" aria-label="Admin pages">
-          <a href="admin-nomination.html" class="sidebar-btn sidebar-btn--icon">
+          <a
+            href="admin-nomination.html"
+            class="sidebar-btn sidebar-btn--icon"
+            data-match-pages="admin-nomination.html,admin-nomination-profile.html"
+          >
             <span class="sidebar-btn__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="presentation">
                 <path
@@ -87,7 +91,11 @@
             <span>Nominations</span>
           </a>
 
-          <a href="admin-news.html" class="sidebar-btn sidebar-btn--icon">
+          <a
+            href="admin-news.html"
+            class="sidebar-btn sidebar-btn--icon"
+            data-match-pages="admin-news.html,admin-add-article.html,admin-news-profile.html"
+          >
             <span class="sidebar-btn__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="presentation">
                 <path
