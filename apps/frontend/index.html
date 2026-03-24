@@ -50,7 +50,7 @@
                 </label>
 
                 <div class="nav-links">
-                    <a href="#">Directory</a>
+                    <a href="./pages/directory.html">Directory</a>
                     <a href="./pages/news.html">News</a>
                     <a
                         href="./pages/nomination.html"
@@ -71,18 +71,34 @@
                     <button class="rounded-md p-2 px-4">Submit a story</button>
                 </a>
                 
-                <picture class="hero-image">
-                    <source
+                <div class="hero-image-outer">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-track">
+
+                    <picture>
+                        <source
                         media="(min-width: 768px)"
-                        srcset="./assets/images/hero-illustration.webp"
-                        type="image/webp"
-                    />
-                    <img
-                        src="./assets/images/hero-illustration.webp"
-                        class="rounded-2xl"
+                        srcset="./assets/images/marquee-illustration.png"
+                        type="image/png"
+                        />
+                        <img
+                        src="./assets/images/marquee-illustration.png"
                         alt="Illustration of different colored women across different cultures and disciplines: military, health, education and leadership"
-                    />
-                </picture>
+                        />
+                    </picture>
+
+                    <picture aria-hidden="true">
+                        <source
+                        media="(min-width: 768px)"
+                        srcset="./assets/images/illustration.png"
+                        type="image/png"
+                        />
+                        <img src="./assets/images/illustration.png" alt="" />
+                    </picture>
+
+                    </div>
+                </div>
+                </div>
                 <div class="metrics-container">
                     <div class="metric-card">
                         <picture>
@@ -295,6 +311,12 @@
             </div>
         </footer>
 
+        <!-- GSAP core + ScrollTrigger from CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
         <script src="./js/index.js"></script>
+        <!-- Scroll animations — load last so the DOM is ready -->
+        <script src="./js/animation.js"></script>
     </body>
 </html>
