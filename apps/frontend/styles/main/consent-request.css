@@ -1,0 +1,12 @@
+body {
+  background-color: #c5d0dd;
+}
+
+.main-header {
+  padding: var(--space-10) var(--space-4) var(--space-4) var(--space-4);
+
+  p {
+    margin: var(--space-4) 0 var(--space-9) 0;
+    max-width: 35rem;
+  }
+}
