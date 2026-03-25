@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luminary | Admin Login</title>
-    <link rel="stylesheet" href="../styles/base.css" />
-    <link rel="stylesheet" href="../styles/auth.css" />
+    <link rel="stylesheet" href="../../styles/main/base.css" />
+    <link rel="stylesheet" href="../../styles/main/auth.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
       rel="stylesheet"
@@ -13,15 +13,15 @@
     <link
       rel="icon"
       type="image/png"
-      href="../assets/images/luminary-black-favicon.png"
+      href="../../assets/images/luminary-black-favicon.png"
     />
   </head>
   <body>
     <main class="auth-page" aria-label="Login page">
       <article class="auth-card">
-        <a href="../index.html">
+        <a href="../../index.html">
           <img
-            src="../assets/images/luminary-black-logo.png"
+            src="../../assets/images/luminary-black-logo.png"
             alt="Luminary Logo"
             width="108"
           />
@@ -35,7 +35,7 @@
         <form
           class="auth-form"
           id="login-form"
-          data-api-base="http://127.0.0.1:5000/api"
+          data-api-base="http://127.0.0.1:5001/api"
         >
           <div class="form-group">
             <label for="login-email">Email address</label>
@@ -112,6 +112,6 @@
         </form>
       </article>
     </main>
-    <script src="../js/admin-auth.js" defer></script>
+    <script src="../../js/admin/admin-auth.js" defer></script>
   </body>
 </html>

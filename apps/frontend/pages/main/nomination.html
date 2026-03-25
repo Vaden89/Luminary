@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/base.css" />
-    <link rel="stylesheet" href="../styles/nav.css" />
-    <link rel="stylesheet" href="../styles/nomination.css" />
+    <link rel="stylesheet" href="../../styles/main/base.css" />
+    <link rel="stylesheet" href="../../styles/main/nav.css" />
+    <link rel="stylesheet" href="../../styles/main/nomination.css" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
@@ -14,7 +14,7 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="../assets/images/luminary-green-favicon.ico"
+      href="../../assets/images/luminary-green-favicon.ico"
     />
     <title>Luminary Nomination</title>
   </head>
@@ -24,15 +24,15 @@
         aria-label="primary navigation"
         class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
       >
-        <a href="../index.html">
+        <a href="../../index.html">
           <picture>
             <source
               media="(min-width: 768px)"
-              srcset="../assets/images/luminary-green-logo.png"
+              srcset="../../assets/images/luminary-green-logo.png"
               type="image/png"
             />
             <img
-              src="../assets/images/luminary-green-logo.png"
+              src="../../assets/images/luminary-green-logo.png"
               alt="Luminary Logo"
               width="120px"
             />
@@ -76,7 +76,7 @@
           class="nomination-form"
           id="nominationForm"
           action=""
-          data-api-base="http://127.0.0.1:5000/api"
+          data-api-base="http://127.0.0.1:5001/api"
         >
           <div class="form-toggle" role="tablist" aria-label="Select form type">
             <button
@@ -269,7 +269,7 @@
                 </button>
               </div>
               <div class="section-body" id="nomination-work-media">
-                <div class="field">
+                <!-- <div class="field">
                   <label for="profilePhoto"
                     >Profile Photo <span class="required">*</span></label
                   >
@@ -294,7 +294,7 @@
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="field">
                   <label for="supportingLink1"
@@ -479,7 +479,7 @@
                 </button>
               </div>
               <div class="section-body" id="self-work-media">
-                <div class="field">
+                <!-- <div class="field">
                   <label for="self-profilePhoto"
                     >Profile Photo <span class="required">*</span></label
                   >
@@ -504,7 +504,7 @@
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="field">
                   <label for="self-supportingLink1"
@@ -637,6 +637,6 @@
       </section>
     </main>
 
-    <script src="../js/nomination.js" defer></script>
+    <script src="../../js/main/nomination.js" defer></script>
   </body>
 </html>

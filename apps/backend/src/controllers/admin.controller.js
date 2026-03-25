@@ -7,8 +7,8 @@ export const getNominations = async (req, res, next) => {
     const { search } = req.query;
 
     const data = await NominationService.adminGetAll({ search });
-
-    return successResponse(res, data, 200);
+      
+      return successResponse(res, data, 200);
   } catch (error) {
     console.log(error);
 
