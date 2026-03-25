@@ -197,10 +197,16 @@ window.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-      // Reveal hidden labels (like "Upload image" buttons)
-      activePanel.querySelectorAll("label[hidden]").forEach((label) => {
-        label.removeAttribute("hidden");
-      });
+      // Reveal hidden labels
+      activePanel
+        .querySelectorAll("label[hidden], .upload-btn")
+        .forEach((label) => {
+          label.removeAttribute("hidden");
+          label.removeAttribute("aria-disabled");
+          if (label.classList.contains("upload-btn")) {
+            label.style.display = "inline-flex";
+          }
+        });
       activePanel
         .querySelectorAll(".profile-upload__hint[hidden]")
         .forEach((hint) => {
