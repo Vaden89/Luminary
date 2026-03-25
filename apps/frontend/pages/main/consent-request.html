@@ -65,71 +65,18 @@
           aria-labelledby="nomination-tab"
         >
           <section class="form-section">
-            <div class="section-header">
-              <h2 class="section-title">Your Details (Nominator)</h2>
-              <button
-                type="button"
-                class="section-toggle"
-                aria-expanded="true"
-                aria-controls="nominator-details"
-              >
-                <span class="section-caret" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="section-body" id="nominator-details">
-              <div class="field-grid two-col">
-                <div class="field">
-                  <label for="nominatorName"
-                    >Full name <span class="required">*</span></label
-                  >
-                  <input
-                    id="nominatorName"
-                    name="nominatorName"
-                    type="text"
-                    placeholder="Full name"
-                    required
-                  />
-                </div>
-                <div class="field">
-                  <label for="nominatorEmail"
-                    >Email address <span class="required">*</span></label
-                  >
-                  <input
-                    id="nominatorEmail"
-                    name="nominatorEmail"
-                    type="email"
-                    placeholder="name@company.com"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <label for="relationship"
-                  >Relationship to nominee
-                  <span class="required">*</span></label
+            <div class="header-1">
+              <div class="section-header">
+                <h2 class="section-title">Nominee Information</h2>
+                <button
+                  type="button"
+                  class="section-toggle"
+                  aria-expanded="true"
+                  aria-controls="nominee-details"
                 >
-                <input
-                  id="relationship"
-                  name="relationship"
-                  type="text"
-                  placeholder="e.g. Colleague"
-                  required
-                />
+                  <span class="section-caret" aria-hidden="true"></span>
+                </button>
               </div>
-            </div>
-          </section>
-
-          <section class="form-section">
-            <div class="section-header">
-              <h2 class="section-title">Nominee Information</h2>
-              <button
-                type="button"
-                class="section-toggle"
-                aria-expanded="true"
-                aria-controls="nominee-details"
-              >
-                <span class="section-caret" aria-hidden="true"></span>
-              </button>
               <p>
                 The personal and professional details submitted for your
                 profile.
@@ -217,34 +164,43 @@
                 <textarea
                   id="impactDescription"
                   name="impactDescription"
-                  value="Describe the nominee's impact, contributions, and why they should be featured..."
                   required
                   disabled
                   aria-disabled="true"
-                ></textarea>
+                >
+Led multiple high-impact projects bridging technology and social change.</textarea
+                >
               </div>
             </div>
           </section>
 
           <section class="form-section">
-            <div class="section-header">
-              <h2 class="section-title">Work &amp; Media</h2>
-              <button
-                type="button"
-                class="section-toggle"
-                aria-expanded="true"
-                aria-controls="nomination-work-media"
-              >
-                <span class="section-caret" aria-hidden="true"></span>
-              </button>
+            <div class="header-1">
+              <div class="section-header">
+                <h2 class="section-title">Profile Photo</h2>
+                <button
+                  type="button"
+                  class="section-toggle"
+                  aria-expanded="true"
+                  aria-controls="nomination-work-media"
+                >
+                  <span class="section-caret" aria-hidden="true"></span>
+                </button>
+              </div>
+              The image that will appear on the public directory.
             </div>
             <div class="section-body" id="nomination-work-media">
               <div class="field">
                 <label for="profilePhoto"
-                  >Profile Photo <span class="required">*</span></label
+                  >Current Photo <span class="required">*</span></label
                 >
                 <div class="profile-upload">
-                  <div class="profile-upload__preview" aria-hidden="true"></div>
+                  <div class="profile-upload__preview" aria-hidden="true">
+                    <img
+                      src="../../assets/images/profile-image.jpg"
+                      alt="Profile photo preview"
+                    />
+                  </div>
                   <div class="profile-upload__controls">
                     <input
                       id="profilePhoto"
@@ -255,16 +211,45 @@
                       disabled
                       aria-disabled="true"
                     />
-                    <label class="upload-btn" for="profilePhoto"
+                    <label
+                      class="upload-btn"
+                      for="profilePhoto"
+                      aria-disabled="true"
+                      hidden
                       >Upload image</label
                     >
-                    <p class="profile-upload__hint">
+                    <p class="profile-upload__hint" hidden>
                       .jpg, .png or .webp supported (max 5MB)
+                    </p>
+
+                    <p class="profile-upload__hint">
+                      This photo was provided by your nominator
                     </p>
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
 
+          <section class="form-section">
+            <div class="header-1">
+              <div class="section-header">
+                <h2 class="section-title">Evidence &amp; Links</h2>
+                <button
+                  type="button"
+                  class="section-toggle"
+                  aria-expanded="true"
+                  aria-controls="nomination-work-media"
+                >
+                  <span class="section-caret" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p>
+                Achievements and supporting materials provided by your
+                nominator.
+              </p>
+            </div>
+            <div class="section-body" id="nomination-work-media">
               <div class="field">
                 <label for="supportingLink1"
                   >Supporting Links (Articles, Publications, Projects)
@@ -280,20 +265,26 @@
                     id="supportingLink1"
                     name="supportingLink1"
                     type="url"
-                    placeholder="https://"
+                    value="https://example.com/project"
                     required
+                    disabled
+                    aria-disabled="true"
                   />
                   <input
                     id="supportingLink2"
                     name="supportingLink2"
                     type="url"
-                    placeholder="https://"
+                    value="https://example.com/article"
+                    disabled
+                    aria-disabled="true"
                   />
                 </div>
                 <button
                   class="add-link"
                   type="button"
                   data-add-link="supporting"
+                  disabled
+                  aria-disabled="true"
                 >
                   <span aria-hidden="true">+</span> Add another link
                 </button>
@@ -311,28 +302,94 @@
                     id="socialLink1"
                     name="socialLink1"
                     type="url"
-                    placeholder="https://"
+                    value="https://twitter.com/sarah"
+                    disabled
+                    aria-disabled="true"
                   />
                   <input
                     id="socialLink2"
                     name="socialLink2"
                     type="url"
-                    placeholder="https://"
+                    value="https://linkedin.com/in/sarah"
+                    disabled
+                    aria-disabled="true"
                   />
                 </div>
-                <button class="add-link" type="button" data-add-link="social">
+                <button
+                  class="add-link"
+                  type="button"
+                  data-add-link="social"
+                  disabled
+                  aria-disabled="true"
+                >
                   <span aria-hidden="true">+</span> Add another link
                 </button>
               </div>
             </div>
           </section>
 
-          <button class="submit-btn" type="submit">Submit Nomination</button>
+          <section class="form-section">
+            <div class="header-1">
+              <div class="section-header">
+                <h2 class="section-title">Nominator Details (Nominator)</h2>
+                <button
+                  type="button"
+                  class="section-toggle"
+                  aria-expanded="true"
+                  aria-controls="nominator-details"
+                >
+                  <span class="section-caret" aria-hidden="true"></span>
+                </button>
+              </div>
+              <p>Information about the person who submitted this nomination.</p>
+            </div>
+            <div class="section-body" id="nominator-details">
+              <div class="field-grid two-col">
+                <div class="field">
+                  <label for="nominatorName"
+                    >Submitted By <span class="required">*</span></label
+                  >
+                  <input
+                    id="nominatorName"
+                    name="nominatorName"
+                    type="text"
+                    value="Jane Doe"
+                    required
+                    disabled
+                    aria-disabled="true"
+                  />
+                </div>
+                <div class="field">
+                  <label for="relationship"
+                    >Relationship <span class="required">*</span></label
+                  >
+                  <input
+                    id="relationship"
+                    name="relationship"
+                    type="text"
+                    value="Colleague"
+                    required
+                    disabled
+                    aria-disabled="true"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="actions flex justify-between" aria-label="actions">
+            <button class="rescind btn">Rescind Consent</button>
+            <div aria-label="edit or give consent" class="consent-actions">
+              <button class="edit btn" id="edit-btn">Edit Form</button>
+              <button class="consent btn">Give Consent</button>
+            </div>
+          </div>
+
           <p class="form-status" role="status" aria-live="polite"></p>
         </div>
       </form>
     </main>
 
-    <script src="../../js/main/nomination.js" defer></script>
+    <script src="../../js/main/consent-form.js" defer></script>
   </body>
 </html>
