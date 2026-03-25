@@ -49,13 +49,14 @@
       color: var(--color-white);
     }
   }
-  .hero-image {
+  /* Outer wrapper — carries the tilted card reveal behind the viewport */
+  .hero-image-outer {
     position: relative;
     display: inline-block;
     margin-top: var(--space-8);
   }
 
-  .hero-image::after {
+  .hero-image-outer::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -66,10 +67,46 @@
     z-index: 0;
   }
 
-  .hero-image img {
+  /* Fixed-height viewport that clips the scrolling track */
+  .hero-image-wrapper {
     position: relative;
     z-index: 1;
+    height: 500px;
+    overflow: hidden;
     border-radius: var(--radius-2xl);
+  }
+
+  /* The scrolling column — 2 images stacked, animates up by 50% = one image */
+  .hero-image-track {
+    display: flex;
+    flex-direction: column;
+    animation: verticalMarquee 20s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-image-track {
+      animation: none;
+    }
+  }
+
+  .hero-image-track picture {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .hero-image-track img {
+    width: 100%;
+    display: block;
+  }
+
+  /* Core marquee — -50% of 2× image height = exactly one image height */
+  @keyframes verticalMarquee {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
   }
 
   @keyframes cardReveal {
@@ -77,12 +114,10 @@
       transform: rotate(0deg) scale(0.9);
       opacity: 0;
     }
-
     40% {
       transform: rotate(6deg) scale(1.02);
       opacity: 1;
     }
-
     100% {
       transform: rotate(4deg) scale(1);
     }
