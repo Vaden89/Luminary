@@ -21,6 +21,7 @@
       type="image/png"
       href="../assets/images/luminary-black-favicon.png"
     />
+    <link rel="icon" type="image/x-icon" href="../assets/images/new.ico" />
   </head>
   <body>
     <header class="header-container flex flex-col items-center">
@@ -82,16 +83,12 @@
                 <span>Back to Home</span>
               </a>
               <h1>Submit A Story</h1>
-              <p>
-                Create an original post or link to an external news source.
-              </p>
+              <p>Create an original post or link to an external news source.</p>
             </div>
 
             <div class="editor-actions">
               <button type="button" class="ghost-btn">Save Draft</button>
-              <button type="button" class="primary-btn">
-                Publish Article
-              </button>
+              <button type="button" class="primary-btn">Publish Article</button>
             </div>
           </header>
 
@@ -172,7 +169,11 @@
 
               <div class="field field--full">
                 <label for="coverImage">Cover Image</label>
-                <label for="coverImage" class="upload-dropzone" id="uploadDropzone">
+                <label
+                  for="coverImage"
+                  class="upload-dropzone"
+                  id="uploadDropzone"
+                >
                   <input
                     id="coverImage"
                     name="coverImage"
@@ -180,7 +181,11 @@
                     accept=".svg,.png,.jpg,.jpeg,.gif"
                     hidden
                   />
-                  <div class="upload-dropzone__preview" id="uploadPreview" hidden></div>
+                  <div
+                    class="upload-dropzone__preview"
+                    id="uploadPreview"
+                    hidden
+                  ></div>
                   <div class="upload-dropzone__content">
                     <span class="upload-icon" aria-hidden="true">
                       <svg viewBox="0 0 24 24" role="presentation">
@@ -189,7 +194,9 @@
                         />
                       </svg>
                     </span>
-                    <strong id="uploadTitle">Click to upload or drag and drop</strong>
+                    <strong id="uploadTitle"
+                      >Click to upload or drag and drop</strong
+                    >
                     <p id="uploadMeta">SVG, PNG, JPG or GIF (max. 5MB)</p>
                   </div>
                 </label>
@@ -216,12 +223,17 @@
               </header>
 
               <div class="editor-surface">
-                <div class="editor-toolbar" aria-label="Article formatting tools">
+                <div
+                  class="editor-toolbar"
+                  aria-label="Article formatting tools"
+                >
                   <button type="button" aria-label="Bold">B</button>
                   <button type="button" aria-label="Italic"><em>I</em></button>
                   <button type="button" aria-label="Underline"><u>U</u></button>
                   <span class="toolbar-divider" aria-hidden="true"></span>
-                  <button type="button" aria-label="Bullet list">&#8226;</button>
+                  <button type="button" aria-label="Bullet list">
+                    &#8226;
+                  </button>
                   <button type="button" aria-label="Numbered list">1.</button>
                   <button type="button" aria-label="Add link">&#128279;</button>
                 </div>
