@@ -325,7 +325,7 @@ window.addEventListener("DOMContentLoaded", () => {
           data-nomination-link="detail"
           data-id="${nomination.id}"
         >
-          <span aria-hidden="true">&#9675;</span>
+          <i class="fa-solid fa-expand"></i>
           View nomination
         </a>
       `,
@@ -340,7 +340,7 @@ window.addEventListener("DOMContentLoaded", () => {
           data-id="${nomination.id}"
           ${isBusy ? "disabled" : ""}
         >
-          <span aria-hidden="true">&#10003;</span>
+          <i class="fa-solid fa-check"></i>
           ${isBusy ? "Approving..." : "Approve nomination"}
         </button>
       `);
@@ -355,7 +355,7 @@ window.addEventListener("DOMContentLoaded", () => {
           data-id="${nomination.id}"
           ${isBusy ? "disabled" : ""}
         >
-          <span aria-hidden="true">&#10005;</span>
+          <i class="fa-solid fa-x"></i>
           ${isBusy ? "Rejecting..." : "Reject nomination"}
         </button>
       `);

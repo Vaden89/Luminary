@@ -322,7 +322,7 @@ window.addEventListener("DOMContentLoaded", () => {
           href="admin-news-profile.html?article=${encodeURIComponent(articleId)}"
           class="action-link"
         >
-          <span aria-hidden="true">&#9675;</span>
+          <i class="fa-solid fa-expand"></i>
           View article
         </a>
         <button
@@ -331,7 +331,7 @@ window.addEventListener("DOMContentLoaded", () => {
           data-action="approve"
           data-id="${articleId}"
         >
-          <span aria-hidden="true">&#10003;</span>
+          <i class="fa-solid fa-check"></i>
           Publish article
         </button>
         <button
@@ -340,7 +340,7 @@ window.addEventListener("DOMContentLoaded", () => {
           data-action="reject"
           data-id="${articleId}"
         >
-          <span aria-hidden="true">&#10005;</span>
+          <i class="fa-solid fa-x"></i>
           Decline article
         </button>
       </div>
