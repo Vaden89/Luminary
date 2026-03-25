@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
       author: "Clara Nnoli",
       date: "2026-03-20",
       readTime: "7 min read",
-      imageUrl: "../assets/images/profile-image.jpg",
+      imageUrl: "../../assets/images/profile-image.jpg",
       featured: true,
     },
     {
