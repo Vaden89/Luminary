@@ -1,10 +1,8 @@
 @layer components {
-  /* ── Hide the form type toggle on edit page ──────────── */
   .edit-form-toggle--hidden {
     display: none !important;
   }
 
-  /* ── Loading / Error / Success states ────────────────── */
   .edit-state {
     display: flex;
     flex-direction: column;
@@ -20,7 +18,6 @@
     display: none;
   }
 
-  /* Spinner */
   .edit-state__spinner {
     width: 2.5rem;
     height: 2.5rem;
@@ -41,7 +38,6 @@
     font-size: var(--font-size-base);
   }
 
-  /* Error icon */
   .edit-state__icon {
     display: inline-grid;
     place-items: center;
@@ -69,7 +65,6 @@
     line-height: 1.6;
   }
 
-  /* Success icon */
   .edit-state__icon--success {
     background-color: var(--success);
   }
@@ -90,7 +85,6 @@
     line-height: 1.6;
   }
 
-  /* CTA link on state screens */
   .edit-state__cta {
     display: inline-flex;
     align-items: center;
@@ -112,7 +106,6 @@
     transform: translateY(-1px);
   }
 
-  /* ── Admin notice banner ─────────────────────────────── */
   .edit-banner {
     display: flex;
     align-items: flex-start;
