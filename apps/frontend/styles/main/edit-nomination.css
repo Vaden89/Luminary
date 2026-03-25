@@ -124,12 +124,8 @@
     width: 1.5rem;
     height: 1.5rem;
     margin-top: 0.125rem;
-  }
-
-  .edit-banner__icon svg {
-    width: 100%;
-    height: 100%;
-    fill: #d97706;
+    background-color: #d97706;
+    color: white;
   }
 
   .edit-banner__body {
