@@ -1,3 +1,5 @@
+import { ACTIVE_CONFIG as CONFIG } from "../config.js";
+
 window.addEventListener("DOMContentLoaded", () => {
   const PAGE_SIZE = 5;
   const SEARCH_DEBOUNCE_MS = 320;
@@ -21,11 +23,8 @@ window.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  const apiBase = (document.body.dataset.apiBase || "").replace(/\/$/, "");
-  const nominationsEndpoint = apiBase
-    ? `${apiBase}/admin/nominations`
-    : "/api/admin/nominations";
-  const categoriesEndpoint = apiBase ? `${apiBase}/categories` : "/api/categories";
+  const nominationsEndpoint = `${CONFIG.BACKEND_URL}/admin/nominations`;
+  const categoriesEndpoint = `${CONFIG.BACKEND_URL}/categories`;
   const accessToken = localStorage.getItem("access_token") || "";
 
   const tableBody = document.getElementById("nominationTableBody");
@@ -131,7 +130,9 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   const normalizeStatus = (status) => {
-    const normalized = String(status || "pending").trim().toLowerCase();
+    const normalized = String(status || "pending")
+      .trim()
+      .toLowerCase();
 
     return STATUS_META[normalized] ? normalized : "pending";
   };
@@ -216,7 +217,9 @@ window.addEventListener("DOMContentLoaded", () => {
         name: nomineeName,
         organization: nomination.nominee?.organization || "Independent",
         initials: getInitials(nomineeName),
-        tone: getAvatarTone(`${nomineeName}-${nomination.nominee?.field || ""}`),
+        tone: getAvatarTone(
+          `${nomineeName}-${nomination.nominee?.field || ""}`,
+        ),
         region: nomination.nominee?.country || "Unknown region",
       },
       submittedBy: {
@@ -457,11 +460,13 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   const renderPagination = (currentPage, totalPages) => {
-    paginationPages.innerHTML = Array.from({ length: totalPages }, (_, index) => {
-      const pageNumber = index + 1;
-      const activeClass = pageNumber === currentPage ? " is-active" : "";
+    paginationPages.innerHTML = Array.from(
+      { length: totalPages },
+      (_, index) => {
+        const pageNumber = index + 1;
+        const activeClass = pageNumber === currentPage ? " is-active" : "";
 
-      return `
+        return `
         <button
           class="page-button${activeClass}"
           type="button"
@@ -472,7 +477,8 @@ window.addEventListener("DOMContentLoaded", () => {
           ${pageNumber}
         </button>
       `;
-    }).join("");
+      },
+    ).join("");
 
     prevPageButton.disabled = currentPage === 1;
     nextPageButton.disabled = currentPage === totalPages;
@@ -621,7 +627,9 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   const updateNominationStatus = async (nominationId, action) => {
-    const nomination = state.nominations.find((item) => item.id === nominationId);
+    const nomination = state.nominations.find(
+      (item) => item.id === nominationId,
+    );
 
     if (!nomination || state.pendingActionId) {
       return;
