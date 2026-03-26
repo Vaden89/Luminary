@@ -109,11 +109,13 @@ export const getById = async (id) => {
   }
 };
 
-export const getAll = async ({ search } = {}) => {
+export const getAll = async ({ search, country } = {}) => {
   try {
     let query = supabaseAdmin
       .from(NOMINATION_TABLE_NAME)
-      .select(`*, nominee:${NOMINEE_TABLE_NAME}(*)`)
+      .select(
+        `*, nominee:${NOMINEE_TABLE_NAME}(*), nominator:${NOMINATOR_TABLE_NAME}(*)`,
+      )
       .eq("status", NominationStatus.APPROVED);
 
     if (search) {
@@ -121,6 +123,12 @@ export const getAll = async ({ search } = {}) => {
         `first_name.ilike.%${search}%,last_name.ilike.%${search}%`,
         { referencedTable: NOMINEE_TABLE_NAME },
       );
+    }
+
+    if (country) {
+      query = query.or(`country.ilike.%${country}%`, {
+        referencedTable: NOMINEE_TABLE_NAME,
+      });
     }
 
     const { data: nominations, error } = await query;
@@ -140,7 +148,7 @@ export const getAll = async ({ search } = {}) => {
   }
 };
 
-export const adminGetAll = async ({ search } = {}) => {
+export const adminGetAll = async ({ search, country } = {}) => {
   try {
     let query = supabaseAdmin
       .from(NOMINATION_TABLE_NAME)
@@ -149,11 +157,16 @@ export const adminGetAll = async ({ search } = {}) => {
       );
 
     if (search) {
-      console.log(search);
       query = query.or(
         `first_name.ilike.%${search}%,last_name.ilike.%${search}%`,
         { referencedTable: NOMINEE_TABLE_NAME },
       );
+    }
+
+    if (country) {
+      query = query.or(`country.ilike.%${country}%`, {
+        referencedTable: NOMINEE_TABLE_NAME,
+      });
     }
 
     const { data: nominations, error } = await query;
@@ -205,7 +218,9 @@ export const approveNomination = async (nominationId) => {
       .from(NOMINATION_TABLE_NAME)
       .update({ status: NominationStatus.APPROVED })
       .eq("id", nominationId)
-      .select()
+      .select(
+        `*, nominee:${NOMINEE_TABLE_NAME}(*), nominator:${NOMINATOR_TABLE_NAME}(*)`,
+      )
       .limit(1)
       .single();
 
