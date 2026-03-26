@@ -4,9 +4,9 @@ import { successResponse } from "../utils/apiResponse.js";
 
 export const getNominations = async (req, res, next) => {
   try {
-    const { search } = req.query;
+    const { search, country } = req.query;
 
-    const data = await NominationService.adminGetAll({ search });
+    const data = await NominationService.adminGetAll({ search, country });
 
     return successResponse(res, data, 200);
   } catch (error) {
@@ -23,8 +23,6 @@ export const getNominations = async (req, res, next) => {
 export const getNominationById = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    console.log(id);
 
     const data = await NominationService.getById(id);
 
