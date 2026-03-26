@@ -1,6 +1,6 @@
 const grid = document.getElementById("contributorsGrid")
 
-fetch("../assets/data/contributors.json")
+fetch("./assets/data/contributors.json")
   .then(res => res.json())
   .then(contributors => {
     contributors.forEach(person => {

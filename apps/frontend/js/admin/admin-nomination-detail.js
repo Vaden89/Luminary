@@ -1,3 +1,5 @@
+import { ACTIVE_CONFIG as CONFIG } from "../config.js";
+
 window.addEventListener("DOMContentLoaded", () => {
   const STATUS_META = {
     pending: {
@@ -17,10 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
       className: "status-tag--rejected",
     },
   };
-  const apiBase = (document.body.dataset.apiBase || "").replace(/\/$/, "");
-  const nominationsEndpoint = apiBase
-    ? `${apiBase}/admin/nominations`
-    : "/api/admin/nominations";
+  const nominationsEndpoint = `${CONFIG.BACKEND_URL}/admin/nominations`;
   const accessToken = localStorage.getItem("access_token") || "";
   const queryParams = new URLSearchParams(window.location.search);
   const toast = document.getElementById("actionToast");
@@ -40,7 +39,9 @@ window.addEventListener("DOMContentLoaded", () => {
     "submittedByRelationship",
   );
   const submittedByEmail = document.getElementById("submittedByEmail");
-  const submitterSectionTitle = document.getElementById("submitterSectionTitle");
+  const submitterSectionTitle = document.getElementById(
+    "submitterSectionTitle",
+  );
   const statusOverviewValue = document.getElementById("statusOverviewValue");
   const submittedAtValue = document.getElementById("submittedAtValue");
   const updatedAtValue = document.getElementById("updatedAtValue");
@@ -61,7 +62,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const resolveNominationId = () => {
     const fromQuery =
-      queryParams.get("nomination")?.trim() || queryParams.get("id")?.trim() || "";
+      queryParams.get("nomination")?.trim() ||
+      queryParams.get("id")?.trim() ||
+      "";
 
     if (fromQuery) {
       sessionStorage.setItem("active_admin_nomination_id", fromQuery);
@@ -116,7 +119,9 @@ window.addEventListener("DOMContentLoaded", () => {
       .join("") || "NA";
 
   const normalizeStatus = (status) => {
-    const normalized = String(status || "pending").trim().toLowerCase();
+    const normalized = String(status || "pending")
+      .trim()
+      .toLowerCase();
     return STATUS_META[normalized] ? normalized : "pending";
   };
 
@@ -262,8 +267,16 @@ window.addEventListener("DOMContentLoaded", () => {
     setText(nomineeField, nomination.nominee?.field, "Unspecified");
     setText(nomineeRegion, nomination.nominee?.country, "Unknown region");
     setText(nomineeSummary, summary, "No summary available.");
-    setText(nomineeEmail, nomination.nominee?.email, "No contact email provided");
-    setText(impactDescription, nomination.description, "No impact description provided.");
+    setText(
+      nomineeEmail,
+      nomination.nominee?.email,
+      "No contact email provided",
+    );
+    setText(
+      impactDescription,
+      nomination.description,
+      "No impact description provided.",
+    );
     setText(
       submittedByName,
       nominatorFullName || "Self Submission",
@@ -415,7 +428,8 @@ window.addEventListener("DOMContentLoaded", () => {
         ...state.nomination,
         ...result.data,
         status:
-          result.data?.status || (action === "approve" ? "approved" : "rejected"),
+          result.data?.status ||
+          (action === "approve" ? "approved" : "rejected"),
       };
 
       renderNomination(state.nomination);
