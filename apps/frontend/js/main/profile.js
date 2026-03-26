@@ -49,7 +49,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   const profile = document.querySelector(".profile-image");
   const briefInfo = document.querySelector(".brief-info");
 
-  profile.src = profileData.image_url || profileData.nominee?.image_url;
+  const imageUrl = profileData.image_url || profileData.nominee?.image_url;
+  if (imageUrl) {
+    profile.src = imageUrl;
+  } else {
+    if (profile) profile.remove();
+  }
 
   let name = document.createElement("h1");
   let occupation = document.createElement("p");
