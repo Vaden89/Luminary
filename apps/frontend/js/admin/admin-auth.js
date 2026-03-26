@@ -66,7 +66,6 @@ loginForm.addEventListener("submit", async (e) => {
 
     localStorage.setItem("access_token", result.data.token.access_token);
     localStorage.setItem("refresh_token", result.data.token.refresh_token);
-
     window.location.href = "admin-nomination.html";
   } catch (error) {
     showError("Something went wrong. Please try again.");
