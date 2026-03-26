@@ -3,28 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Update your Luminary nomination with additional information requested by our team."
+    />
+    <title>Edit Nomination | Luminary</title>
     <link rel="stylesheet" href="../../styles/main/base.css" />
     <link rel="stylesheet" href="../../styles/main/nav.css" />
     <link rel="stylesheet" href="../../styles/main/nomination.css" />
-
+    <link rel="stylesheet" href="../../styles/main/edit-nomination.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="../../assets/images/new.ico"
-    />
-    <title>Luminary Nomination</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/images/new.ico" />
   </head>
   <body>
+    <!-- Navigation -->
     <header class="header-container flex flex-col items-center">
       <nav
         aria-label="primary navigation"
         class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
       >
-        <a href="../../index.html">
+        <a href="../../index.html" class="logo-link">
           <picture>
             <source
               media="(min-width: 768px)"
@@ -60,56 +61,79 @@
       </nav>
     </header>
 
+    <!-- Main -->
     <main class="page-content flex flex-col">
+      <!-- Page heading -->
       <section class="text-left flex flex-col gap-4">
-        <h1 class="page-heading">Nominate</h1>
+        <h1 class="page-heading">Edit Your Nomination</h1>
         <p class="page-description">
-          Recognize a woman making an impact by nominating her for the
-          directory, or submit your own profile for verification.
+          Review the fields below and provide the additional details our team
+          has requested.
         </p>
       </section>
 
+      <!-- Admin notice banner -->
+      <div class="edit-banner" role="status" aria-label="Review request notice">
+        <span class="edit-banner__icon rounded-lg" aria-hidden="true">
+          <i class="fa-solid fa-exclamation"></i>
+        </span>
+        <div class="edit-banner__body">
+          <strong>Additional information requested</strong>
+          <p>
+            Our team has reviewed the nomination for
+            <strong id="bannerNomineeName">—</strong>
+            and needs more details before we can proceed with verification.
+            Please update the relevant fields and resubmit.
+          </p>
+        </div>
+      </div>
+
+      <!-- Loading state -->
+      <div class="edit-state edit-state--loading" id="editLoadingState">
+        <div class="edit-state__spinner"></div>
+        <p>Loading nomination details…</p>
+      </div>
+
+      <!-- Error state -->
+      <div class="edit-state edit-state--error" id="editErrorState" hidden>
+        <span class="edit-state__icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+            />
+          </svg>
+        </span>
+        <h2>Unable to load nomination</h2>
+        <p>
+          We couldn't retrieve the nomination details. Please check the link or
+          try again later.
+        </p>
+        <a href="./nomination.html" class="edit-state__cta"
+          >Submit a new nomination</a
+        >
+      </div>
+
+      <!-- Form + sidebar layout (hidden until data loads) -->
       <section
         class="nomination-section flex gap-8 justify-between items-start"
+        id="editFormSection"
+        hidden
       >
         <form
           class="nomination-form"
-          id="nominationForm"
-          action=""
+          id="editNominationForm"
+          novalidate
           data-api-base="http://127.0.0.1:5001/api"
         >
-          <div class="form-toggle" role="tablist" aria-label="Select form type">
-            <button
-              type="button"
-              id="nomination-tab"
-              class="form-toggle__btn is-active"
-              data-form-toggle="nomination"
-              role="tab"
-              aria-selected="true"
-              aria-controls="nomination-panel"
-            >
-              Nomination
-            </button>
-            <button
-              type="button"
-              id="self-submission-tab"
-              class="form-toggle__btn"
-              data-form-toggle="self-submission"
-              role="tab"
-              aria-selected="false"
-              aria-controls="self-submission-panel"
-            >
-              Self Submission
-            </button>
-          </div>
-
+          <!-- ===== Nomination panel (third-party nomination) ===== -->
           <div
             id="nomination-panel"
-            class="form-panel is-active"
+            class="form-panel"
             data-form-panel="nomination"
-            role="tabpanel"
-            aria-labelledby="nomination-tab"
+            hidden
+            aria-hidden="true"
           >
+            <!-- Nominator Details -->
             <section class="form-section">
               <div class="section-header">
                 <h2 class="section-title">Your Details (Nominator)</h2>
@@ -165,6 +189,7 @@
               </div>
             </section>
 
+            <!-- Nominee Details -->
             <section class="form-section">
               <div class="section-header">
                 <h2 class="section-title">Nominee Details</h2>
@@ -256,6 +281,7 @@
               </div>
             </section>
 
+            <!-- Work & Media -->
             <section class="form-section">
               <div class="section-header">
                 <h2 class="section-title">Work &amp; Media</h2>
@@ -269,37 +295,9 @@
                 </button>
               </div>
               <div class="section-body" id="nomination-work-media">
-                <!-- <div class="field">
-                  <label for="profilePhoto"
-                    >Profile Photo <span class="required">*</span></label
-                  >
-                  <div class="profile-upload">
-                    <div
-                      class="profile-upload__preview"
-                      aria-hidden="true"
-                    ></div>
-                    <div class="profile-upload__controls">
-                      <input
-                        id="profilePhoto"
-                        name="profilePhoto"
-                        type="file"
-                        accept=".jpg,.jpeg,.png,.webp"
-                        required
-                      />
-                      <label class="upload-btn" for="profilePhoto"
-                        >Upload image</label
-                      >
-                      <p class="profile-upload__hint">
-                        .jpg, .png or .webp supported (max 5MB)
-                      </p>
-                    </div>
-                  </div>
-                </div> -->
-
                 <div class="field">
                   <label for="supportingLink1"
-                    >Links (Business website, projects, publications, social
-                    profiles, profile photo)
+                    >Supporting Links (Articles, Publications, Projects)
                     <span class="required">*</span></label
                   >
                   <div
@@ -332,9 +330,7 @@
                 </div>
 
                 <div class="field">
-                  <label for="socialLink1"
-                    >Evidence section (Links, documents, press coverage)</label
-                  >
+                  <label for="socialLink1">Social Links</label>
                   <div
                     class="link-group"
                     data-link-group="social"
@@ -361,20 +357,18 @@
               </div>
             </section>
 
-            <button class="submit-btn" type="submit">Submit Nomination</button>
+            <button class="submit-btn" type="submit">Update Nomination</button>
             <p class="form-status" role="status" aria-live="polite"></p>
           </div>
 
+          <!-- ===== Self-submission panel ===== -->
           <div
             id="self-submission-panel"
             class="form-panel"
             data-form-panel="self-submission"
-            role="tabpanel"
-            aria-labelledby="self-submission-tab"
             hidden
             aria-hidden="true"
           >
-            <!-- <div class="form-placeholder" aria-hidden="true"></div> -->
             <section class="form-section">
               <div class="section-header">
                 <h2 class="section-title">Your Details</h2>
@@ -482,33 +476,6 @@
                 </button>
               </div>
               <div class="section-body" id="self-work-media">
-                <!-- <div class="field">
-                  <label for="self-profilePhoto"
-                    >Profile Photo <span class="required">*</span></label
-                  >
-                  <div class="profile-upload">
-                    <div
-                      class="profile-upload__preview"
-                      aria-hidden="true"
-                    ></div>
-                    <div class="profile-upload__controls">
-                      <input
-                        id="self-profilePhoto"
-                        name="self-profilePhoto"
-                        type="file"
-                        accept=".jpg,.jpeg,.png,.webp"
-                        required
-                      />
-                      <label class="upload-btn" for="self-profilePhoto"
-                        >Upload image</label
-                      >
-                      <p class="profile-upload__hint">
-                        .jpg, .png or .webp supported (max 5MB)
-                      </p>
-                    </div>
-                  </div>
-                </div> -->
-
                 <div class="field">
                   <label for="self-supportingLink1"
                     >Supporting Links (Articles, Publications, Projects)
@@ -544,7 +511,7 @@
                 </div>
 
                 <div class="field">
-                  <label for="socialLink1">Social Links</label>
+                  <label for="self-socialLink1">Social Links</label>
                   <div
                     class="link-group"
                     data-link-group="self-social"
@@ -575,22 +542,22 @@
               </div>
             </section>
 
-            <button class="submit-btn" type="submit">Submit Nomination</button>
+            <button class="submit-btn" type="submit">Update Nomination</button>
             <p class="form-status" role="status" aria-live="polite"></p>
           </div>
         </form>
 
+        <!-- Sidebar -->
         <aside class="sidebar flex flex-col gap-4 p-4">
-          <!-- code for sidebar -->
-          <h2 class="sidebar-heading">Verification Workflow</h2>
+          <h2 class="sidebar-heading">Tips for a Stronger Nomination</h2>
           <ol class="flex flex-col gap-3 p-3">
             <li class="flex items-start gap-3">
               <span class="grid place-center">1</span>
               <article class="step flex flex-col gap-2">
-                <h3 class="step-heading">Submission</h3>
+                <h3 class="step-heading">Be Specific</h3>
                 <p class="step-description">
-                  Provide detailed information and evidence about the nominee's
-                  impact and achievements.
+                  Use concrete examples, numbers, and outcomes rather than
+                  general statements about the nominee's work.
                 </p>
               </article>
             </li>
@@ -598,10 +565,10 @@
             <li class="flex items-start gap-3">
               <span class="grid place-center">2</span>
               <article class="step flex flex-col gap-2">
-                <h3 class="step-heading">Outreach &amp Consent</h3>
+                <h3 class="step-heading">Add Credible Links</h3>
                 <p class="step-description">
-                  We send an automated email to the nominee informing them of
-                  the nomination and requesting their consent.
+                  Include links to published articles, portfolios, press
+                  coverage, or official project pages that verify the work.
                 </p>
               </article>
             </li>
@@ -609,10 +576,10 @@
             <li class="flex items-start gap-3">
               <span class="grid place-center">3</span>
               <article class="step flex flex-col gap-2">
-                <h3 class="step-heading">Verification</h3>
+                <h3 class="step-heading">Check Contact Details</h3>
                 <p class="step-description">
-                  Our team reviews the provided evidence, publications, and
-                  links to verify the profile.
+                  Ensure the nominee's email address is correct so our team can
+                  reach them for consent.
                 </p>
               </article>
             </li>
@@ -620,26 +587,22 @@
             <li class="flex items-start gap-3">
               <span class="grid place-center">4</span>
               <article class="step flex flex-col gap-2">
-                <h3 class="step-heading">Publication</h3>
+                <h3 class="step-heading">Complete All Fields</h3>
                 <p class="step-description">
-                  Once consent is given and verification is complete, the
-                  profile goes live in the directory.
+                  Fill in every required field — incomplete nominations are
+                  harder to verify and may be delayed.
                 </p>
               </article>
             </li>
           </ol>
-
-          <article class="step flex flex-col gap-2 p-3">
-            <h4 class="step-heading">Self Submission</h4>
-            <p class="step-description">
-              If you are submitting your own profile, the consent step is
-              automatically bypassed, making the process faster.
-            </p>
-          </article>
         </aside>
       </section>
     </main>
 
-    <script src="../../js/main/nomination.js" defer></script>
+    <script src="../../js/edit-nomination.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/de3cc7cb54.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

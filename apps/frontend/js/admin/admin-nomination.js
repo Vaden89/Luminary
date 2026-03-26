@@ -677,11 +677,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  if (!accessToken) {
-    redirectToLogin();
-    return;
-  }
-
   searchInput.addEventListener("input", (event) => {
     state.search = event.target.value;
     state.page = 1;
