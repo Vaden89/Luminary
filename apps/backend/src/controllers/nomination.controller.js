@@ -13,9 +13,9 @@ export const createNomination = async (req, res, next) => {
 
 export const getNominations = async (req, res, next) => {
   try {
-    const { search } = req.query;
+    const { search, country } = req.query;
 
-    const data = await nominationService.getAll({ search });
+    const data = await nominationService.getAll({ search, country });
 
     return successResponse(res, data);
   } catch (error) {
