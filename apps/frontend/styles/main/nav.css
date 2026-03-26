@@ -61,6 +61,11 @@
     background-color: var(--background);
   }
 
+  .nav-links a:is(.is-active, [aria-current="page"]) {
+    color: var(--color-heading-600);
+    font-weight: var(--font-weight-bold);
+  }
+
   @media (max-width: 768px) {
     .header-section__nav {
       flex-wrap: wrap;

@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./styles/base.css" />
-        <link rel="stylesheet" href="./styles/nav.css" />
-        <link rel="stylesheet" href="./styles/landing-page.css" />
+        <link rel="stylesheet" href="./styles/main/base.css" />
+        <link rel="stylesheet" href="./styles/main/nav.css" />
+        <link rel="stylesheet" href="./styles/main/landing-page.css" />
         <link
             href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
             rel="stylesheet"
@@ -13,7 +13,7 @@
         <link
             rel="icon"
             type="image/x-icon"
-            href="./assets/images/luminary-green-favicon.ico"
+            href="./assets/images/new.ico"
         />
         <title>Luminary</title>
     </head>
@@ -50,10 +50,10 @@
                 </label>
 
                 <div class="nav-links">
-                    <a href="#">Directory</a>
-                    <a href="#">News</a>
+                    <a href="./pages/main/directory.html">Directory</a>
+                    <a href="./pages/main/news.html">News</a>
                     <a
-                        href="./pages/nomination.html"
+                        href="./pages/main/nomination.html"
                         class="nav-cta__btn rounded-md p-2 px-4"
                         >Nominate</a
                     >
@@ -67,19 +67,38 @@
                     business, science, arts, activism, sports, technology,
                     agriculture, education and more.
                 </p>
-                <button class="rounded-md p-2 px-4">Submit a story</button>
-                <picture class="hero-image">
-                    <source
+                <a href="./pages/main/submit-story.html">
+                    <button class="rounded-md p-2 px-4">Submit a story</button>
+                </a>
+                
+                <div class="hero-image-outer">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-track">
+
+                    <picture>
+                        <source
                         media="(min-width: 768px)"
-                        srcset="./assets/images/hero-illustration.webp"
-                        type="image/webp"
-                    />
-                    <img
-                        src="./assets/images/hero-illustration.webp"
-                        class="rounded-2xl"
+                        srcset="./assets/images/marquee-illustration.png"
+                        type="image/png"
+                        />
+                        <img
+                        src="./assets/images/marquee-illustration.png"
                         alt="Illustration of different colored women across different cultures and disciplines: military, health, education and leadership"
-                    />
-                </picture>
+                        />
+                    </picture>
+
+                    <picture aria-hidden="true">
+                        <source
+                        media="(min-width: 768px)"
+                        srcset="./assets/images/illustration.png"
+                        type="image/png"
+                        />
+                        <img src="./assets/images/illustration.png" alt="" />
+                    </picture>
+
+                    </div>
+                </div>
+                </div>
                 <div class="metrics-container">
                     <div class="metric-card">
                         <picture>
@@ -150,9 +169,7 @@
                         <div class="flex flex-col gap-9">
                             <h3 class="feature-heading">Submit</h3>
                             <p class="feature-description">
-                                Luminary helps you search for iconic female
-                                figures based on their names fields and
-                                accolades.
+                                Luminary lets you nominate impactful women's profiles and stories to be added to it's public directory.
                             </p>
                         </div>
 
@@ -172,8 +189,8 @@
                         <div class="flex flex-col gap-9">
                             <h3 class="feature-heading">Search</h3>
                             <p class="feature-description">
-                                Luminary helps you search for iconic female
-                                figures based on their names fields and
+                                Luminary lets you search for iconic female
+                                figures based on their names, fields of impact, and
                                 accolades.
                             </p>
                         </div>
@@ -194,9 +211,7 @@
                         <div class="flex flex-col gap-9">
                             <h3 class="feature-heading">Browse</h3>
                             <p class="feature-description">
-                                Luminary helps you search for iconic female
-                                figures based on their names fields and
-                                accolades.
+                                Browse through our women's directory and articles to find women and stories across numerous fields and categories.
                             </p>
                         </div>
 
@@ -278,8 +293,11 @@
                     Luminary
                 </p>
                 <div>
-                    <button id="submit-a-story-btn">Submit a story</button>
-                    <a href="./pages/nomination.html"
+                    <a href="./pages/main/submit-story.html">
+                        <button id="submit-a-story-btn">Submit a story</button>
+                    </a>
+                    
+                    <a href="./pages/main/nomination.html"
                         ><button id="nominate-a-woman-btn">
                             Nominate a woman
                         </button></a
@@ -293,6 +311,10 @@
             </div>
         </footer>
 
-        <script src="./js/index.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+        <script src="./js/main/index.js"></script>
+        <script src="./js/main/animation.js"></script>
     </body>
 </html>

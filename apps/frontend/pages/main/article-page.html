@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminary Article</title>
+    <link rel="stylesheet" href="../../styles/main/article-page.css" />
+    <link rel="stylesheet" href="../../styles/main/nav.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=news"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=lightbulb_2"
+    />
+    <link rel="icon" type="image/x-icon" href="../assets/images/new.ico" />
+  </head>
+  <body>
+    <header class="header-container flex flex-col items-center">
+      <nav
+        aria-label="primary navigation"
+        class="header-section__nav flex flex-row justify-between items-center px-4 py-4"
+      >
+        <a href="../../index.html">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="../../assets/images/luminary-green-logo.png"
+              type="image/png"
+            />
+            <img
+              src="../../assets/images/luminary-green-logo.png"
+              alt="Luminary Logo"
+              width="120px"
+            />
+          </picture>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label
+          for="nav-toggle"
+          class="hamburger gap-1"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <div class="nav-links">
+          <a href="./directory.html">Directory</a>
+          <a href="./news.html" class="active">News</a>
+          <a href="./nomination.html" class="nav-cta__btn rounded-md p-2 px-4"
+            >Nominate</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <a href="./news.html" class="back">← Back to News</a>
+    <main class="article-container">
+      <!-- LEFT: ARTICLE -->
+      <section class="article">
+        <div class="article-card">
+          <div class="tags">
+            <span>Technology</span>
+            <span>AI</span>
+          </div>
+
+          <h1 class="title">
+            Sarah Chen Appointed as Head of Global AI Ethics Council
+          </h1>
+
+          <p class="subtitle">
+            Following her influential work in mitigating bias in machine
+            learning models, Sarah Chen takes the helm at the newly formed
+            international regulatory council.
+          </p>
+
+          <div class="meta">Tech Daily • Oct 24, 2023 • 5 min read</div>
+
+          <img
+            src="https://res.cloudinary.com/dtqqv0lb3/image/upload/v1773998270/axlmh33f12eeryc3p9o9.png"
+            alt="Article Image"
+            class="hero"
+          />
+
+          <p>
+            In a landmark decision for the technology sector, the newly formed
+            Global AI Ethics Council has announced the appointment of Sarah Chen
+            as its inaugural Head. The council, established jointly by leading
+            technology firms, academic institutions, and international policy
+            makers, aims to create standardized frameworks for the ethical
+            development and deployment of artificial intelligence.
+          </p>
+
+          <p>
+            Chen, previously the Director of Responsible AI at a major tech
+            conglomerate, brings over fifteen years of experience in machine
+            learning and data ethics to the role. Her pioneering research in
+            algorithmic bias as fundamentally shifted how tech giants approach
+            model training and evaluation.
+          </p>
+
+          <blockquote>
+            “Our goal isn't to stifle innovation, but to ensure that as AI
+            systems become deeply integrated into our daily lives, they serve
+            humanity equitably and transparently.”
+          </blockquote>
+
+          <h2>The Path Forward</h2>
+
+          <p>
+            The council's first mandate under Chen's leadership will be
+            addressing the rapid proliferation of generative AI models. With
+            growing concerns over misinformation, copyright infringement, and
+            structural biases, the need for cohesive international guidelines
+            has never been more urgent.
+          </p>
+
+          <p>
+            Over the next six months, Chen will lead a series of global summits
+            bringing together stakeholders from diverse sectors to draft the 'AI
+            Responsibility Charter'. This document is expected to serve as the
+            baseline for national legislative efforts currently underway in the
+            European Union and North America.
+          </p>
+
+          <p>
+            "We have a narrow window of opportunity to establish these
+            guardrails," Chen noted during the press conference. "The technology
+            is advancing at an unprecedented rate, and our ethical frameworks
+            must evolve just as quickly."
+          </p>
+        </div>
+      </section>
+
+      <!-- RIGHT: SIDEBAR -->
+      <aside class="sidebar">
+        <div class="card">
+          <section class="news-icon">
+            <span class="material-symbols-outlined">news</span>
+            <h3>Related Articles</h3>
+          </section>
+
+          <div class="related">
+            <img
+              src="https://res.cloudinary.com/dtqqv0lb3/image/upload/v1773998266/vfqw3fzrpekmitasohwr.png"
+            />
+            <p>EU Passes Landmark Artificial Intelligence Act</p>
+            <span>Policy • Oct 18, 2023</span>
+          </div>
+
+          <div class="related">
+            <img
+              src="https://res.cloudinary.com/dtqqv0lb3/image/upload/v1773998265/pwukndeioojcirmuh4l9.png"
+            />
+            <p>How Women are Leading the Charge in Ethical Tech Development</p>
+            <span>Technology • Oct 12, 2023</span>
+          </div>
+        </div>
+
+        <div class="card tip">
+          <section class="light-icon">
+            <span class="material-symbols-outlined">lightbulb_2</span>
+          </section>
+          <h3>Have a News Tip?</h3>
+          <p>
+            Know a story about a woman making an impact that we should cover?
+            Submit it for our editors to review.
+          </p>
+          <button>Submit a Tip</button>
+        </div>
+      </aside>
+    </main>
+  </body>
+</html>

@@ -1,17 +1,18 @@
 @layer components {
-  * {
+  /* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Inter, sans-serif;
-  }
+  } */
 
   body {
     background: #c5d0dd;
-    padding: 40px;
-    color: #1a1a1a;
   }
-
+  main {
+    margin-top: var(--space-9);
+    padding: var(--space-9);
+  }
 
   .hero {
     max-width: 600px;
@@ -27,7 +28,6 @@
     color: #555;
     line-height: 1.5;
   }
-
 
   .filters {
     background: white;
@@ -68,14 +68,11 @@
     background: var(--color-bg-300);
   }
 
-
   .directory {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--space-6);
   }
-
-
 
   .card {
     display: flex;
@@ -185,6 +182,9 @@
   }
 
   .profile-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: var(--space-4);
     width: 100%;
     padding: var(--space-3);
