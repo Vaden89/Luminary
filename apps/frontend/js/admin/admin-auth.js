@@ -1,13 +1,12 @@
+import { ACTIVE_CONFIG as CONFIG } from "../config.js";
+
 const loginForm = document.getElementById("login-form");
 const loginErrorMsg = document.getElementById("login-error-msg");
 const loginPassword = document.getElementById("auth-password");
 const loginEmail = document.getElementById("login-email");
 const toggleBtn = document.getElementById("toggle-password");
 
-const apiBase = (loginForm.dataset.apiBase || "").replace(/\/$/, "");
-const loginEndpoint = apiBase
-  ? `${apiBase}/auth/admin/login`
-  : "/api/auth/admin/login";
+const loginEndpoint = `${CONFIG.BACKEND_URL}/auth/admin/login`;
 
 // Password visibility toggle
 toggleBtn.addEventListener("click", () => {
