@@ -1,5 +1,6 @@
 // js/main/add-article.js
 import { sanityMutate, sanityUploadImage } from "../cms/sanity.js";
+import { ACTIVE_CONFIG } from "../config.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // ── DOM refs ───────────────────────────────────────────────────────────────
@@ -95,9 +96,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // ── Fetch categories from API ──────────────────────────────────────────────
 
   const fetchCategories = async () => {
-    const endpoint = apiBase
-      ? `${apiBase}/categories`
-      : "/api/categories";
+    const endpoint = `${ACTIVE_CONFIG.BACKEND_URL}/categories`; // Adjust the endpoint as needed
 
     try {
       const res = await fetch(endpoint, {
