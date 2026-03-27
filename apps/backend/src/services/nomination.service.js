@@ -81,6 +81,54 @@ export const create = async (nominationData) => {
   }
 };
 
+export const update = async (nominationData, nomination_id) => {
+  const { nominee, ...nominationDetails } = nominationData;
+
+  try {
+    const { data: existing, error: fetchError } = await supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .select("nominee_id")
+      .eq("id", nomination_id)
+      .single();
+
+    if (fetchError) {
+      throw createError(fetchError.message, 404);
+    }
+
+    const { error: nomineeError } = await supabaseAdmin
+      .from(NOMINEE_TABLE_NAME)
+      .update({ ...nominee })
+      .eq("id", existing.nominee_id);
+
+    if (nomineeError) {
+      throw createError(nomineeError.message, 400);
+    }
+
+    const { data: nomination, error: nominationError } = await supabaseAdmin
+      .from(NOMINATION_TABLE_NAME)
+      .update({
+        ...nominationDetails,
+      })
+      .eq("id", nomination_id)
+      .select(`*, nominee:${NOMINEE_TABLE_NAME}(*)`)
+      .single();
+
+    if (nominationError) {
+      throw createError(nominationError.message, 400);
+    }
+
+    return nomination;
+  } catch (error) {
+    console.log(error);
+
+    if (!error.statusCode) {
+      throw createError("Internal Server Error", 500);
+    }
+
+    throw error;
+  }
+};
+
 export const getById = async (id) => {
   try {
     const { data: nomination, error: nominationError } = await supabaseAdmin
@@ -109,11 +157,13 @@ export const getById = async (id) => {
   }
 };
 
-export const getAll = async ({ search } = {}) => {
+export const getAll = async ({ search, country } = {}) => {
   try {
     let query = supabaseAdmin
       .from(NOMINATION_TABLE_NAME)
-      .select(`*, nominee:${NOMINEE_TABLE_NAME}(*)`)
+      .select(
+        `*, nominee:${NOMINEE_TABLE_NAME}(*), nominator:${NOMINATOR_TABLE_NAME}(*)`,
+      )
       .eq("status", NominationStatus.APPROVED);
 
     if (search) {
@@ -121,6 +171,12 @@ export const getAll = async ({ search } = {}) => {
         `first_name.ilike.%${search}%,last_name.ilike.%${search}%`,
         { referencedTable: NOMINEE_TABLE_NAME },
       );
+    }
+
+    if (country) {
+      query = query.or(`country.ilike.%${country}%`, {
+        referencedTable: NOMINEE_TABLE_NAME,
+      });
     }
 
     const { data: nominations, error } = await query;
@@ -140,7 +196,7 @@ export const getAll = async ({ search } = {}) => {
   }
 };
 
-export const adminGetAll = async ({ search } = {}) => {
+export const adminGetAll = async ({ search, country } = {}) => {
   try {
     let query = supabaseAdmin
       .from(NOMINATION_TABLE_NAME)
@@ -149,11 +205,16 @@ export const adminGetAll = async ({ search } = {}) => {
       );
 
     if (search) {
-      console.log(search);
       query = query.or(
         `first_name.ilike.%${search}%,last_name.ilike.%${search}%`,
         { referencedTable: NOMINEE_TABLE_NAME },
       );
+    }
+
+    if (country) {
+      query = query.or(`country.ilike.%${country}%`, {
+        referencedTable: NOMINEE_TABLE_NAME,
+      });
     }
 
     const { data: nominations, error } = await query;
@@ -205,7 +266,9 @@ export const approveNomination = async (nominationId) => {
       .from(NOMINATION_TABLE_NAME)
       .update({ status: NominationStatus.APPROVED })
       .eq("id", nominationId)
-      .select()
+      .select(
+        `*, nominee:${NOMINEE_TABLE_NAME}(*), nominator:${NOMINATOR_TABLE_NAME}(*)`,
+      )
       .limit(1)
       .single();
 

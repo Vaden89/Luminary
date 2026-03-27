@@ -1,3 +1,5 @@
+import { ACTIVE_CONFIG as CONFIG } from "../config.js";
+
 window.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("nominationForm");
 
@@ -9,8 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const panels = form.querySelectorAll("[data-form-panel]");
   const sectionToggles = form.querySelectorAll(".section-toggle");
   const addLinkButtons = form.querySelectorAll("[data-add-link]");
-  const apiBase = (form.dataset.apiBase || "").replace(/\/$/, "");
-  const endpoint = apiBase ? `${apiBase}/nomination` : "/api/nomination";
+  const endpoint = `${CONFIG.BACKEND_URL}/nomination`;
   let edit = false;
 
   const setStatus = (panel, message, type = "info") => {
