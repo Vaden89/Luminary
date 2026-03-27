@@ -7,7 +7,7 @@ export const CONFIG_DEV = {
 };
 
 // The current default is the backend hosted on render. You can flip to CONFIG_DEV if you want to work with the dev API.
-export const ACTIVE_CONFIG = CONFIG_DEV;
+export const ACTIVE_CONFIG = CONFIG;
 
 // You can use this import statement in any js file for use like so:
 // import { ACTIVE_CONFIG as CONFIG } from "../config.js";
