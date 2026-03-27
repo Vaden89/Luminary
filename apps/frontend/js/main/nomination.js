@@ -150,6 +150,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const inputCount = group.querySelectorAll("input").length;
         const nextIndex = inputCount + 1;
 
+        const row = document.createElement("div");
+        row.className = "link-row";
+
         const newInput = document.createElement("input");
         newInput.type = "url";
         newInput.placeholder = placeholder;
@@ -157,7 +160,16 @@ window.addEventListener("DOMContentLoaded", () => {
         newInput.name = `${inputName}${nextIndex}`;
         newInput.setAttribute("aria-label", `${groupName} link ${nextIndex}`);
 
-        group.appendChild(newInput);
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "remove-link";
+        removeBtn.setAttribute("aria-label", "Remove link");
+        removeBtn.textContent = "\u00d7";
+        removeBtn.addEventListener("click", () => row.remove());
+
+        row.appendChild(newInput);
+        row.appendChild(removeBtn);
+        group.appendChild(row);
       });
     });
   };
