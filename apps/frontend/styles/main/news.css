@@ -135,6 +135,13 @@ body {
   transform: translateY(-1px);
 }
 
+.spotlight-link[aria-disabled="true"] {
+  cursor: wait;
+  opacity: 0.7;
+  pointer-events: none;
+  transform: none;
+}
+
 .spotlight-media {
   position: relative;
   display: flex;

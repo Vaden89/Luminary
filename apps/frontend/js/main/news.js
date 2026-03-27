@@ -3,7 +3,8 @@ import { sanityQuery } from '../cms/sanity.js'
 
 window.addEventListener('DOMContentLoaded', async () => {
 
-  const articleDetailPage = './article-page.html'
+  const pageExtension = window.location.pathname.endsWith('.html') ? '.html' : ''
+  const articleDetailPage = `./article-page${pageExtension}`
   const MAX_GRID_ITEMS    = 4
 
   const fieldFilter        = document.getElementById('fieldFilter')
@@ -21,6 +22,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const roundupList        = document.getElementById('roundupList')
   const resultsSummary     = document.getElementById('resultsSummary')
   const emptyState         = document.getElementById('emptyState')
+  const featuredLinkLabel  = featuredLink.textContent
 
   const state = { field: 'all', region: 'all', time: 'all' }
 
@@ -52,7 +54,30 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
   const buildArticleUrl = (slug) =>
-    `${articleDetailPage}?slug=${encodeURIComponent(slug)}`
+    `${articleDetailPage}?slug=${encodeURIComponent(String(slug).trim())}`
+
+  const disableFeaturedLink = () => {
+    featuredLink.href = '#'
+    featuredLink.textContent = featuredLinkLabel
+    featuredLink.setAttribute('aria-disabled', 'true')
+  }
+
+  const enableFeaturedLink = (slug) => {
+    if (!slug) {
+      disableFeaturedLink()
+      return
+    }
+
+    featuredLink.href = buildArticleUrl(slug)
+    featuredLink.textContent = featuredLinkLabel
+    featuredLink.setAttribute('aria-disabled', 'false')
+  }
+
+  featuredLink.addEventListener('click', (event) => {
+    if (featuredLink.getAttribute('aria-disabled') === 'true') {
+      event.preventDefault()
+    }
+  })
 
   const populateSelect = (select, values) => {
     values.forEach((value) => {
@@ -66,6 +91,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   // ── Fetch from Sanity ──────────────────────────────────────────────────────
   // GROQ aliases map Sanity field names → the shape of our render functions
   let articles = []
+  disableFeaturedLink()
 
   try {
     const query = `
@@ -112,7 +138,10 @@ window.addEventListener('DOMContentLoaded', async () => {
       .sort((l, r) => new Date(r.date) - new Date(l.date))
 
   const renderFeatured = () => {
-    if (!featuredArticle) return
+    if (!featuredArticle) {
+      disableFeaturedLink()
+      return
+    }
     featuredTitle.textContent   = featuredArticle.title
     featuredSummary.textContent = featuredArticle.summary
     featuredMeta.innerHTML = [
@@ -123,7 +152,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       .filter(Boolean)
       .map((item) => `<span>${escapeHtml(item)}</span>`)
       .join('')
-    featuredLink.href       = buildArticleUrl(featuredArticle.slug)
+    enableFeaturedLink(featuredArticle.slug)
     featuredImage.src       = featuredArticle.imageUrl || ''
     featuredImage.alt       = featuredArticle.title
     featuredField.textContent = featuredArticle.field || ''
