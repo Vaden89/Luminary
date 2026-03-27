@@ -37,6 +37,7 @@ export const create = async (nominationData) => {
         country: nominationData.nominee_country,
         field: nominationData.nominee_field,
         organization: nominationData.nominee_organization,
+        profile_image_url: nominationData.nominee_profile_image_url,
       })
       .select("id")
       .single();
