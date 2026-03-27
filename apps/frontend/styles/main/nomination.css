@@ -290,6 +290,38 @@
     gap: var(--space-3);
   }
 
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .link-row input {
+    flex: 1;
+  }
+
+  .remove-link {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--color-text-300);
+    color: var(--color-text-300);
+    font-size: 1.125rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .remove-link:hover {
+    background: rgba(255, 59, 48, 0.1);
+    border-color: #ff3b30;
+    color: #ff3b30;
+  }
+
   .add-link {
     display: inline-flex;
     align-items: center;
