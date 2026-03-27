@@ -10,11 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="../../assets/images/new.ico"
-    />
+    <link rel="icon" type="image/x-icon" href="../../assets/images/new.ico" />
     <title>Luminary</title>
   </head>
   <body>
@@ -63,15 +59,11 @@
         aria-label="profile header"
         class="profile-header container flex"
       >
-        <picture class="profile-image">
-          <source
-            media="(min-width: 768px)"
-            srcset="../../assets/images/profile-image.jpg"
-            type="image/png"
-          />
-          <img src="../../assets/images/profile-image.jpg" alt="profile photo" />
-        </picture>
-        <div aria-label="name and occupation" class="brief-info"></div>
+        <img class="profile-image" id="profile-image" alt="profile photo" />
+        <div
+          aria-label="name and occupation"
+          class="brief-info flex flex-col justify-center"
+        ></div>
       </section>
       <section aria-label="Bio" class="container" id="bio-section"></section>
       <section

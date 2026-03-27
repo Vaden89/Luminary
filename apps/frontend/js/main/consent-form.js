@@ -277,6 +277,135 @@ window.addEventListener("DOMContentLoaded", () => {
     return payload;
   };
 
+  const buildUpdatePayload = (panel) => {
+    const isSelfSubmission = panel.dataset.formPanel === "self-submission";
+    const nomineeName = getValue(
+      panel,
+      isSelfSubmission ? "#self-nomineeName" : "#nomineeName",
+    );
+    const nomineeEmail = getValue(
+      panel,
+      isSelfSubmission ? "#self-nomineeEmail" : "#nomineeEmail",
+    );
+    const fieldOfWork = getValue(
+      panel,
+      isSelfSubmission ? "#self-fieldOfWork" : "#fieldOfWork",
+    );
+    const region = getValue(
+      panel,
+      isSelfSubmission ? "#self-region" : "#region",
+    );
+    const description = getValue(
+      panel,
+      isSelfSubmission ? "#self-impactDescription" : "#impactDescription",
+    );
+
+    const { firstName, lastName } = splitName(nomineeName);
+
+    const supportingGroup = isSelfSubmission ? "self-supporting" : "supporting";
+    const socialGroup = isSelfSubmission ? "self-social" : "social";
+
+    return {
+      nominee: {
+        first_name: firstName,
+        last_name: lastName,
+        email: nomineeEmail,
+        country: region,
+        field: fieldOfWork,
+      },
+      description,
+      evidence_urls: getLinks(panel, socialGroup),
+      supporting_urls: getLinks(panel, supportingGroup),
+    };
+  };
+
+  const handleConsentActions = () => {
+    const consentBtn = form.querySelector(".consent.btn");
+    const rescindBtn = form.querySelector(".rescind.btn");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const nominationId = urlParams.get("id");
+
+    if (consentBtn) {
+      consentBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        clearStatus();
+
+        if (!nominationId) {
+          setStatus(form, "Nomination ID not found in URL.", "error");
+          return;
+        }
+
+        const activePanel =
+          form.querySelector("[data-form-panel].is-active") || form;
+        const payload = buildUpdatePayload(activePanel);
+
+        try {
+          consentBtn.disabled = true;
+          consentBtn.textContent = "Processing...";
+          const response = await fetch(
+            `${CONFIG.BACKEND_URL}/nomination/${nominationId}/consent/approve`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ nomination: payload }),
+            },
+          );
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok)
+            throw new Error(
+              result.error || result.message || "Failed to process consent.",
+            );
+
+          setStatus(activePanel, "Consent granted successfully.", "success");
+        } catch (error) {
+          setStatus(activePanel, error.message, "error");
+        } finally {
+          consentBtn.disabled = false;
+          consentBtn.textContent = "Give Consent";
+        }
+      });
+    }
+
+    if (rescindBtn) {
+      rescindBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        clearStatus();
+
+        if (!nominationId) {
+          setStatus(form, "Nomination ID not found in URL.", "error");
+          return;
+        }
+
+        const activePanel =
+          form.querySelector("[data-form-panel].is-active") || form;
+
+        try {
+          rescindBtn.disabled = true;
+          rescindBtn.textContent = "Processing...";
+          const response = await fetch(
+            `${CONFIG.BACKEND_URL}/nomination/${nominationId}/consent/reject`,
+            {
+              method: "PATCH",
+            },
+          );
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok)
+            throw new Error(
+              result.error || result.message || "Failed to process rejection.",
+            );
+
+          setStatus(activePanel, "Consent rejected successfully.", "success");
+        } catch (error) {
+          setStatus(activePanel, error.message, "error");
+        } finally {
+          rescindBtn.disabled = false;
+          rescindBtn.textContent = "Rescind Consent";
+        }
+      });
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     clearStatus();
@@ -341,7 +470,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  form.addEventListener("submit", handleSubmit);
+  form.addEventListener("submit", (e) => e.preventDefault()); // Prevention only
 
   // editButton.addEventListener("click", () => setActivePanel("nomination"));
 
@@ -349,4 +478,5 @@ window.addEventListener("DOMContentLoaded", () => {
   initAddLinks();
   initImagePreview();
   initEditButton();
+  handleConsentActions();
 });

@@ -14,39 +14,44 @@ function renderDirectory(data) {
     return;
   }
 
-  data.forEach(person => {
-
-    const linksHTML = person.links && person.links.length > 0
-      ? `
+  data.forEach((person) => {
+    const linksHTML =
+      person.links && person.links.length > 0
+        ? `
         <div class="links">
          <span class='link-heading'>Links & Profiles</span>
           ${person.links
-            .map(link => `
+            .map(
+              (link) => `
               <p class="link-item">
                 <i data-lucide="${link.logo}"></i>
                 <a href="${link.url}" target="_blank">${link.label}</a>
               </p>
-            `)
+            `,
+            )
             .join("")}
         </div>
       `
-      : "";
+        : "";
 
-    const evidenceHTML = person.evidence && person.evidence.length > 0
-      ? `
+    const evidenceHTML =
+      person.evidence && person.evidence.length > 0
+        ? `
         <div class="evidence">
         <span class="link-heading">Evidence and coverage</span>
           ${person.evidence
-            .map(item => `
+            .map(
+              (item) => `
               <div class="evidence-item">
                 <strong>${item.title}</strong>
                 <p>${item.category} • ${item.year}</p>
               </div>
-            `)
+            `,
+            )
             .join("")}
         </div>
       `
-      : "";
+        : "";
 
     const card = `
       <div class="card">
@@ -70,7 +75,7 @@ function renderDirectory(data) {
         ${evidenceHTML ? "<hr>" : ""}
         ${evidenceHTML}
 
-        <button class="profile-btn">
+        <button class="profile-btn" onclick="window.location.href='./profile.html?id=${person.id}'">
           View Full Profile
         </button>
       </div>
@@ -89,7 +94,9 @@ async function loadDirectory() {
   try {
     directoryContainer.innerHTML = "<p>Loading directory...</p>";
 
-    const response = await fetch("https://luminary-2lvb.onrender.com/api/nomination");
+    const response = await fetch(
+      "https://luminary-2lvb.onrender.com/api/nomination",
+    );
     console.log("Response:", response);
 
     const result = await response.json();
@@ -100,8 +107,7 @@ async function loadDirectory() {
       return;
     }
 
-    womenDirectory = result.data.map(item => {
-
+    womenDirectory = result.data.map((item) => {
       let evidenceArray = [];
       try {
         evidenceArray = item.evidence_urls
@@ -113,29 +119,29 @@ async function loadDirectory() {
 
       return {
         id: item.id,
-        imageURL: "https://res.cloudinary.com/dtqqv0lb3/image/upload/v1773482008/oqxxmzoxovmftfpfb8yn.png",
+        imageURL:
+          "https://res.cloudinary.com/dtqqv0lb3/image/upload/v1773482008/oqxxmzoxovmftfpfb8yn.png",
         name: `${item.nominee?.first_name || ""} ${item.nominee?.last_name || ""}`,
         field: item.nominee?.field || "Unknown Field",
         mainField: item.nominee?.organization || "Not specified",
         country: item.nominee?.country || "Unknown",
         bio: item.description || "",
 
-        links: (item.supporting_urls || []).map(url => ({
+        links: (item.supporting_urls || []).map((url) => ({
           logo: "globe",
           label: "Supporting Link",
-          url: url
+          url: url,
         })),
 
-        evidence: evidenceArray.map(url => ({
+        evidence: evidenceArray.map((url) => ({
           title: "Evidence Link",
           category: "Evidence",
-          year: "—"
-        }))
+          year: "—",
+        })),
       };
     });
 
     renderDirectory(womenDirectory);
-
   } catch (error) {
     console.error("Error loading directory:", error);
     directoryContainer.innerHTML = "<p>Error loading directory.</p>";
@@ -148,8 +154,7 @@ async function loadDirectory() {
 searchInput.addEventListener("input", (e) => {
   const searchTerm = e.target.value.toLowerCase();
 
-  const filteredData = womenDirectory.filter(person => {
-
+  const filteredData = womenDirectory.filter((person) => {
     const searchableText = `
       ${person.name}
       ${person.field}

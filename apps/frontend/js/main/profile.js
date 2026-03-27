@@ -1,11 +1,14 @@
+const mainBaseUrl = "https://luminary-2lvb.onrender.com";
+
 async function fetchProfile(url) {
   try {
     const response = await fetch(url);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
-    return data;
+    const result = await response.json();
+    return result.data;
   } catch (error) {
     console.error("Error fetching profile:", error);
   }
@@ -30,44 +33,70 @@ function getHostName(link) {
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
-  const profileDataList = await fetchProfile("../assets/data/dummy_data.json");
-  const profileData = profileDataList[0];
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  const url = id
+    ? `${mainBaseUrl}/api/nomination/${id}`
+    : `${mainBaseUrl}/api/nomination`;
+
+  let profileData = await fetchProfile(url);
+  if (!profileData) return;
+
+  if (Array.isArray(profileData)) {
+    profileData = profileData[0];
+  }
 
   const profile = document.querySelector(".profile-image");
   const briefInfo = document.querySelector(".brief-info");
 
+  const imageUrl = profileData.image_url || profileData.nominee?.image_url;
+  if (imageUrl) {
+    profile.src = imageUrl;
+  } else {
+    if (profile) profile.remove();
+  }
+
   let name = document.createElement("h1");
   let occupation = document.createElement("p");
-  name.textContent = "Maya Angelou";
+  name.textContent =
+    `${profileData.nominee?.first_name || ""} ${profileData.nominee?.last_name || ""}`.trim() ||
+    "Unknown";
   name.classList.add("name");
-  occupation.textContent = profileData.work.occupation;
+  occupation.textContent = profileData.nominee?.field || "Unknown Field";
   occupation.ariaLabel = "Occupation";
 
   briefInfo.append(name, occupation);
 
-  if (profileData.bio && profileData.bio.trim() !== "") {
+  if (profileData.description && profileData.description.trim() !== "") {
     const bio = document.getElementById("bio-section");
     const header = document.createElement("h2");
     const paragraph = document.createElement("p");
-    header.textContent = "Bio";
-    paragraph.textContent = profileData.bio.trim();
+    header.textContent = "Description";
+    paragraph.textContent = profileData.description.trim();
 
     bio.append(header, paragraph);
   }
 
-  if (profileData.about && Object.keys(profileData.about).length > 0) {
-    const aboutSection = document.getElementById("about-section");
+  const aboutSection = document.getElementById("about-section");
+  if (profileData.nominee && Object.keys(profileData.nominee).length > 0) {
     const heading = document.createElement("h2");
     heading.textContent = "About";
     aboutSection.appendChild(heading);
 
-    for (const [key, value] of Object.entries(profileData.about)) {
+    const attributes = {
+      Field: profileData.nominee.field,
+      Country: profileData.nominee.country,
+      Organization: profileData.nominee.organization,
+    };
+
+    for (const [key, value] of Object.entries(attributes)) {
+      if (!value) continue;
       const para = document.createElement("p");
       const bold = document.createElement("b");
       const span = document.createElement("span");
 
       para.classList.add("flex", "justify-between");
-      bold.textContent = capitalizeFirstLetter(key.trim());
+      bold.textContent = key;
       span.textContent = capitalizeFirstLetter(value.trim());
 
       para.append(bold, span);
@@ -75,36 +104,24 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  if (profileData.work && Object.keys(profileData.work).length > 0) {
-    const workSection = document.getElementById("work-section");
-    const heading = document.createElement("h2");
-    heading.textContent = "Work";
-    workSection.appendChild(heading);
+  let supportLinks = [];
+  try {
+    supportLinks =
+      typeof profileData.supporting_urls === "string"
+        ? JSON.parse(profileData.supporting_urls)
+        : profileData.supporting_urls || [];
+  } catch (e) {}
 
-    for (const [key, value] of Object.entries(profileData.work)) {
-      const para = document.createElement("p");
-      const bold = document.createElement("b");
-      const span = document.createElement("span");
-
-      para.classList.add("flex", "justify-between");
-      bold.textContent = capitalizeFirstLetter(key.trim());
-      span.textContent = capitalizeFirstLetter(value.trim());
-
-      para.append(bold, span);
-      workSection.appendChild(para);
-    }
-  }
-
-  if (profileData.related_links && profileData.related_links.length > 0) {
+  if (supportLinks && supportLinks.length > 0) {
     const relatedLinksSection = document.getElementById("related-links");
     const heading = document.createElement("h2");
     const div = document.createElement("div");
 
-    heading.textContent = "Related Links";
+    heading.textContent = "Supporting Links";
     div.classList.add("links");
     relatedLinksSection.append(heading, div);
 
-    profileData.related_links.forEach((item) => {
+    supportLinks.forEach((item) => {
       const link = document.createElement("a");
       link.href = item.includes("://") ? item : `https://${item}`;
       link.target = "_blank";
@@ -114,21 +131,28 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  if (profileData.social_links && profileData.social_links.length > 0) {
+  let evidenceLinks = [];
+  try {
+    evidenceLinks =
+      typeof profileData.evidence_urls === "string"
+        ? JSON.parse(profileData.evidence_urls)
+        : profileData.evidence_urls || [];
+  } catch (e) {}
+
+  if (evidenceLinks && evidenceLinks.length > 0) {
     const relatedLinksSection = document.getElementById("social-links");
     const heading = document.createElement("h2");
     const div = document.createElement("div");
 
-    heading.textContent = "Social Links";
+    heading.textContent = "Evidence Links";
     div.classList.add("links");
     relatedLinksSection.append(heading, div);
 
-    profileData.social_links.forEach((item) => {
+    evidenceLinks.forEach((item) => {
       const link = document.createElement("a");
       link.href = item.includes("://") ? item : `https://${item}`;
       link.target = "_blank";
       link.textContent = getHostName(item);
-      console.log("item is ", item, "a tag is ", link);
 
       div.appendChild(link);
     });
