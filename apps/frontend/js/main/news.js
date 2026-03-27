@@ -24,7 +24,45 @@ window.addEventListener('DOMContentLoaded', async () => {
   const emptyState         = document.getElementById('emptyState')
   const featuredLinkLabel  = featuredLink.textContent
 
+  const apiBase = (document.body.dataset.apiBase || '').replace(/\/$/, '')
+
   const state = { field: 'all', region: 'all', time: 'all' }
+
+  const getCategoryLabel = (category) => {
+    if (typeof category === 'string') return category.trim()
+    const label = [
+      category?.name, category?.title, category?.label,
+      category?.field, category?.value, category?.slug
+    ].find((v) => typeof v === 'string' && v.trim())
+    return label ? label.trim() : ''
+  }
+
+  const fetchCategories = async () => {
+    const endpoint = apiBase ? `${apiBase}/categories` : '/api/categories'
+    try {
+      const res = await fetch(endpoint, { headers: { Accept: 'application/json' } })
+      const result = await res.json().catch(() => ({}))
+      if (!res.ok || !result.success) throw new Error()
+      const categories = Array.isArray(result.data) ? result.data : []
+      categories.forEach((cat) => {
+        const label = getCategoryLabel(cat)
+        if (!label) return
+        const opt = document.createElement('option')
+        opt.value = label
+        opt.textContent = label
+        fieldFilter.append(opt)
+      })
+    } catch {
+      // Fallback: populate from article data
+      const fields = [...new Set(browseableArticles.map((a) => a.field).filter(Boolean))].sort()
+      fields.forEach((f) => {
+        const opt = document.createElement('option')
+        opt.value = f
+        opt.textContent = f
+        fieldFilter.append(opt)
+      })
+    }
+  }
 
   const escapeHtml = (value) =>
     String(value ?? '')
@@ -78,15 +116,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       event.preventDefault()
     }
   })
-
-  const populateSelect = (select, values) => {
-    values.forEach((value) => {
-      const option = document.createElement('option')
-      option.value = value
-      option.textContent = value
-      select.append(option)
-    })
-  }
 
   // ── Fetch from Sanity ──────────────────────────────────────────────────────
   // GROQ aliases map Sanity field names → the shape of our render functions
@@ -229,14 +258,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     emptyState.hidden = filteredArticles.length !== 0
   }
 
-  populateSelect(
-    fieldFilter,
-    [...new Set(browseableArticles.map((a) => a.field).filter(Boolean))].sort()
-  )
-  populateSelect(
-    regionFilter,
-    [...new Set(browseableArticles.map((a) => a.region).filter(Boolean))].sort()
-  )
+  await fetchCategories()
 
   renderFeatured()
   render()

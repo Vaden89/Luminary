@@ -53,12 +53,17 @@ if (!slug) {
       // ── Update page title ─────────────────────────────────────────────────
       document.title = `${article.title} | Luminary`;
 
-      // ── Render article body paragraphs ────────────────────────────────────
-      const bodyHtml = (article.body ?? "")
-        .split("\n")
-        .filter((line) => line.trim())
-        .map((line) => `<p>${escapeHtml(line)}</p>`)
-        .join("");
+      // ── Render article body ──────────────────────────────────────────────
+      // Original content is saved as HTML from the rich-text editor;
+      // external/legacy content is plain text split into paragraphs.
+      const bodyHtml =
+        article.sourceType === "original"
+          ? `<div>${article.body ?? ""}</div>`
+          : (article.body ?? "")
+              .split("\n")
+              .filter((line) => line.trim())
+              .map((line) => `<p>${escapeHtml(line)}</p>`)
+              .join("");
 
       // ── Build meta line ───────────────────────────────────────────────────
       const metaParts = [

@@ -17,7 +17,7 @@
     />
     <link rel="icon" type="image/x-icon" href="../../assets/images/new.ico" />
   </head>
-  <body>
+  <body data-api-base="http://127.0.0.1:5001/api">
     <header class="header-container flex flex-col items-center">
       <nav
         aria-label="primary navigation"
@@ -111,6 +111,13 @@
               <span class="visually-hidden">Filter by region</span>
               <select id="regionFilter" name="region">
                 <option value="all">All Regions</option>
+                <option value="Global">Global</option>
+                <option value="Africa">Africa</option>
+                <option value="North America">North America</option>
+                <option value="Europe">Europe</option>
+                <option value="Asia">Asia</option>
+                <option value="Latin America">Latin America</option>
+                <option value="Middle East">Middle East</option>
               </select>
             </label>
 
@@ -184,10 +191,8 @@
               Know a story about a woman making impact that we should cover?
               Send it to our editorial desk for review.
             </p>
-            <a
-              class="tip-card__button"
-              href="mailto:news@luminary.africa?subject=News%20Tip"
-              >Submit a Tip</a
+            <a class="tip-card__button" href="../main/submit-story.html"
+              >Submit a Story</a
             >
           </section>
         </aside>
