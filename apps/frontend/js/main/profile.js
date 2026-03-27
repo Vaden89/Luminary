@@ -1,4 +1,5 @@
-const mainBaseUrl = "https://luminary-2lvb.onrender.com";
+import { ACTIVE_CONFIG as CONFIG } from "../config.js";
+const profileEndpoint = `${CONFIG.BACKEND_URL}/nomination`;
 
 async function fetchProfile(url) {
   try {
@@ -35,9 +36,7 @@ function getHostName(link) {
 window.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
-  const url = id
-    ? `${mainBaseUrl}/api/nomination/${id}`
-    : `${mainBaseUrl}/api/nomination`;
+  const url = id ? `${profileEndpoint}/${id}` : `${profileEndpoint}`;
 
   let profileData = await fetchProfile(url);
   if (!profileData) return;
