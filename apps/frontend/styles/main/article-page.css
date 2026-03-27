@@ -8,9 +8,15 @@ body {
 /* LAYOUT */
 .article-container {
   display: grid;
-  grid-template-columns: 2.5fr 1fr;
-  gap: var(--space-9);
-  padding: 4rem var(--space-9);
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-4);
+
+  @media (min-width: 768px) {
+    grid-template-columns: 2.5fr 1fr;
+    gap: var(--space-9);
+    padding: 4rem var(--space-9);
+  }
 
   @media (min-width: 1024px) {
     padding-inline: 8rem;
@@ -19,16 +25,25 @@ body {
 
 /* ARTICLE */
 .back {
+  display: inline-block;
   margin-bottom: var(--space-4);
   color: var(--color-heading-400);
   text-decoration: none;
-  padding: var(--space-5) var(--space-9);
+  padding: var(--space-5) var(--space-4);
+
+  @media (min-width: 768px) {
+    padding: var(--space-5) var(--space-9);
+  }
 }
 
 .article-card {
   background: var(--color-card-200);
-  padding: var(--space-6);
+  padding: var(--space-4);
   border-radius: var(--space-4);
+
+  @media (min-width: 768px) {
+    padding: var(--space-6);
+  }
 }
 
 /* TAGS */
@@ -42,7 +57,7 @@ body {
 
 /* TITLE */
 .title {
-  font-size: 28px;
+  font-size: clamp(1.25rem, 4vw, 28px);
   margin: 15px 0;
 }
 
