@@ -3,7 +3,8 @@ import { sanityQuery } from '../cms/sanity.js'
 
 window.addEventListener('DOMContentLoaded', async () => {
 
-  const articleDetailPage = './article-page.html'
+  const pageExtension = window.location.pathname.endsWith('.html') ? '.html' : ''
+  const articleDetailPage = `./article-page${pageExtension}`
   const MAX_GRID_ITEMS    = 4
 
   const fieldFilter        = document.getElementById('fieldFilter')
@@ -21,8 +22,47 @@ window.addEventListener('DOMContentLoaded', async () => {
   const roundupList        = document.getElementById('roundupList')
   const resultsSummary     = document.getElementById('resultsSummary')
   const emptyState         = document.getElementById('emptyState')
+  const featuredLinkLabel  = featuredLink.textContent
+
+  const apiBase = (document.body.dataset.apiBase || '').replace(/\/$/, '')
 
   const state = { field: 'all', region: 'all', time: 'all' }
+
+  const getCategoryLabel = (category) => {
+    if (typeof category === 'string') return category.trim()
+    const label = [
+      category?.name, category?.title, category?.label,
+      category?.field, category?.value, category?.slug
+    ].find((v) => typeof v === 'string' && v.trim())
+    return label ? label.trim() : ''
+  }
+
+  const fetchCategories = async () => {
+    const endpoint = apiBase ? `${apiBase}/categories` : '/api/categories'
+    try {
+      const res = await fetch(endpoint, { headers: { Accept: 'application/json' } })
+      const result = await res.json().catch(() => ({}))
+      if (!res.ok || !result.success) throw new Error()
+      const categories = Array.isArray(result.data) ? result.data : []
+      categories.forEach((cat) => {
+        const label = getCategoryLabel(cat)
+        if (!label) return
+        const opt = document.createElement('option')
+        opt.value = label
+        opt.textContent = label
+        fieldFilter.append(opt)
+      })
+    } catch {
+      // Fallback: populate from article data
+      const fields = [...new Set(browseableArticles.map((a) => a.field).filter(Boolean))].sort()
+      fields.forEach((f) => {
+        const opt = document.createElement('option')
+        opt.value = f
+        opt.textContent = f
+        fieldFilter.append(opt)
+      })
+    }
+  }
 
   const escapeHtml = (value) =>
     String(value ?? '')
@@ -52,20 +92,35 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
   const buildArticleUrl = (slug) =>
-    `${articleDetailPage}?slug=${encodeURIComponent(slug)}`
+    `${articleDetailPage}?slug=${encodeURIComponent(String(slug).trim())}`
 
-  const populateSelect = (select, values) => {
-    values.forEach((value) => {
-      const option = document.createElement('option')
-      option.value = value
-      option.textContent = value
-      select.append(option)
-    })
+  const disableFeaturedLink = () => {
+    featuredLink.href = '#'
+    featuredLink.textContent = featuredLinkLabel
+    featuredLink.setAttribute('aria-disabled', 'true')
   }
+
+  const enableFeaturedLink = (slug) => {
+    if (!slug) {
+      disableFeaturedLink()
+      return
+    }
+
+    featuredLink.href = buildArticleUrl(slug)
+    featuredLink.textContent = featuredLinkLabel
+    featuredLink.setAttribute('aria-disabled', 'false')
+  }
+
+  featuredLink.addEventListener('click', (event) => {
+    if (featuredLink.getAttribute('aria-disabled') === 'true') {
+      event.preventDefault()
+    }
+  })
 
   // ── Fetch from Sanity ──────────────────────────────────────────────────────
   // GROQ aliases map Sanity field names → the shape of our render functions
   let articles = []
+  disableFeaturedLink()
 
   try {
     const query = `
@@ -112,7 +167,10 @@ window.addEventListener('DOMContentLoaded', async () => {
       .sort((l, r) => new Date(r.date) - new Date(l.date))
 
   const renderFeatured = () => {
-    if (!featuredArticle) return
+    if (!featuredArticle) {
+      disableFeaturedLink()
+      return
+    }
     featuredTitle.textContent   = featuredArticle.title
     featuredSummary.textContent = featuredArticle.summary
     featuredMeta.innerHTML = [
@@ -123,7 +181,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       .filter(Boolean)
       .map((item) => `<span>${escapeHtml(item)}</span>`)
       .join('')
-    featuredLink.href       = buildArticleUrl(featuredArticle.slug)
+    enableFeaturedLink(featuredArticle.slug)
     featuredImage.src       = featuredArticle.imageUrl || ''
     featuredImage.alt       = featuredArticle.title
     featuredField.textContent = featuredArticle.field || ''
@@ -200,14 +258,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     emptyState.hidden = filteredArticles.length !== 0
   }
 
-  populateSelect(
-    fieldFilter,
-    [...new Set(browseableArticles.map((a) => a.field).filter(Boolean))].sort()
-  )
-  populateSelect(
-    regionFilter,
-    [...new Set(browseableArticles.map((a) => a.region).filter(Boolean))].sort()
-  )
+  await fetchCategories()
 
   renderFeatured()
   render()

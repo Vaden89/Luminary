@@ -18,7 +18,9 @@ const formatDate = (value) =>
 
 // ── Read slug from URL (?slug=some-article-slug) ──────────────────────────────
 const params = new URLSearchParams(window.location.search);
-const slug = params.get("slug");
+const slug = params.get("slug")?.trim();
+const pageExtension = window.location.pathname.endsWith(".html") ? ".html" : "";
+const articlePagePath = `./article-page${pageExtension}`;
 
 const articleCard = document.getElementById("articleCard");
 const relatedArticles = document.getElementById("relatedArticles");
@@ -51,12 +53,17 @@ if (!slug) {
       // ── Update page title ─────────────────────────────────────────────────
       document.title = `${article.title} | Luminary`;
 
-      // ── Render article body paragraphs ────────────────────────────────────
-      const bodyHtml = (article.body ?? "")
-        .split("\n")
-        .filter((line) => line.trim())
-        .map((line) => `<p>${escapeHtml(line)}</p>`)
-        .join("");
+      // ── Render article body ──────────────────────────────────────────────
+      // Original content is saved as HTML from the rich-text editor;
+      // external/legacy content is plain text split into paragraphs.
+      const bodyHtml =
+        article.sourceType === "original"
+          ? `<div>${article.body ?? ""}</div>`
+          : (article.body ?? "")
+              .split("\n")
+              .filter((line) => line.trim())
+              .map((line) => `<p>${escapeHtml(line)}</p>`)
+              .join("");
 
       // ── Build meta line ───────────────────────────────────────────────────
       const metaParts = [
@@ -69,13 +76,14 @@ if (!slug) {
       const contentHtml =
         article.sourceType === "external" && article.externalUrl
           ? `
+           <a
              class="spotlight-link"
              href="${escapeHtml(article.externalUrl)}"
              target="_blank"
              rel="noopener noreferrer"
            >
-             Read the full article on ${escapeHtml(article.source || "the original site")} ↗
-           </a>`
+              Read the full article on ${escapeHtml(article.source || "the original site")} ↗
+            </a>`
           : bodyHtml;
 
       articleCard.innerHTML = `
@@ -122,7 +130,7 @@ if (!slug) {
             relatedArticles.innerHTML = related
               .map(
                 (rel) => `
-              <a class="related" href="./article-page.html?slug=${encodeURIComponent(rel.slug)}">
+              <a class="related" href="${articlePagePath}?slug=${encodeURIComponent(rel.slug)}">
                 ${
                   rel.imageUrl
                     ? `<img src="${escapeHtml(rel.imageUrl)}" alt="" />`
