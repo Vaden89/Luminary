@@ -1,5 +1,6 @@
 // js/main/add-article.js
 import { sanityMutate, sanityUploadImage } from "../cms/sanity.js";
+import { ACTIVE_CONFIG } from "../config.js";
 
 window.addEventListener("DOMContentLoaded", () => {
   // ── DOM refs ───────────────────────────────────────────────────────────────
@@ -17,8 +18,12 @@ window.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".editor-toolbar button"),
   );
   const submitBtn = document.getElementById("submitBtn");
+  const submitLabel = submitBtn.querySelector(".submit-btn__label");
   const formMessage = document.getElementById("formMessage");
   const form = document.getElementById("articleEditor");
+  const categorySelect = document.getElementById("articleCategory");
+
+  const apiBase = (document.body.dataset.apiBase || "").replace(/\/$/, "");
 
   let previewUrl = "";
 
@@ -38,6 +43,10 @@ window.addEventListener("DOMContentLoaded", () => {
     formMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
   };
 
+  const clearMessage = () => {
+    formMessage.style.display = "none";
+  };
+
   const estimateReadTime = (text) => {
     const words = (text ?? "").trim().split(/\s+/).filter(Boolean).length;
     const minutes = Math.max(1, Math.ceil(words / 250));
@@ -50,7 +59,74 @@ window.addEventListener("DOMContentLoaded", () => {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
 
-  // ── Source type toggle (your existing logic) ───────────────────────────────
+  const getCategoryLabel = (category) => {
+    if (typeof category === "string") return category.trim();
+    const label = [
+      category?.name,
+      category?.title,
+      category?.label,
+      category?.field,
+      category?.value,
+      category?.slug,
+    ].find((v) => typeof v === "string" && v.trim());
+    return label ? label.trim() : "";
+  };
+
+  // ── Mark a field as invalid ────────────────────────────────────────────────
+
+  const setFieldError = (el, message) => {
+    const field = el.closest(".field") || el.parentElement;
+    field.classList.add("field--error");
+    let hint = field.querySelector(".field-error");
+    if (!hint) {
+      hint = document.createElement("span");
+      hint.className = "field-error";
+      field.appendChild(hint);
+    }
+    hint.textContent = message;
+  };
+
+  const clearFieldErrors = () => {
+    form.querySelectorAll(".field--error").forEach((f) => {
+      f.classList.remove("field--error");
+      f.querySelector(".field-error")?.remove();
+    });
+  };
+
+  // ── Fetch categories from API ──────────────────────────────────────────────
+
+  const fetchCategories = async () => {
+    const endpoint = `${ACTIVE_CONFIG.BACKEND_URL}/categories`; // Adjust the endpoint as needed
+
+    try {
+      const res = await fetch(endpoint, {
+        headers: { Accept: "application/json" },
+      });
+      const result = await res.json().catch(() => ({}));
+
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || "Unable to load categories.");
+      }
+
+      const categories = Array.isArray(result.data) ? result.data : [];
+      categorySelect.innerHTML = '<option value="">Select category</option>';
+      categories.forEach((cat) => {
+        const label = getCategoryLabel(cat);
+        if (!label) return;
+        const opt = document.createElement("option");
+        opt.value = label;
+        opt.textContent = label;
+        categorySelect.appendChild(opt);
+      });
+    } catch {
+      categorySelect.innerHTML =
+        '<option value="">Unable to load categories</option>';
+    }
+  };
+
+  fetchCategories();
+
+  // ── Source type toggle ─────────────────────────────────────────────────────
 
   const syncSourceType = () => {
     const isExternal = sourceType.value === "external";
@@ -65,7 +141,7 @@ window.addEventListener("DOMContentLoaded", () => {
       : "Use this section when composing original Luminary content.";
   };
 
-  // ── Cover image preview (your existing logic) ──────────────────────────────
+  // ── Cover image preview ────────────────────────────────────────────────────
 
   const updateCoverImageState = () => {
     const file = coverImageInput.files?.[0];
@@ -94,13 +170,35 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // ── Toolbar (your existing logic) ─────────────────────────────────────────
+  // ── Toolbar — bold / italic / underline ─────────────────────────────────────
+
+  const contentEditor = document.getElementById("articleContent");
 
   toolbarButtons.forEach((btn) => {
-    btn.addEventListener("click", () => btn.classList.toggle("is-active"));
+    const command = btn.dataset.command;
+    if (!command) return;
+
+    btn.addEventListener("click", () => {
+      document.execCommand(command, false, null);
+      btn.classList.toggle("is-active", document.queryCommandState(command));
+      contentEditor.focus();
+    });
   });
 
-  // ── Drag and drop (your existing logic) ───────────────────────────────────
+  // Keep toolbar button states in sync with the caret position
+  contentEditor.addEventListener("keyup", updateToolbarState);
+  contentEditor.addEventListener("mouseup", updateToolbarState);
+
+  function updateToolbarState() {
+    toolbarButtons.forEach((btn) => {
+      const command = btn.dataset.command;
+      if (command) {
+        btn.classList.toggle("is-active", document.queryCommandState(command));
+      }
+    });
+  }
+
+  // ── Drag and drop ──────────────────────────────────────────────────────────
 
   uploadDropzone.addEventListener("dragover", (e) => {
     e.preventDefault();
@@ -126,62 +224,109 @@ window.addEventListener("DOMContentLoaded", () => {
   coverImageInput.addEventListener("change", updateCoverImageState);
   syncSourceType();
 
+  // ── Submit button states ───────────────────────────────────────────────────
+
+  const setSubmitLoading = (loading) => {
+    submitBtn.disabled = loading;
+    submitBtn.classList.toggle("is-loading", loading);
+    submitLabel.textContent = loading ? "Submitting…" : "Submit Article";
+  };
+
+  // ── Form validation ────────────────────────────────────────────────────────
+
+  const validate = ({ title, category, region, sourceTypeVal, externalUrl, body, imageFile }) => {
+    clearFieldErrors();
+    const errors = [];
+
+    if (!title) {
+      setFieldError(document.getElementById("articleTitle"), "Headline is required.");
+      errors.push("title");
+    }
+
+    if (!category) {
+      setFieldError(categorySelect, "Please select a category.");
+      errors.push("category");
+    }
+
+    if (!region) {
+      setFieldError(document.getElementById("articleRegion"), "Please select a region.");
+      errors.push("region");
+    }
+
+    if (!imageFile) {
+      setFieldError(uploadDropzone, "A cover image is required.");
+      errors.push("image");
+    } else if (imageFile.size > 5 * 1024 * 1024) {
+      setFieldError(uploadDropzone, "Image must be under 5 MB.");
+      errors.push("image");
+    }
+
+    if (sourceTypeVal === "external" && !externalUrl) {
+      setFieldError(externalUrlInput, "External URL is required for this source type.");
+      errors.push("externalUrl");
+    }
+
+    if (sourceTypeVal === "external" && externalUrl) {
+      try {
+        new URL(externalUrl);
+      } catch {
+        setFieldError(externalUrlInput, "Please enter a valid URL.");
+        errors.push("externalUrl");
+      }
+    }
+
+    if (sourceTypeVal === "original" && !body) {
+      setFieldError(contentEditor, "Article content is required for original posts.");
+      errors.push("body");
+    }
+
+    if (errors.length) {
+      const firstBad = form.querySelector(".field--error");
+      firstBad?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    return errors.length === 0;
+  };
+
   // ── Form submission → Sanity ───────────────────────────────────────────────
 
   submitBtn.addEventListener("click", async () => {
+    clearMessage();
+
     // ── Collect values ───────────────────────────────────────────────────────
     const title = document.getElementById("articleTitle").value.trim();
-    const category = document.getElementById("articleCategory").value;
+    const category = categorySelect.value;
     const region = document.getElementById("articleRegion").value;
     const sourceName = document.getElementById("sourceName").value.trim();
     const publicationDate = document.getElementById("publicationDate").value;
     const externalUrl = externalUrlInput.value.trim();
     const summary = document.getElementById("briefSummary").value.trim();
-    const body = document.getElementById("articleContent").value.trim();
+    const bodyEl = document.getElementById("articleContent");
+    const body = bodyEl.innerText.trim();
+    const bodyHtml = bodyEl.innerHTML.trim();
     const sourceTypeVal = sourceType.value;
     const imageFile = coverImageInput.files?.[0];
 
     // ── Validation ───────────────────────────────────────────────────────────
-    if (!title) {
-      showMessage("Please enter a headline.", "error");
-      return;
-    }
-    if (!category) {
-      showMessage("Please select a category.", "error");
-      return;
-    }
-    if (!region) {
-      showMessage("Please select a region.", "error");
-      return;
-    }
-    if (sourceTypeVal === "external" && !externalUrl) {
-      showMessage("Please enter the external URL for this source.", "error");
-      return;
-    }
-    if (sourceTypeVal === "original" && !body) {
-      showMessage("Please write the article content.", "error");
+    if (!validate({ title, category, region, sourceTypeVal, externalUrl, body, imageFile })) {
       return;
     }
 
-    // ── Disable button ───────────────────────────────────────────────────────
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting…";
+    // ── Loading state ─────────────────────────────────────────────────────────
+    setSubmitLoading(true);
 
     try {
-      // ── Upload image if one was selected ─────────────────────────────────
-      let coverImageRef = null;
-      if (imageFile) {
-        const assetId = await sanityUploadImage(imageFile);
-        coverImageRef = {
-          _type: "image",
-          asset: { _type: "reference", _ref: assetId },
-        };
-      }
+      // ── Upload image ───────────────────────────────────────────────────────
+      const assetId = await sanityUploadImage(imageFile);
+      const coverImageRef = {
+        _type: "image",
+        asset: { _type: "reference", _ref: assetId },
+      };
 
-      // ── Build slug ────────────────────────────────────────────────────────
+      // ── Build slug ─────────────────────────────────────────────────────────
       const slug = slugify(title);
 
-      // ── Send mutation to Sanity ───────────────────────────────────────────
+      // ── Send mutation to Sanity ────────────────────────────────────────────
       await sanityMutate([
         {
           create: {
@@ -195,7 +340,7 @@ window.addEventListener("DOMContentLoaded", () => {
             sourceType: sourceTypeVal,
             externalUrl: externalUrl || null,
             excerpt: summary || null,
-            body: body || null,
+            body: bodyHtml || null,
             coverImage: coverImageRef,
             publicationDate: publicationDate || null,
             readTime: body ? estimateReadTime(body) : null,
@@ -206,12 +351,14 @@ window.addEventListener("DOMContentLoaded", () => {
         },
       ]);
 
-      // ── Success ───────────────────────────────────────────────────────────
+      // ── Success ────────────────────────────────────────────────────────────
       showMessage(
-        "✅ Your story has been submitted and is pending review. Thank you!",
+        "Your story has been submitted and is pending review. Thank you!",
         "success",
       );
       form.reset();
+      contentEditor.innerHTML = "";
+      clearFieldErrors();
       revokePreviewUrl();
       uploadDropzone.classList.remove("has-file");
       uploadPreview.hidden = true;
@@ -220,10 +367,9 @@ window.addEventListener("DOMContentLoaded", () => {
       syncSourceType();
     } catch (err) {
       console.error(err);
-      showMessage("❌ Something went wrong. Please try again.", "error");
+      showMessage("Something went wrong. Please try again.", "error");
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Submit Article";
+      setSubmitLoading(false);
     }
   });
 });

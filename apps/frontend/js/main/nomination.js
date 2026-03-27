@@ -12,6 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const sectionToggles = form.querySelectorAll(".section-toggle");
   const addLinkButtons = form.querySelectorAll("[data-add-link]");
   const endpoint = `${CONFIG.BACKEND_URL}/nomination`;
+  const uploadEndpoint = `${CONFIG.BACKEND_URL}/upload`;
 
   const setStatus = (panel, message, type = "info") => {
     const status = panel.querySelector(".form-status");
@@ -56,6 +57,38 @@ window.addEventListener("DOMContentLoaded", () => {
     Array.from(panel.querySelectorAll(`[data-link-group="${groupName}"] input`))
       .map((input) => input.value.trim())
       .filter(Boolean);
+
+  const getProfilePhotoFile = (panel) => {
+    const isSelfSubmission = panel.dataset.formPanel === "self-submission";
+    const input = panel.querySelector(
+      isSelfSubmission ? "#self-profilePhoto" : "#profilePhoto",
+    );
+
+    return input?.files?.[0] || null;
+  };
+
+  const uploadProfilePhoto = async (file) => {
+    if (!file) {
+      throw new Error("Please upload a profile photo before submitting.");
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch(uploadEndpoint, {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json().catch(() => ({}));
+    const uploadedUrl = result?.data?.url;
+
+    if (!response.ok || !result.success || !uploadedUrl) {
+      throw new Error(result.error || "Unable to upload the profile photo.");
+    }
+
+    return uploadedUrl;
+  };
 
   const setActivePanel = (panelName) => {
     clearStatus();
@@ -117,6 +150,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const inputCount = group.querySelectorAll("input").length;
         const nextIndex = inputCount + 1;
 
+        const row = document.createElement("div");
+        row.className = "link-row";
+
         const newInput = document.createElement("input");
         newInput.type = "url";
         newInput.placeholder = placeholder;
@@ -124,7 +160,16 @@ window.addEventListener("DOMContentLoaded", () => {
         newInput.name = `${inputName}${nextIndex}`;
         newInput.setAttribute("aria-label", `${groupName} link ${nextIndex}`);
 
-        group.appendChild(newInput);
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "remove-link";
+        removeBtn.setAttribute("aria-label", "Remove link");
+        removeBtn.textContent = "\u00d7";
+        removeBtn.addEventListener("click", () => row.remove());
+
+        row.appendChild(newInput);
+        row.appendChild(removeBtn);
+        group.appendChild(row);
       });
     });
   };
@@ -164,7 +209,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const buildPayload = (panel) => {
+  const buildPayload = (panel, nomineeProfileImageUrl) => {
     const isSelfSubmission = panel.dataset.formPanel === "self-submission";
     const nomineeName = getValue(
       panel,
@@ -201,6 +246,7 @@ window.addEventListener("DOMContentLoaded", () => {
       nominee_country: region,
       nominee_field: fieldOfWork,
       nominee_organization: "",
+      nominee_profile_image_url: nomineeProfileImageUrl,
       evidence_urls: getLinks(panel, socialGroup),
       supporting_urls: getLinks(panel, supportingGroup),
       description,
@@ -234,14 +280,22 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const submitButton = activePanel.querySelector(".submit-btn");
     const originalButtonText = submitButton ? submitButton.textContent : "";
-    const payload = buildPayload(activePanel);
 
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = "Submitting...";
+      submitButton.textContent = "Uploading image...";
     }
 
     try {
+      const nomineeProfileImageUrl = await uploadProfilePhoto(
+        getProfilePhotoFile(activePanel),
+      );
+      const payload = buildPayload(activePanel, nomineeProfileImageUrl);
+
+      if (submitButton) {
+        submitButton.textContent = "Submitting...";
+      }
+
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {

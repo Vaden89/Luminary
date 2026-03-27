@@ -5,7 +5,12 @@ import { uploadImage } from "../controllers/upload.controller.js";
 
 const router = Router();
 
-const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/gif"];
+const ALLOWED_MIME_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+];
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 const upload = multer({
@@ -15,7 +20,7 @@ const upload = multer({
     if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(createError("Invalid file type"));
+      cb(createError("Invalid file type", 400));
     }
   },
 });
