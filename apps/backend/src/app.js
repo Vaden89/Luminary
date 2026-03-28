@@ -7,6 +7,8 @@ import routes from "./routes/index.js";
 
 const app = express();
 
+app.set("etag", false);
+
 app.use(helmet());
 app.use(
   cors({
@@ -18,6 +20,16 @@ app.use(
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+});
+
+app.get("/*", function (req, res, next) {
+  res.setHeader("Last-Modified", new Date().toUTCString());
+  next();
+});
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
