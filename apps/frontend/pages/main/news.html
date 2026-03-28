@@ -59,8 +59,55 @@
       </nav>
     </header>
 
-    <main class="news-page">
-      <section class="news-container">
+    <main class="news-page is-loading">
+      <section id="newsLoader" class="news-loader news-container" aria-label="Loading articles">
+        <div class="skeleton-spotlight">
+          <div class="skeleton-spotlight__copy">
+            <div class="skeleton-line skeleton-line--xs"></div>
+            <div class="skeleton-line skeleton-line--xl"></div>
+            <div class="skeleton-line skeleton-line--lg"></div>
+            <div class="skeleton-line skeleton-line--md"></div>
+            <div class="skeleton-btn"></div>
+          </div>
+          <div class="skeleton-spotlight__media"></div>
+        </div>
+        <div class="skeleton-grid">
+          <div class="skeleton-card">
+            <div class="skeleton-card__media"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton-line skeleton-line--sm"></div>
+              <div class="skeleton-line skeleton-line--lg"></div>
+              <div class="skeleton-line skeleton-line--md"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-card__media"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton-line skeleton-line--sm"></div>
+              <div class="skeleton-line skeleton-line--lg"></div>
+              <div class="skeleton-line skeleton-line--md"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-card__media"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton-line skeleton-line--sm"></div>
+              <div class="skeleton-line skeleton-line--lg"></div>
+              <div class="skeleton-line skeleton-line--md"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-card__media"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton-line skeleton-line--sm"></div>
+              <div class="skeleton-line skeleton-line--lg"></div>
+              <div class="skeleton-line skeleton-line--md"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="news-container news-content">
         <article class="news-spotlight" aria-labelledby="featuredArticleTitle">
           <div class="spotlight-copy">
             <p class="spotlight-eyebrow">Daily Spotlight</p>
@@ -93,7 +140,7 @@
         </article>
       </section>
 
-      <section class="news-toolbar-band">
+      <section class="news-toolbar-band news-content">
         <div class="news-container">
           <form
             id="newsFilters"
@@ -140,7 +187,7 @@
         </div>
       </section>
 
-      <section class="news-results">
+      <section class="news-results news-content">
         <div class="news-results__main">
           <div class="news-results__header">
             <div>
