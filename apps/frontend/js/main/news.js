@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const emptyState         = document.getElementById('emptyState')
   const featuredLinkLabel  = featuredLink.textContent
 
+  const newsPage = document.querySelector('.news-page')
   const apiBase = (document.body.dataset.apiBase || '').replace(/\/$/, '')
 
   const state = { field: 'all', region: 'all', time: 'all' }
@@ -145,6 +146,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     articles = await sanityQuery(query)
   } catch (err) {
     console.error('Failed to load articles:', err)
+    newsPage.classList.remove('is-loading')
     newsGrid.innerHTML = `<p class="news-empty__copy">
       Unable to load articles right now. Please try again later.
     </p>`
@@ -262,6 +264,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   renderFeatured()
   render()
+  newsPage.classList.remove('is-loading')
 
   filtersForm.addEventListener('submit', (e) => {
     e.preventDefault()
