@@ -44,10 +44,11 @@ function renderDirectory(data) {
           ${person.evidence
             .map(
               (item) => `
-              <div class="evidence-item">
+              <a class="evidence-item" href="${item.url}" target="_blank" rel="noopener noreferrer">
                 <strong>${item.title}</strong>
                 <p>${item.category} • ${item.year}</p>
-              </div>
+                <a href="${item.url}" target="_blank"></a>
+              </a>
             `,
             )
             .join("")}
@@ -136,6 +137,7 @@ async function loadDirectory() {
           title: "Evidence Link",
           category: "Evidence",
           year: "—",
+          url: url,
         })),
       };
     });
