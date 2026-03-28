@@ -5,6 +5,8 @@ const loginErrorMsg = document.getElementById("login-error-msg");
 const loginPassword = document.getElementById("auth-password");
 const loginEmail = document.getElementById("login-email");
 const toggleBtn = document.getElementById("toggle-password");
+const submitBtn = loginForm?.querySelector('button[type="submit"]');
+const submitBtnText = submitBtn?.textContent?.trim() || "Sign In";
 
 const loginEndpoint = `${CONFIG.BACKEND_URL}/auth/admin/login`;
 
@@ -23,11 +25,7 @@ toggleBtn.addEventListener("click", () => {
 // Error handling
 const showError = (message) => {
   loginErrorMsg.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="12" y1="8" x2="12" y2="12"/>
-      <line x1="12" y1="16" x2="12.01" y2="16"/>
-    </svg>
+    <i class="fa-solid fa-exclamation"></i>
     <span>${message}</span>
   `;
   loginErrorMsg.classList.add("is-visible");
@@ -38,14 +36,23 @@ const clearError = () => {
   loginErrorMsg.innerHTML = "";
 };
 
+const setLoading = (isLoading) => {
+  if (!submitBtn) return;
+  submitBtn.disabled = isLoading;
+  submitBtn.textContent = isLoading ? "Signing in..." : submitBtnText;
+  submitBtn.setAttribute("aria-busy", String(isLoading));
+};
+
 // Login form submission
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   clearError();
+  setLoading(true);
 
   loginEmail.value = loginEmail.value.trim();
   loginPassword.value = loginPassword.value.trim();
 
+  let didNavigate = false;
   try {
     const response = await fetch(loginEndpoint, {
       method: "POST",
@@ -65,8 +72,13 @@ loginForm.addEventListener("submit", async (e) => {
 
     localStorage.setItem("access_token", result.data.token.access_token);
     localStorage.setItem("refresh_token", result.data.token.refresh_token);
+    didNavigate = true;
     window.location.href = "admin-nomination.html";
   } catch (error) {
     showError("Something went wrong. Please try again.");
+  } finally {
+    if (!didNavigate) {
+      setLoading(false);
+    }
   }
 });
