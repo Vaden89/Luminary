@@ -1,7 +1,9 @@
+import { ACTIVE_CONFIG as CONFIG } from "../config.js";
 let womenDirectory = [];
 
 const directoryContainer = document.getElementById("directory");
 const searchInput = document.getElementById("searchInput");
+const directoryEndpoint = `${CONFIG.BACKEND_URL}/nomination`;
 
 /* =========================
    Render Directory Cards
@@ -42,10 +44,11 @@ function renderDirectory(data) {
           ${person.evidence
             .map(
               (item) => `
-              <div class="evidence-item">
+              <a class="evidence-item" href="${item.url}" target="_blank" rel="noopener noreferrer">
                 <strong>${item.title}</strong>
                 <p>${item.category} • ${item.year}</p>
-              </div>
+                <a href="${item.url}" target="_blank"></a>
+              </a>
             `,
             )
             .join("")}
@@ -94,9 +97,7 @@ async function loadDirectory() {
   try {
     directoryContainer.innerHTML = "<p>Loading directory...</p>";
 
-    const response = await fetch(
-      "https://luminary-2lvb.onrender.com/api/nomination",
-    );
+    const response = await fetch(directoryEndpoint);
     console.log("Response:", response);
 
     const result = await response.json();
@@ -119,8 +120,7 @@ async function loadDirectory() {
 
       return {
         id: item.id,
-        imageURL:
-          "https://res.cloudinary.com/dtqqv0lb3/image/upload/v1773482008/oqxxmzoxovmftfpfb8yn.png",
+        imageURL:item.nominee?.profile_image_url,
         name: `${item.nominee?.first_name || ""} ${item.nominee?.last_name || ""}`,
         field: item.nominee?.field || "Unknown Field",
         mainField: item.nominee?.organization || "Not specified",
@@ -137,6 +137,7 @@ async function loadDirectory() {
           title: "Evidence Link",
           category: "Evidence",
           year: "—",
+          url: url,
         })),
       };
     });
