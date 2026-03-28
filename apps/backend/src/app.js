@@ -26,6 +26,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/*", function (req, res, next) {
+  res.setHeader("Last-Modified", new Date().toUTCString());
+  next();
+});
+
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     status: "ok",
